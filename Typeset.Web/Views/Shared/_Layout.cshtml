@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css/all")
+</head>
+<body>
+    @RenderBody()
+
+    @Scripts.Render("~/scripts/all")
+    @RenderSection("scripts", false)
+</body>
+</html>
