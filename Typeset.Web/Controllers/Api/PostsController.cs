@@ -8,11 +8,11 @@ using Typeset.Domain.Post;
 
 namespace Typeset.Web.Controllers.Api
 {
-    public class ValuesController : BaseApiController
+    public class PostsController : BaseApiController
     {
         private IPostRepository PostRepository { get; set; }
 
-        public ValuesController(IPostRepository postRepository)
+        public PostsController(IPostRepository postRepository)
         {
             if (postRepository == null)
             {

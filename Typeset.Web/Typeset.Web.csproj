@@ -130,7 +130,7 @@
     <Compile Include="Controllers\Factories\TinyIocControllerFactory.cs" />
     <Compile Include="Controllers\Site\BaseController.cs" />
     <Compile Include="Controllers\Site\HomeController.cs" />
-    <Compile Include="Controllers\Api\ValuesController.cs" />
+    <Compile Include="Controllers\Api\PostsController.cs" />
     <Compile Include="Controllers\DependencyResolvers\TinyIocDependencyResolver.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

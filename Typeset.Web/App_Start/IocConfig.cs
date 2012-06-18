@@ -27,7 +27,7 @@ namespace Typeset.Web
             container.Register<IPostRepository>((c, n) => new PostRepository(c.Resolve<string>("IPostRepository-Path")));
             
             //WebApi Controllers
-            container.Register<ValuesController>();
+            container.Register<PostsController>();
 
             //Mvc Controllers
             container.Register<IController, HomeController>("Home");
