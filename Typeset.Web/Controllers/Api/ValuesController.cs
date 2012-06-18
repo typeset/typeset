@@ -4,36 +4,27 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Typeset.Domain.Post;
 
 namespace Typeset.Web.Controllers.Api
 {
-    public class ValuesController : ApiController
+    public class ValuesController : BaseApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
+        private IPostRepository PostRepository { get; set; }
+
+        public ValuesController(IPostRepository postRepository)
         {
-            return new string[] { "value1", "value2" };
+            if (postRepository == null)
+            {
+                throw new ArgumentNullException("postRepository");
+            }
+
+            PostRepository = postRepository;
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        public IEnumerable<IPost> Get()
         {
-            return "value";
-        }
-
-        // POST api/values
-        public void Post(string value)
-        {
-        }
-
-        // PUT api/values/5
-        public void Put(int id, string value)
-        {
-        }
-
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
+            return new List<IPost>();
         }
     }
 }

@@ -9,8 +9,11 @@ namespace Typeset.Web
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
+            var container = IocConfig.RegisterDependencies();
 
+            AreaRegistration.RegisterAllAreas();
+            DependecyResolverConfig.RegisterDependencyResolver(container.Resolve<System.Web.Http.Dependencies.IDependencyResolver>());
+            ControllerBuilderConfig.RegisterControllerFactory(container.Resolve<IControllerFactory>());
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
