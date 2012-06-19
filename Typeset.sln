@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typeset.Domain.Common", "Ty
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typeset.Domain.About", "Typeset.Domain.About\Typeset.Domain.About.csproj", "{FFC0B956-1F98-4251-8CA9-22E262BBE5AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typeset.Domain.Markup", "Typeset.Domain.Markup\Typeset.Domain.Markup.csproj", "{296DE20C-5F17-4509-9F81-0AE2031F3B8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{FFC0B956-1F98-4251-8CA9-22E262BBE5AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFC0B956-1F98-4251-8CA9-22E262BBE5AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFC0B956-1F98-4251-8CA9-22E262BBE5AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{296DE20C-5F17-4509-9F81-0AE2031F3B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{296DE20C-5F17-4509-9F81-0AE2031F3B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{296DE20C-5F17-4509-9F81-0AE2031F3B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{296DE20C-5F17-4509-9F81-0AE2031F3B8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

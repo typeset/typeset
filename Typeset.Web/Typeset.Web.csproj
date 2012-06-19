@@ -186,6 +186,10 @@
       <Project>{6AAFE0E8-1FCD-452B-AD80-B603730BF06E}</Project>
       <Name>Typeset.Domain.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Typeset.Domain.Markup\Typeset.Domain.Markup.csproj">
+      <Project>{296DE20C-5F17-4509-9F81-0AE2031F3B8F}</Project>
+      <Name>Typeset.Domain.Markup</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Typeset.Domain.Posts\Typeset.Domain.Posts.csproj">
       <Project>{024584D0-FA35-46F3-9B21-36523C7AE382}</Project>
       <Name>Typeset.Domain.Posts</Name>
@@ -212,7 +216,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>59609</DevelopmentServerPort>
+          <DevelopmentServerPort>60477</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

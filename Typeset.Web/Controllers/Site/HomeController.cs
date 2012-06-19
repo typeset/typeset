@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Typeset.Domain.Post;
 using Typeset.Domain.About;
+using Typeset.Domain.Markup;
+using Typeset.Domain.Post;
 using Typeset.Web.Models.About;
-using Typeset.Web.Models.Posts;
 using Typeset.Web.Models.Home;
+using Typeset.Web.Models.Posts;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Typeset.Web.Controllers.Site
 {
@@ -15,8 +16,11 @@ namespace Typeset.Web.Controllers.Site
     {
         private IAboutRepository AboutRepository { get; set; }
         private IPostRepository PostRepository { get; set; }
+        private IMarkupProcessorFactory MarkupProcessorFactory { get; set; }
 
-        public HomeController(IAboutRepository aboutRepository, IPostRepository postRepository)
+        public HomeController(IAboutRepository aboutRepository,
+            IPostRepository postRepository,
+            IMarkupProcessorFactory markupProcessorFactory)
         {
             if (aboutRepository == null)
             {
@@ -28,8 +32,14 @@ namespace Typeset.Web.Controllers.Site
                 throw new ArgumentNullException("postRepository");
             }
 
+            if (markupProcessorFactory == null)
+            {
+                throw new ArgumentNullException("markupProcessorFactory");
+            }
+
             AboutRepository = aboutRepository;
             PostRepository = postRepository;
+            MarkupProcessorFactory = markupProcessorFactory;
         }
 
         public ActionResult Index()
@@ -40,8 +50,8 @@ namespace Typeset.Web.Controllers.Site
 
             var postsPath = HttpContext.Server.MapPath("~/App_Data/posts");
             var postSearchCriteria = new PostSearchCriteria(10, 0, Domain.Common.Order.Descending, postsPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo);
-            var posts = PostRepository.Get(postSearchCriteria);
-            var pageOfPostViewModel = new PageOfPostViewModel(posts);
+            var pageOfPost = PostRepository.Get(postSearchCriteria);
+            var pageOfPostViewModel = new PageOfPostViewModel(pageOfPost, MarkupProcessorFactory);
 
             var homeViewModel = new HomeViewModel(aboutViewModel, pageOfPostViewModel);
 

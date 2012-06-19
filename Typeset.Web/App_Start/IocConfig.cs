@@ -7,6 +7,7 @@ using Typeset.Web.Controllers.DependencyResolvers;
 using Typeset.Web.Controllers.Factories;
 using Typeset.Web.Controllers.Site;
 using Typeset.Domain.About;
+using Typeset.Domain.Markup;
 
 namespace Typeset.Web
 {
@@ -25,6 +26,7 @@ namespace Typeset.Web
             //Domain
             container.Register<IAboutRepository, AboutRepository>();
             container.Register<IPostRepository, PostRepository>();
+            container.Register<IMarkupProcessorFactory, ProcessorFactory>();
             
             //WebApi Controllers
             container.Register<PostsController>();
