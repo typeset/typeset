@@ -4,13 +4,13 @@
 @if (!String.IsNullOrWhiteSpace(Model.About.Email))
 {
     <section class="avatar">
-        <img src="@String.Format("http://gravatar.com/avatar/{0}.jpg?d=mm&s=142{0}", Html.Md5Hash(Model.About.Email.Trim().ToLower()))" height="75" width="75" alt="avatar"/>
+        @Gravatar.GetHtml(Model.About.Email, 75, null, GravatarRating.X, "jpg")
     </section>
 }
-@if (!String.IsNullOrWhiteSpace(Model.About.FirstName) || !String.IsNullOrWhiteSpace(Model.About.LastName))
+@if (@Model.About.HasName())
 {
     <section class="name">
-        <p>@Model.About.FirstName @Model.About.LastName</p>
+        <p>@Model.About.Name()</p>
     </section>
 }
 @if (!String.IsNullOrWhiteSpace(Model.About.Bio))
@@ -22,19 +22,19 @@
 @if (!String.IsNullOrWhiteSpace(Model.About.Email))
 {
     <section class="email">
-        <p><a href="@String.Format("mailto:{0}", Model.About.Email)">Email</a></p>
+        <p>@Html.EmailLink(Model.About.Email, "Email")</p>
     </section>
 }
-@if (!String.IsNullOrWhiteSpace(Model.About.TwitterUsername))
+@if (Model.About.HasGithubUsername())
 {
     <section class="github">
-        <p><a href="@String.Format("https://github.com/{0}", Model.About.GithubUsername)">Github</a></p>
+        <p><a href="@Model.About.GithubUrl()">Github</a></p>
     </section>
 }
-@if (!String.IsNullOrWhiteSpace(Model.About.TwitterUsername))
+@if (Model.About.HasTwitterUsername())
 {
     <section class="twitter">
-        <p><a href="@String.Format("https://twitter.com/{0}", Model.About.TwitterUsername)">twitter</a></p>
+        <p><a href="@Model.About.TwitterUrl()">twitter</a></p>
     </section>
 }
 </section>

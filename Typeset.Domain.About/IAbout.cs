@@ -11,8 +11,7 @@ namespace Typeset.Domain.About
         string LastName { get; }
         string Bio { get; }
         string Email { get; }
-        string TwitterUsername { get; }
-        string GithubUsername { get; }
+        IDictionary<string, string> Usernames { get; }
         IDictionary<string, string> Links { get; }
     }
 }

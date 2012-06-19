@@ -10,28 +10,21 @@ namespace System.Web.Mvc
 {
     public static class HtmlHelperExtensions
     {
-        public static string Md5Hash(this HtmlHelper helper, string input)
+        public static HtmlString EmailLink(this HtmlHelper helper, string emailAddress, string text)
         {
-            var hashedInput = new StringBuilder();
-            using (var hashAlgorithm = new MD5CryptoServiceProvider())
-            {
-                byte[] bytes = System.Text.Encoding.UTF8.GetBytes(input);
-                bytes = hashAlgorithm.ComputeHash(bytes);
-                foreach (byte b in bytes)
-                {
-                    hashedInput.Append(b.ToString("x2").ToLower());
-                }
-            }
-            return hashedInput.ToString();
+            TagBuilder tag = new TagBuilder("a");
+            tag.Attributes.Add("href", string.Format("mailto:{0}", emailAddress));
+            tag.InnerHtml = text;
+            return new HtmlString(tag.ToString());
         }
 
-        public static string FormatDate(this HtmlHelper helper, DateViewModel input)
+        public static string FormatDate(this HtmlHelper helper, DateViewModel date)
         {
-            var formattedDate = string.Format("{0}-{1}-{2}", input.Month, input.Day, input.Year);
-            DateTime parsedDateTime;
-            if (DateTime.TryParse(formattedDate, out parsedDateTime))
+            var formattedDate = string.Format("{0}-{1}-{2}", date.Month, date.Day, date.Year);
+            DateTime dateTimeParsed;
+            if(DateTime.TryParse(formattedDate, out dateTimeParsed))
             {
-                formattedDate = parsedDateTime.ToShortDateString();
+                formattedDate = dateTimeParsed.ToShortDateString();
             }
             return formattedDate;
         }

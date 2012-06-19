@@ -49,12 +49,14 @@ namespace Typeset.Domain.About
                     var nameNode = (YamlMappingNode)mapping.Children[new YamlScalarNode("usernames")];
                     if (nameNode.Children.ContainsKey(new YamlScalarNode("twitter")))
                     {
-                        entity.TwitterUsername = nameNode.Children[new YamlScalarNode("twitter")].ToString();
+                        var username = nameNode.Children[new YamlScalarNode("twitter")].ToString();
+                        entity.Usernames.Add("twitter", username);
                     }
 
                     if (nameNode.Children.ContainsKey(new YamlScalarNode("github")))
                     {
-                        entity.GithubUsername = nameNode.Children[new YamlScalarNode("github")].ToString();
+                        var username = nameNode.Children[new YamlScalarNode("github")].ToString();
+                        entity.Usernames.Add("github", username);
                     }
                 }
 
