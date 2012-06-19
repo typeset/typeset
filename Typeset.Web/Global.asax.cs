@@ -18,5 +18,10 @@ namespace Typeset.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        public override void Init()
+        {
+            ExceptionHandlingConfig.RegisterEvents(this);
+        }
     }
 }

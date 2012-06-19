@@ -16,15 +16,13 @@ namespace Typeset.Web
             var container = new TinyIoCContainer();
 
             //App Settings
-            var postRepositoryPath = ConfigurationManager.AppSettings["IPostRepository-Path"];
 
             //MVC Framework
             container.Register<System.Web.Http.Dependencies.IDependencyResolver, TinyIocDependencyResolver>();
             container.Register<IControllerFactory, TinyIocControllerFactory>();
 
             //Domain
-            container.Register<string>(postRepositoryPath, "IPostRepository-Path");
-            container.Register<IPostRepository>((c, n) => new PostRepository(c.Resolve<string>("IPostRepository-Path")));
+            container.Register<IPostRepository, PostRepository>();
             
             //WebApi Controllers
             container.Register<PostsController>();

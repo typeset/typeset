@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Typeset.Domain.Common;
 
 namespace Typeset.Domain.Post
 {
@@ -13,9 +14,7 @@ namespace Typeset.Domain.Post
 
     public interface IPost
     {
-        int Year { get; }
-        int Month { get; }
-        int Day { get; }
+        Date Date { get; }
         string Title { get; }
         string Content { get; }
         ContentType ContentType { get; }
