@@ -1,0 +1,11 @@
+name:
+ first: firstname
+ last: lastname
+bio: This is a short bio about me.
+email: example@example.com
+usernames:
+ twitter: example
+ github: example
+links:
+ - Link to twitter: http://twitter.com
+ - Link to GitHub: http://github.com

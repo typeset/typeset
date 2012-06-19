@@ -137,9 +137,12 @@
     <Compile Include="Controllers\Site\HomeController.cs" />
     <Compile Include="Controllers\Api\PostsController.cs" />
     <Compile Include="Controllers\DependencyResolvers\TinyIocDependencyResolver.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\About\AboutViewModel.cs" />
+    <Compile Include="Models\Home\HomeViewModel.cs" />
     <Compile Include="Models\Posts\PageOfPostViewModel.cs" />
     <Compile Include="Models\Posts\PostSearchCriteriaViewModel.cs" />
     <Compile Include="Models\Common\DateViewModel.cs" />
@@ -149,6 +152,8 @@
     <Compile Include="TinyIoC.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\content\css\bootstrap.min.css" />
+    <Content Include="App_Data\content\js\bootstrap.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -158,8 +163,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\base.css" />
-    <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -167,13 +170,16 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Images\" />
+    <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Typeset.Domain.About\Typeset.Domain.About.csproj">
+      <Project>{FFC0B956-1F98-4251-8CA9-22E262BBE5AE}</Project>
+      <Name>Typeset.Domain.About</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Typeset.Domain.Common\Typeset.Domain.Common.csproj">
       <Project>{6AAFE0E8-1FCD-452B-AD80-B603730BF06E}</Project>
       <Name>Typeset.Domain.Common</Name>
@@ -182,6 +188,11 @@
       <Project>{024584D0-FA35-46F3-9B21-36523C7AE382}</Project>
       <Name>Typeset.Domain.Posts</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App_Data\about.yml" />
+    <None Include="App_Data\posts\2012-06-19-Example-Post-1.md" />
+    <None Include="App_Data\posts\2012-12-21-Example-Post-2.md" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

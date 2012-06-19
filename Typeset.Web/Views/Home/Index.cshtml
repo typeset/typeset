@@ -1,1 +1,51 @@
-﻿
+﻿@model Typeset.Web.Models.Home.HomeViewModel
+
+<section class="about">
+@if (!String.IsNullOrWhiteSpace(Model.About.Email))
+{
+    <section class="avatar">
+        <img src="@String.Format("http://gravatar.com/avatar/{0}.jpg?d=mm&s=142{0}", Html.Md5Hash(Model.About.Email.Trim().ToLower()))" height="75" width="75" alt="avatar"/>
+    </section>
+}
+@if (!String.IsNullOrWhiteSpace(Model.About.FirstName) || !String.IsNullOrWhiteSpace(Model.About.LastName))
+{
+    <section class="name">
+        <p>@Model.About.FirstName @Model.About.LastName</p>
+    </section>
+}
+@if (!String.IsNullOrWhiteSpace(Model.About.Bio))
+{
+    <section class="bio">
+        <p>@Model.About.Bio</p>
+    </section>
+}
+@if (!String.IsNullOrWhiteSpace(Model.About.Email))
+{
+    <section class="email">
+        <p><a href="@String.Format("mailto:{0}", Model.About.Email)">Email</a></p>
+    </section>
+}
+@if (!String.IsNullOrWhiteSpace(Model.About.TwitterUsername))
+{
+    <section class="github">
+        <p><a href="@String.Format("https://github.com/{0}", Model.About.GithubUsername)">Github</a></p>
+    </section>
+}
+@if (!String.IsNullOrWhiteSpace(Model.About.TwitterUsername))
+{
+    <section class="twitter">
+        <p><a href="@String.Format("https://twitter.com/{0}", Model.About.TwitterUsername)">twitter</a></p>
+    </section>
+}
+</section>
+<section id="content">
+    <ul class="posts">
+    @foreach (var post in Model.Posts.Entities)
+    {
+        <li class="post">
+            <span class="date">@Html.FormatDate(post.Date)</span>
+            <span class="title">@post.Title</span>
+        </li>
+    }
+    </ul>
+</section>

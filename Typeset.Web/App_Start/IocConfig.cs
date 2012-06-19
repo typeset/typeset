@@ -6,6 +6,7 @@ using Typeset.Web.Controllers.Api;
 using Typeset.Web.Controllers.DependencyResolvers;
 using Typeset.Web.Controllers.Factories;
 using Typeset.Web.Controllers.Site;
+using Typeset.Domain.About;
 
 namespace Typeset.Web
 {
@@ -22,13 +23,14 @@ namespace Typeset.Web
             container.Register<IControllerFactory, TinyIocControllerFactory>();
 
             //Domain
+            container.Register<IAboutRepository, AboutRepository>();
             container.Register<IPostRepository, PostRepository>();
             
             //WebApi Controllers
             container.Register<PostsController>();
 
             //Mvc Controllers
-            container.Register<IController, HomeController>("Home");
+            container.Register<IController, HomeController>("Home").AsMultiInstance();
 
             return container;
         }
