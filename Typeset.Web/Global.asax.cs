@@ -12,6 +12,7 @@ namespace Typeset.Web
             var container = IocConfig.RegisterDependencies();
 
             AreaRegistration.RegisterAllAreas();
+            FormattersConfig.RegisterFormatters();
             DependecyResolverConfig.RegisterDependencyResolver(container.Resolve<System.Web.Http.Dependencies.IDependencyResolver>());
             ControllerBuilderConfig.RegisterControllerFactory(container.Resolve<IControllerFactory>());
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

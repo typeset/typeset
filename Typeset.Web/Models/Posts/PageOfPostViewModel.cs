@@ -1,25 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Typeset.Domain.Post;
 using Typeset.Domain.Common;
-using Typeset.Web.Models.Common;
+using Typeset.Domain.Post;
 
 namespace Typeset.Web.Models.Posts
 {
-    public class PageOfPostViewModel : PageOfViewModel<PostViewModel, PostSearchCriteriaViewModel>
+    public class PageOfPostViewModel
     {
-        public PageOfPostViewModel()
-            : base()
-        {
-            
-        }
+        public IEnumerable<PostViewModel> Entities { get; set; }
+        public PostSearchCriteriaViewModel SearchCriteria { get; set; }
+        public int Count { get; set; }
+        public int TotalCount { get; set; }
 
         public PageOfPostViewModel(PageOf<IPost, PostSearchCriteria> entity)
         {
-            this.Count = entity.Count;
-            this.Entities = entity.Entities.Select(e => new PostViewModel(e));
-            this.SearchCriteria = new PostSearchCriteriaViewModel(entity.SearchCriteria);
-            this.TotalCount = entity.TotalCount;
+            Count = entity.Count;
+            Entities = entity.Entities.Select(e => new PostViewModel(e)).ToList();
+            SearchCriteria = new PostSearchCriteriaViewModel(entity.SearchCriteria);
+            TotalCount = entity.TotalCount;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Typeset.Domain.Common;
+using NodaTime;
 
 namespace Typeset.Domain.Post
 {
@@ -14,7 +15,7 @@ namespace Typeset.Domain.Post
 
     public interface IPost
     {
-        Date Date { get; }
+        LocalDate Date { get; }
         string Title { get; }
         string Content { get; }
         ContentType ContentType { get; }

@@ -9,7 +9,5 @@ namespace Typeset.Web.Controllers.Api
 {
     public class BaseApiController : ApiController
     {
-        protected const int DefaultLimit = 10;
-        protected const int DefaultOffset = 0;
     }
 }

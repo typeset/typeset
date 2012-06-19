@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Typeset.Domain.Post;
 using System.Web;
-using Typeset.Web.Models.Common;
-using Typeset.Web.Models.Posts;
 using Typeset.Domain.Common;
+using Typeset.Domain.Post;
+using Typeset.Web.Models.Posts;
+using NodaTime;
 
 namespace Typeset.Web.Controllers.Api
 {
@@ -26,21 +21,16 @@ namespace Typeset.Web.Controllers.Api
             PostRepository = postRepository;
         }
 
-        public PageOfViewModel<PostViewModel, PostSearchCriteriaViewModel> Get(int limit = DefaultLimit, int offset = DefaultOffset)
+        public PageOfPostViewModel Get(int limit = SearchCriteria.DefaultLimit, int offset = SearchCriteria.DefaultOffset, string order = "descending")
         {
             var path = HttpContext.Current.Server.MapPath("~/App_Data/Posts");
-            var from = Date.MinValue;
-            var to = Date.Today;
-            var searchCriteria = new PostSearchCriteria(limit, offset, path, from, to);
+            var from = PostSearchCriteria.DefaultFrom;
+            var to = PostSearchCriteria.DefaultTo;
+            var orderParsed = SearchCriteria.DefaultOrder;
+            Enum.TryParse<Order>(order, true, out orderParsed);
+            var searchCriteria = new PostSearchCriteria(limit, offset, orderParsed, path, from, to);
             var page = PostRepository.Get(searchCriteria);
-            var response = new PageOfViewModel<PostViewModel, PostSearchCriteriaViewModel>()
-                {
-                    Count = page.Count,
-                    Entities = page.Entities.Select(p => new PostViewModel(p)),
-                    SearchCriteria = new PostSearchCriteriaViewModel(page.SearchCriteria),
-                    TotalCount = page.TotalCount
-                };
-            return response;
+            return new PageOfPostViewModel(page);
         }
     }
 }

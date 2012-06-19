@@ -38,6 +38,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NodaTime, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NodaTime.1.0.0-beta1\lib\net35-Client\NodaTime.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -122,6 +125,7 @@
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ControllerBuilderConfig.cs" />
+    <Compile Include="App_Start\FormattersConfig.cs" />
     <Compile Include="App_Start\ExceptionHandlingConfig.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\DependencyResolverConfig.cs" />
@@ -140,7 +144,6 @@
     <Compile Include="Models\Posts\PostSearchCriteriaViewModel.cs" />
     <Compile Include="Models\Common\DateViewModel.cs" />
     <Compile Include="Models\Common\SearchCriteriaViewModel.cs" />
-    <Compile Include="Models\Common\PageOfTViewModel.cs" />
     <Compile Include="Models\Posts\PostViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TinyIoC.cs" />

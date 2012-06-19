@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Typeset.Domain.Common;
+using NodaTime;
 
 namespace Typeset.Domain.Post
 {
@@ -26,6 +27,7 @@ namespace Typeset.Domain.Post
 
             var totalCount = entities.Count;
             entities = entities.Where(p => p.Date >= searchCriteria.From && p.Date <= searchCriteria.To).ToList();
+            entities = searchCriteria.Order == Order.Ascending ? entities.OrderBy(e => e.Date).ThenBy(e => e.Title).ToList() : entities.OrderByDescending(e => e.Date).ThenByDescending(e => e.Title).ToList();
             entities = entities.Count > searchCriteria.Offset ? entities.Skip(searchCriteria.Offset).Take(searchCriteria.Limit).ToList() : new List<IPost>();
 
             return new PageOf<IPost,PostSearchCriteria>(searchCriteria, entities, totalCount);
@@ -47,7 +49,7 @@ namespace Typeset.Domain.Post
                 var year = int.Parse(filename.Substring(0, 4));
                 var month = int.Parse(filename.Substring(5, 2));
                 var day = int.Parse(filename.Substring(8, 2));
-                var date = new Date(year, month, day);
+                var date = new LocalDate(year, month, day);
                 var title = filename.Substring(11);
                 var content = File.ReadAllText(path);
                 var contentType = ParseContentType(path);
