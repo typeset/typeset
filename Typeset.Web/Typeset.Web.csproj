@@ -197,8 +197,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Data\about.yml" />
-    <None Include="App_Data\posts\2012-06-19-Example-Post-1.md" />
-    <None Include="App_Data\posts\2012-12-21-Example-Post-2.md" />
+    <None Include="App_Data\posts\2012-06-19-Example-Post.md" />
+    <None Include="App_Data\posts\2012-12-21-Example-Post.md" />
+    <None Include="App_Data\posts\2012-06-18-Example-Post.textile" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

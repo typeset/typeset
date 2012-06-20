@@ -1,3 +1,3 @@
-Example Post 1
+Example Post
 ===
 This is an example body.
