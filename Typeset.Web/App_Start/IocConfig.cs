@@ -33,6 +33,7 @@ namespace Typeset.Web
 
             //Mvc Controllers
             container.Register<IController, HomeController>("Home").AsMultiInstance();
+            container.Register<IController, PostController>("Post").AsMultiInstance();
 
             return container;
         }

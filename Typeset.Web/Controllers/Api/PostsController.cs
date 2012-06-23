@@ -29,17 +29,17 @@ namespace Typeset.Web.Controllers.Api
             MarkupProcessorFactory = markupProcessorFactory;
         }
 
-        public PageOfPostViewModel Get(int limit = SearchCriteria.DefaultLimit, int offset = SearchCriteria.DefaultOffset, string order = "descending")
+        public PageOfPostsViewModel Get(int limit = SearchCriteria.DefaultLimit, int offset = SearchCriteria.DefaultOffset, string order = "descending")
         {
             var path = HttpContext.Current.Server.MapPath("~/App_Data/Posts");
             var from = PostSearchCriteria.DefaultFrom;
             var to = PostSearchCriteria.DefaultTo;
             var orderParsed = SearchCriteria.DefaultOrder;
             Enum.TryParse<Order>(order, true, out orderParsed);
-            var searchCriteria = new PostSearchCriteria(limit, offset, orderParsed, path, from, to);
+            var searchCriteria = new PostSearchCriteria(limit, offset, orderParsed, path, from, to, string.Empty);
             var pageOfPost = PostRepository.Get(searchCriteria);
             
-            var pageOfPostViewModel = new PageOfPostViewModel(pageOfPost, MarkupProcessorFactory);
+            var pageOfPostViewModel = new PageOfPostsViewModel(pageOfPost, MarkupProcessorFactory);
 
             return pageOfPostViewModel;
         }

@@ -1,22 +1,22 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Typeset.Domain.About;
 using Typeset.Domain.Markup;
 using Typeset.Domain.Post;
 using Typeset.Web.Models.About;
-using Typeset.Web.Models.Home;
 using Typeset.Web.Models.Posts;
 
 namespace Typeset.Web.Controllers.Site
 {
-    public class HomeController : BaseController
+    public class PostController : BaseController
     {
         private IAboutRepository AboutRepository { get; set; }
         private IPostRepository PostRepository { get; set; }
         private IMarkupProcessorFactory MarkupProcessorFactory { get; set; }
 
-        public HomeController(IAboutRepository aboutRepository,
+        public PostController(IAboutRepository aboutRepository,
             IPostRepository postRepository,
             IMarkupProcessorFactory markupProcessorFactory)
         {
@@ -40,20 +40,20 @@ namespace Typeset.Web.Controllers.Site
             MarkupProcessorFactory = markupProcessorFactory;
         }
 
-        public ActionResult Get(int limit = 10, int offset = 0)
+        public ActionResult Get(string permalink)
         {
             var aboutPath = HttpContext.Server.MapPath("~/App_Data/about.yml");
             var about = AboutRepository.Read(aboutPath);
             var aboutViewModel = new AboutViewModel(about);
 
             var postsPath = HttpContext.Server.MapPath("~/App_Data/posts");
-            var postSearchCriteria = new PostSearchCriteria(limit, offset, Domain.Common.Order.Descending, postsPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, string.Empty);
+            var postSearchCriteria = new PostSearchCriteria(1, 0, Domain.Common.Order.Descending, postsPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, permalink);
             var pageOfPost = PostRepository.Get(postSearchCriteria);
-            var pageOfPostViewModel = new PageOfPostsViewModel(pageOfPost, MarkupProcessorFactory);
+            var postViewModel = new PostViewModel(pageOfPost.Entities.First(), MarkupProcessorFactory);
+            
+            var pageOfPostViewModel = new PageOfPostViewModel(aboutViewModel, postViewModel);
 
-            var homeViewModel = new HomeViewModel(aboutViewModel, pageOfPostViewModel);
-
-            return View(homeViewModel);
+            return View(pageOfPostViewModel);
         }
     }
 }

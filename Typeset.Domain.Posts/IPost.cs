@@ -19,5 +19,6 @@ namespace Typeset.Domain.Post
         string Title { get; }
         string Content { get; }
         ContentType ContentType { get; }
+        string Filename { get; }
     }
 }

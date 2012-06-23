@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -22,9 +18,15 @@ namespace Typeset.Web
             );
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                name: "Home",
+                url: "",
+                defaults: new { controller = "Home", action = "Get", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Permalink",
+                url: "{*permalink}",
+                defaults: new { controller = "Post", action = "Get", permalink = UrlParameter.Optional }
             );
         }
     }

@@ -30,7 +30,7 @@ namespace System.Web.Mvc
             return formattedDate;
         }
 
-        public static HtmlString GeneratePagination(this HtmlHelper helper, PageOfPostViewModel page)
+        public static HtmlString GeneratePagination(this HtmlHelper helper, PageOfPostsViewModel page)
         {
             var hasPrevious = page.SearchCriteria.Offset > 0;
             var numPreviousTotal = page.SearchCriteria.Offset;

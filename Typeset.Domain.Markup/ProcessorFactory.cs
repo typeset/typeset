@@ -15,7 +15,7 @@ namespace Typeset.Domain.Markup
                 case ProcessorType.markdown:
                     return new MarkdownProcessor();
                 case ProcessorType.textile:
-                    return new MarkdownProcessor();
+                    return new TextileProcessor();
             }
         }
     }

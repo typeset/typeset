@@ -1,0 +1,47 @@
+﻿@model Typeset.Web.Models.Posts.PageOfPostViewModel
+
+<section class="about">
+@if (!String.IsNullOrWhiteSpace(Model.About.Email))
+{
+    <section class="avatar">
+        @Gravatar.GetHtml(Model.About.Email, 75, null, GravatarRating.X, "jpg")
+    </section>
+}
+@if (@Model.About.HasName())
+{
+    <section class="name">
+        <p>@Model.About.Name()</p>
+    </section>
+}
+@if (!String.IsNullOrWhiteSpace(Model.About.Bio))
+{
+    <section class="bio">
+        <p>@Model.About.Bio</p>
+    </section>
+}
+@if (!String.IsNullOrWhiteSpace(Model.About.Email))
+{
+    <section class="email">
+        <p>@Html.EmailLink(Model.About.Email, "Email")</p>
+    </section>
+}
+@if (Model.About.HasGithubUsername())
+{
+    <section class="github">
+        <p><a href="@Model.About.GithubUrl()">Github</a></p>
+    </section>
+}
+@if (Model.About.HasTwitterUsername())
+{
+    <section class="twitter">
+        <p><a href="@Model.About.TwitterUrl()">twitter</a></p>
+    </section>
+}
+</section>
+<section id="content">
+    <section class="post">
+        <h1>@Model.Post.Title</h1>
+        <h2>@Model.Post.Date</h2>
+        @Html.Raw(Model.Post.HtmlContent)
+    </section>
+</section>

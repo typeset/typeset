@@ -8,9 +8,9 @@ namespace Typeset.Web.Models.Home
     public class HomeViewModel
     {
         public AboutViewModel About { get; set; }
-        public PageOfPostViewModel Posts { get; set; }
+        public PageOfPostsViewModel Posts { get; set; }
 
-        public HomeViewModel(AboutViewModel aboutViewModel, PageOfPostViewModel pageOfPostViewModel)
+        public HomeViewModel(AboutViewModel aboutViewModel, PageOfPostsViewModel pageOfPostViewModel)
         {
             About = aboutViewModel;
             Posts = pageOfPostViewModel;

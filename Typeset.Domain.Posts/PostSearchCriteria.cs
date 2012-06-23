@@ -15,8 +15,9 @@ namespace Typeset.Domain.Post
         public string Path { get; private set; }
         public LocalDate From { get; private set; }
         public LocalDate To { get; private set; }
+        public string Filename { get; private set; }
 
-        public PostSearchCriteria(int limit, int offset, Order order, string path, LocalDate from, LocalDate to)
+        public PostSearchCriteria(int limit, int offset, Order order, string path, LocalDate from, LocalDate to, string filename)
             : base(limit, offset, order)
         {
             if (string.IsNullOrWhiteSpace(path))
@@ -37,6 +38,7 @@ namespace Typeset.Domain.Post
             Path = path;
             From = from;
             To = to;
+            Filename = string.IsNullOrWhiteSpace(filename) ? string.Empty : filename;
         }
     }
 }

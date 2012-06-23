@@ -26,8 +26,9 @@ namespace Typeset.Domain.Post
             }
             
             entities = entities.Where(p => p.Date >= searchCriteria.From && p.Date <= searchCriteria.To).ToList();
-            entities = searchCriteria.Order == Order.Ascending ? entities.OrderBy(e => e.Date).ThenBy(e => e.Title).ToList() : entities.OrderByDescending(e => e.Date).ThenByDescending(e => e.Title).ToList();
+            entities = entities.Where(p => p.Filename.ToLower().Contains(searchCriteria.Filename.ToLower())).ToList();
             var totalCount = entities.Count;
+            entities = searchCriteria.Order == Order.Ascending ? entities.OrderBy(e => e.Date).ThenBy(e => e.Title).ToList() : entities.OrderByDescending(e => e.Date).ThenByDescending(e => e.Title).ToList();
             entities = entities.Count > searchCriteria.Offset ? entities.Skip(searchCriteria.Offset).Take(searchCriteria.Limit).ToList() : new List<IPost>();
 
             return new PageOf<IPost,PostSearchCriteria>(searchCriteria, entities, totalCount);
@@ -45,16 +46,17 @@ namespace Typeset.Domain.Post
 
             try
             {
-                var filename = Path.GetFileNameWithoutExtension(path);
-                var year = int.Parse(filename.Substring(0, 4));
-                var month = int.Parse(filename.Substring(5, 2));
-                var day = int.Parse(filename.Substring(8, 2));
+                var filename = Path.GetFileName(path);
+                var filenameNoExtension = Path.GetFileNameWithoutExtension(path);
+                var year = int.Parse(filenameNoExtension.Substring(0, 4));
+                var month = int.Parse(filenameNoExtension.Substring(5, 2));
+                var day = int.Parse(filenameNoExtension.Substring(8, 2));
                 var date = new LocalDate(year, month, day);
-                var title = filename.Substring(11);
+                var title = filenameNoExtension.Substring(11);
                 var content = File.ReadAllText(path);
                 var contentType = ParseContentType(path);
 
-                post = new Post(date, title, content, contentType);
+                post = new Post(date, title, content, contentType, filename);
                 success = true;
             }
             catch 
