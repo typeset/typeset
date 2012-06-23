@@ -24,10 +24,10 @@ namespace Typeset.Domain.Post
                     entities.Add(entity);
                 }
             }
-
-            var totalCount = entities.Count;
+            
             entities = entities.Where(p => p.Date >= searchCriteria.From && p.Date <= searchCriteria.To).ToList();
             entities = searchCriteria.Order == Order.Ascending ? entities.OrderBy(e => e.Date).ThenBy(e => e.Title).ToList() : entities.OrderByDescending(e => e.Date).ThenByDescending(e => e.Title).ToList();
+            var totalCount = entities.Count;
             entities = entities.Count > searchCriteria.Offset ? entities.Skip(searchCriteria.Offset).Take(searchCriteria.Limit).ToList() : new List<IPost>();
 
             return new PageOf<IPost,PostSearchCriteria>(searchCriteria, entities, totalCount);

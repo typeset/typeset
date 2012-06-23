@@ -42,14 +42,14 @@ namespace Typeset.Web.Controllers.Site
             MarkupProcessorFactory = markupProcessorFactory;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int limit = 10, int offset = 0)
         {
             var aboutPath = HttpContext.Server.MapPath("~/App_Data/about.yml");
             var about = AboutRepository.Read(aboutPath);
             var aboutViewModel = new AboutViewModel(about);
 
             var postsPath = HttpContext.Server.MapPath("~/App_Data/posts");
-            var postSearchCriteria = new PostSearchCriteria(10, 0, Domain.Common.Order.Descending, postsPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo);
+            var postSearchCriteria = new PostSearchCriteria(limit, offset, Domain.Common.Order.Descending, postsPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo);
             var pageOfPost = PostRepository.Get(postSearchCriteria);
             var pageOfPostViewModel = new PageOfPostViewModel(pageOfPost, MarkupProcessorFactory);
 

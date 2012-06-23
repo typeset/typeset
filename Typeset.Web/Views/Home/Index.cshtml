@@ -39,13 +39,22 @@
 }
 </section>
 <section id="content">
-    <ul class="posts">
-    @foreach (var post in Model.Posts.Entities)
-    {
-        <li class="post">
-            <span class="date">@Html.FormatDate(post.Date)</span>
-            <span class="title">@post.Title</span>
-        </li>
-    }
-    </ul>
+    <section class="posts">
+        <ul>
+        @foreach (var post in Model.Posts.Entities)
+        {
+            <li class="post">
+                <span class="date">@Html.FormatDate(post.Date)</span>
+                <span class="title">@post.Title</span>
+            </li>
+        }
+        @if (Model.Posts.Count.Equals(0))
+        {
+            <li>No results</li>
+        }
+        </ul>
+    </section>
+    <section class="pagination">
+        @Html.GeneratePagination(Model.Posts)
+    </section>
 </section>
