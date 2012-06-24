@@ -138,6 +138,7 @@
     <Compile Include="Controllers\Api\AboutController.cs" />
     <Compile Include="Controllers\Factories\TinyIocControllerFactory.cs" />
     <Compile Include="Controllers\Site\BaseController.cs" />
+    <Compile Include="Controllers\Site\StaticFileController.cs" />
     <Compile Include="Controllers\Site\PostController.cs" />
     <Compile Include="Controllers\Site\HomeController.cs" />
     <Compile Include="Controllers\Api\PostsController.cs" />
@@ -177,7 +178,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\content\images\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

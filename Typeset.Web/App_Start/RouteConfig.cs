@@ -26,7 +26,13 @@ namespace Typeset.Web
             routes.MapRoute(
                 name: "Atom",
                 url: "atom.xml",
-                defaults: new { controller = "Home", action = "Atom" }
+                defaults: new { controller = "StaticFile", action = "Atom" }
+            );
+
+            routes.MapRoute(
+                name: "Content",
+                url: "content/{*url}",
+                defaults: new { controller = "StaticFile", action = "Content", url = UrlParameter.Optional }
             );
 
             routes.MapRoute(

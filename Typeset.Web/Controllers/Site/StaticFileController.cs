@@ -7,18 +7,17 @@ using Typeset.Domain.Post;
 using Typeset.Web.Models.About;
 using Typeset.Web.Models.Home;
 using Typeset.Web.Models.Posts;
-using System.Text;
 using Typeset.Web.ViewResults;
 
 namespace Typeset.Web.Controllers.Site
 {
-    public class HomeController : BaseController
+    public class StaticFileController : BaseController
     {
         private IAboutRepository AboutRepository { get; set; }
         private IPostRepository PostRepository { get; set; }
         private IMarkupProcessorFactory MarkupProcessorFactory { get; set; }
 
-        public HomeController(IAboutRepository aboutRepository,
+        public StaticFileController(IAboutRepository aboutRepository,
             IPostRepository postRepository,
             IMarkupProcessorFactory markupProcessorFactory)
         {
@@ -42,20 +41,33 @@ namespace Typeset.Web.Controllers.Site
             MarkupProcessorFactory = markupProcessorFactory;
         }
 
-        public ActionResult Get(int limit = 10, int offset = 0)
+        public ActionResult Content(string url)
+        {
+            try
+            {
+                var fileStream = System.IO.File.OpenRead(HttpContext.Server.MapPath(string.Format("~/App_Data/content/{0}", url)));
+                return File(fileStream, "application/octet-stream");
+            }
+            catch
+            {
+                return new HttpStatusCodeResult(404);
+            }
+        }
+
+        public ActionResult Atom()
         {
             var aboutPath = HttpContext.Server.MapPath("~/App_Data/about.yml");
             var about = AboutRepository.Read(aboutPath);
             var aboutViewModel = new AboutViewModel(about);
 
             var postsPath = HttpContext.Server.MapPath("~/App_Data/posts");
-            var postSearchCriteria = new PostSearchCriteria(limit, offset, Domain.Common.Order.Descending, postsPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, string.Empty, true);
-            var pageOfPost = PostRepository.Get(postSearchCriteria);
-            var pageOfPostViewModel = new PageOfPostsViewModel(pageOfPost, MarkupProcessorFactory);
+            var postSearchCriteria = new PostSearchCriteria(10, 0, Domain.Common.Order.Descending, postsPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, string.Empty, true);
+            var pageOfPosts = PostRepository.Get(postSearchCriteria);
+            var pageOfPostsViewModel = new PageOfPostsViewModel(pageOfPosts, MarkupProcessorFactory);
+            
+            var homeViewModel = new HomeViewModel(aboutViewModel, pageOfPostsViewModel);
 
-            var homeViewModel = new HomeViewModel(aboutViewModel, pageOfPostViewModel);
-
-            return View(homeViewModel);
+            return new AtomViewResult(homeViewModel);
         }
     }
 }

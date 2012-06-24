@@ -32,6 +32,7 @@ namespace Typeset.Web
             container.Register<PostsController>();
 
             //Mvc Controllers
+            container.Register<IController, StaticFileController>("StaticFile").AsMultiInstance();
             container.Register<IController, HomeController>("Home").AsMultiInstance();
             container.Register<IController, PostController>("Post").AsMultiInstance();
 

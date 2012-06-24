@@ -77,6 +77,12 @@ namespace System.Web.Mvc
                 sectionLinkTag.InnerHtml += aTag.ToString();
             }
 
+            var aRssTag = new TagBuilder("a");
+            aRssTag.AddCssClass("rss");
+            aRssTag.Attributes.Add("href", UrlHelper.GenerateContentUrl("atom.xml", helper.ViewContext.HttpContext));
+            aRssTag.InnerHtml = "rss";
+            sectionLinkTag.InnerHtml += aRssTag.ToString();
+
             if (model.Links.Any())
             {
                 wrapperTag.InnerHtml += sectionLinkTag.ToString();
