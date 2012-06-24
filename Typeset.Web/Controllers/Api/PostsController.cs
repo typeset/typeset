@@ -36,7 +36,7 @@ namespace Typeset.Web.Controllers.Api
             var to = PostSearchCriteria.DefaultTo;
             var orderParsed = SearchCriteria.DefaultOrder;
             Enum.TryParse<Order>(order, true, out orderParsed);
-            var searchCriteria = new PostSearchCriteria(limit, offset, orderParsed, path, from, to, string.Empty);
+            var searchCriteria = new PostSearchCriteria(limit, offset, orderParsed, path, from, to, string.Empty, true);
             var pageOfPost = PostRepository.Get(searchCriteria);
             
             var pageOfPostViewModel = new PageOfPostsViewModel(pageOfPost, MarkupProcessorFactory);

@@ -1,6 +1,8 @@
 ﻿using Typeset.Domain.Post;
 using Typeset.Web.Models.Common;
 using Typeset.Domain.Markup;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Typeset.Web.Models.Posts
 {
@@ -11,6 +13,8 @@ namespace Typeset.Web.Models.Posts
         public string Content { get; set; }
         public string ContentType { get; set; }
         public string HtmlContent { get; set; }
+        public string Permalink { get; set; }
+        public IEnumerable<string> Tags { get; set; }
 
         public PostViewModel(IPost entity, IMarkupProcessorFactory markupProcessorFactory)
         {
@@ -19,6 +23,8 @@ namespace Typeset.Web.Models.Posts
             Content = entity.Content;
             ContentType = entity.ContentType.ToString();
             HtmlContent = GenerateHtmlContent(entity.ContentType, markupProcessorFactory);
+            Permalink = entity.Permalink;
+            Tags = entity.Tags;
         }
 
         protected virtual string GenerateHtmlContent(ContentType contentType, IMarkupProcessorFactory markupProcessorFactory)

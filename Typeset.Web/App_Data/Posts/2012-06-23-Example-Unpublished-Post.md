@@ -1,10 +1,10 @@
 ---
-title: Example Markdown Post
 permalink: posts/example-markdown-post
 tags:
  - example
  - post
  - markdown
+published: false
 ---
 Example Post
 ===

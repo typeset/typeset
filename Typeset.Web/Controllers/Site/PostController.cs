@@ -47,7 +47,7 @@ namespace Typeset.Web.Controllers.Site
             var aboutViewModel = new AboutViewModel(about);
 
             var postsPath = HttpContext.Server.MapPath("~/App_Data/posts");
-            var postSearchCriteria = new PostSearchCriteria(1, 0, Domain.Common.Order.Descending, postsPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, permalink);
+            var postSearchCriteria = new PostSearchCriteria(1, 0, Domain.Common.Order.Descending, postsPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, permalink, true);
             var pageOfPost = PostRepository.Get(postSearchCriteria);
             var postViewModel = new PostViewModel(pageOfPost.Entities.First(), MarkupProcessorFactory);
             

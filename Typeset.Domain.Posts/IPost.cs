@@ -20,5 +20,8 @@ namespace Typeset.Domain.Post
         string Content { get; }
         ContentType ContentType { get; }
         string Filename { get; }
+        string Permalink { get; }
+        IEnumerable<string> Tags { get; }
+        bool Published { get; }
     }
 }

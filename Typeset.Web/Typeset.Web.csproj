@@ -203,6 +203,7 @@
     <None Include="App_Data\posts\2512-07-05-Example-Future-Post.md" />
     <None Include="App_Data\posts\2012-06-18-Example-Textile-Post.textile" />
     <Content Include="Views\Post\Get.cshtml" />
+    <None Include="App_Data\posts\2012-06-23-Example-Unpublished-Post.md" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
