@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using NodaTime;
 using Typeset.Domain.Common;
 using YamlDotNet.RepresentationModel;
@@ -26,7 +27,7 @@ namespace Typeset.Domain.Post
             }
             
             entities = entities.Where(p => p.Date >= searchCriteria.From && p.Date <= searchCriteria.To).ToList();
-            entities = entities.Where(p => p.Filename.ToLower().Contains(searchCriteria.Filename.ToLower())).ToList();
+            entities = entities.Where(p => p.Permalink.ToLower().Contains(searchCriteria.Permalink.ToLower())).ToList();
             entities = entities.Where(p => p.Published.Equals(searchCriteria.Published)).ToList();
             var totalCount = entities.Count;
             entities = searchCriteria.Order == Order.Ascending ? entities.OrderBy(e => e.Date).ThenBy(e => e.Title).ToList() : entities.OrderByDescending(e => e.Date).ThenByDescending(e => e.Title).ToList();
@@ -47,12 +48,13 @@ namespace Typeset.Domain.Post
 
             try
             {
-                var yamlDocument = ParseFrontMatter(path);
+                var fileText = File.ReadAllText(path);
+                var yamlDocument = ParseFrontMatter(fileText);
 
                 var filename = Path.GetFileName(path);
                 var date = ParseDate(path);
                 var title = ParseTitle(path, yamlDocument);
-                var content = File.ReadAllText(path);
+                var content = ParseContent(fileText);
                 var contentType = ParseContentType(path);
                 
                 var permalink = ParsePermalink(yamlDocument);
@@ -97,10 +99,9 @@ namespace Typeset.Domain.Post
             }
         }
 
-        protected virtual YamlDocument ParseFrontMatter(string path)
+        protected virtual YamlDocument ParseFrontMatter(string fileText)
         {
             var yamlStream = new YamlStream();
-            var fileText = File.ReadAllText(path);
 
             using (var stringReader = new StringReader(fileText))
             {
@@ -108,6 +109,28 @@ namespace Typeset.Domain.Post
             }
 
             return yamlStream.Documents[0];
+        }
+
+        protected virtual string ParseContent(string fileText)
+        {
+            var content = fileText;
+            var regex = new Regex(@"^(---\s)([\s\S]+?)(\s---)(\s*)");
+            var hasFrontMatter = regex.IsMatch(fileText);
+
+            if (hasFrontMatter)
+            {
+                var frontMatter = regex.Match(fileText).Value;
+                var yamlStream = new YamlStream();
+
+                using (var stringReader = new StringReader(frontMatter))
+                {
+                    yamlStream.Load(stringReader);
+                }
+
+                content = fileText.Replace(frontMatter, string.Empty);
+            }
+
+            return content;
         }
 
         protected virtual string ParseTitle(string path, YamlDocument yamlDocument)
@@ -147,7 +170,7 @@ namespace Typeset.Domain.Post
             return permalink;
         }
 
-        protected IEnumerable<string> ParseTags(YamlDocument yamlDocument)
+        protected virtual IEnumerable<string> ParseTags(YamlDocument yamlDocument)
         {
             var tags = new List<string>();
 

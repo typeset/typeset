@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Typeset.Domain.About;
 using System.Text;
+using Typeset.Domain.About;
 
 namespace Typeset.Web.Models.About
 {
@@ -23,12 +23,7 @@ namespace Typeset.Web.Models.About
             Links = entity.Links;
         }
 
-        public bool HasName()
-        {
-            return !string.IsNullOrWhiteSpace(Name());
-        }
-
-        public string Name()
+        public string FullName()
         {
             var stringBuilder = new StringBuilder();
             if (!string.IsNullOrWhiteSpace(FirstName))

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Text;
-using System.Security.Cryptography;
+﻿using Microsoft.Web.Helpers;
+using Typeset.Web.Models.About;
 using Typeset.Web.Models.Common;
 using Typeset.Web.Models.Posts;
 
@@ -28,6 +24,64 @@ namespace System.Web.Mvc
                 formattedDate = dateTimeParsed.ToShortDateString();
             }
             return formattedDate;
+        }
+
+        public static HtmlString GenerateAbout(this HtmlHelper helper, AboutViewModel model)
+        {
+            var wrapperTag = new TagBuilder("section");
+            wrapperTag.AddCssClass("about");
+
+            if (!string.IsNullOrWhiteSpace(model.Email))
+            {
+                var sectionTag = new TagBuilder("section");
+                sectionTag.AddCssClass("avatar");
+                sectionTag.InnerHtml = Gravatar.GetHtml(model.Email, 75, null, GravatarRating.X, "jpg").ToString();
+                wrapperTag.InnerHtml += sectionTag.ToString();
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.FullName()))
+            {
+                var sectionTag = new TagBuilder("section");
+                sectionTag.AddCssClass("fullname");
+                sectionTag.InnerHtml = model.FullName();
+                wrapperTag.InnerHtml += sectionTag.ToString();
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Bio))
+            {
+                var sectionTag = new TagBuilder("section");
+                sectionTag.AddCssClass("bio");
+                sectionTag.InnerHtml = model.Bio;
+                wrapperTag.InnerHtml += sectionTag.ToString();
+            }
+
+            if (model.HasTwitterUsername())
+            {
+                var sectionTag = new TagBuilder("section");
+                sectionTag.AddCssClass("twitter");
+
+                var aTag = new TagBuilder("a");
+                aTag.Attributes.Add("href", model.TwitterUrl());
+                aTag.InnerHtml = "twitter";
+                
+                sectionTag.InnerHtml += aTag.ToString();
+                wrapperTag.InnerHtml += sectionTag.ToString();
+            }
+
+            if (model.HasGithubUsername())
+            {
+                var sectionTag = new TagBuilder("section");
+                sectionTag.AddCssClass("github");
+
+                var aTag = new TagBuilder("a");
+                aTag.Attributes.Add("href", model.GithubUrl());
+                aTag.InnerHtml = "github";
+
+                sectionTag.InnerHtml += aTag.ToString();
+                wrapperTag.InnerHtml += sectionTag.ToString();
+            }
+
+            return new HtmlString(wrapperTag.ToString());
         }
 
         public static HtmlString GeneratePagination(this HtmlHelper helper, PageOfPostsViewModel page)
