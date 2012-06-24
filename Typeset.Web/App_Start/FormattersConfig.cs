@@ -1,5 +1,7 @@
 ﻿using System.Web.Http;
 using System.Web.Http.Dependencies;
+using System.Net.Http.Formatting;
+using Typeset.Web.ViewResults;
 
 namespace Typeset.Web
 {

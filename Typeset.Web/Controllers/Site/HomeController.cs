@@ -7,6 +7,8 @@ using Typeset.Domain.Post;
 using Typeset.Web.Models.About;
 using Typeset.Web.Models.Home;
 using Typeset.Web.Models.Posts;
+using System.Text;
+using Typeset.Web.ViewResults;
 
 namespace Typeset.Web.Controllers.Site
 {
@@ -54,6 +56,22 @@ namespace Typeset.Web.Controllers.Site
             var homeViewModel = new HomeViewModel(aboutViewModel, pageOfPostViewModel);
 
             return View(homeViewModel);
+        }
+
+        public ActionResult Atom()
+        {
+            var aboutPath = HttpContext.Server.MapPath("~/App_Data/about.yml");
+            var about = AboutRepository.Read(aboutPath);
+            var aboutViewModel = new AboutViewModel(about);
+
+            var postsPath = HttpContext.Server.MapPath("~/App_Data/posts");
+            var postSearchCriteria = new PostSearchCriteria(10, 0, Domain.Common.Order.Descending, postsPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, string.Empty, true);
+            var pageOfPosts = PostRepository.Get(postSearchCriteria);
+            var pageOfPostsViewModel = new PageOfPostsViewModel(pageOfPosts, MarkupProcessorFactory);
+            
+            var homeViewModel = new HomeViewModel(aboutViewModel, pageOfPostsViewModel);
+
+            return new AtomViewResult(homeViewModel);
         }
     }
 }

@@ -156,9 +156,11 @@
     <Compile Include="Models\Posts\PostViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TinyIoC.cs" />
+    <Compile Include="ViewResults\AtomViewResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\content\css\bootstrap.min.css" />
+    <Content Include="App_Data\content\css\default.css" />
     <Content Include="App_Data\content\js\bootstrap.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -204,6 +206,7 @@
     <None Include="App_Data\posts\2012-06-18-Example-Textile-Post.textile" />
     <Content Include="Views\Post\Get.cshtml" />
     <None Include="App_Data\posts\2012-06-23-Example-Unpublished-Post.md" />
+    <Content Include="Views\Home\Atom.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

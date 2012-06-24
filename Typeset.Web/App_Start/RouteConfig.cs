@@ -24,6 +24,12 @@ namespace Typeset.Web
             );
 
             routes.MapRoute(
+                name: "Atom",
+                url: "atom.xml",
+                defaults: new { controller = "Home", action = "Atom" }
+            );
+
+            routes.MapRoute(
                 name: "Permalink",
                 url: "{*permalink}",
                 defaults: new { controller = "Post", action = "Get", permalink = UrlParameter.Optional }

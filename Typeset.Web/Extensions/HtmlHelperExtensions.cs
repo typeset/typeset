@@ -2,6 +2,7 @@
 using Typeset.Web.Models.About;
 using Typeset.Web.Models.Common;
 using Typeset.Web.Models.Posts;
+using System.Linq;
 
 namespace System.Web.Mvc
 {
@@ -55,30 +56,30 @@ namespace System.Web.Mvc
                 wrapperTag.InnerHtml += sectionTag.ToString();
             }
 
+            var sectionLinkTag = new TagBuilder("section");
+            sectionLinkTag.AddCssClass("links");
+
             if (model.HasTwitterUsername())
             {
-                var sectionTag = new TagBuilder("section");
-                sectionTag.AddCssClass("twitter");
-
                 var aTag = new TagBuilder("a");
+                aTag.AddCssClass("twitter");
                 aTag.Attributes.Add("href", model.TwitterUrl());
                 aTag.InnerHtml = "twitter";
-                
-                sectionTag.InnerHtml += aTag.ToString();
-                wrapperTag.InnerHtml += sectionTag.ToString();
+                sectionLinkTag.InnerHtml += aTag.ToString();
             }
 
             if (model.HasGithubUsername())
             {
-                var sectionTag = new TagBuilder("section");
-                sectionTag.AddCssClass("github");
-
                 var aTag = new TagBuilder("a");
+                aTag.AddCssClass("github");
                 aTag.Attributes.Add("href", model.GithubUrl());
                 aTag.InnerHtml = "github";
+                sectionLinkTag.InnerHtml += aTag.ToString();
+            }
 
-                sectionTag.InnerHtml += aTag.ToString();
-                wrapperTag.InnerHtml += sectionTag.ToString();
+            if (model.Links.Any())
+            {
+                wrapperTag.InnerHtml += sectionLinkTag.ToString();
             }
 
             return new HtmlString(wrapperTag.ToString());
