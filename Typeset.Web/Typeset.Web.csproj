@@ -128,6 +128,7 @@
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ControllerBuilderConfig.cs" />
+    <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="App_Start\FormattersConfig.cs" />
     <Compile Include="App_Start\ExceptionHandlingConfig.cs" />
     <Compile Include="App_Start\IocConfig.cs" />

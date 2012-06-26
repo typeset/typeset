@@ -18,6 +18,7 @@ namespace Typeset.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ViewEnginesConfig.RegisterViewEngines();
         }
 
         public override void Init()
