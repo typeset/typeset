@@ -41,7 +41,7 @@ namespace Typeset.Web.Controllers.Site
             MarkupProcessorFactory = markupProcessorFactory;
         }
 
-        public ActionResult Content(string url)
+        public ActionResult Get(string url)
         {
             try
             {

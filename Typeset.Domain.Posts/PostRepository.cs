@@ -57,7 +57,7 @@ namespace Typeset.Domain.Post
                 var content = ParseContent(fileText);
                 var contentType = ParseContentType(path);
                 
-                var permalink = ParsePermalink(yamlDocument);
+                var permalink = ParsePermalink(path, yamlDocument);
                 var tags = ParseTags(yamlDocument);
                 var published = ParsePublished(yamlDocument);
 
@@ -153,12 +153,15 @@ namespace Typeset.Domain.Post
             return title;
         }
 
-        protected virtual string ParsePermalink(YamlDocument yamlDocument)
+        protected virtual string ParsePermalink(string path, YamlDocument yamlDocument)
         {
             var permalink = string.Empty;
             
             try
             {
+                var filenameNoExtension = Path.GetFileNameWithoutExtension(path);
+                permalink = filenameNoExtension.Substring(11);
+
                 var yamlMapping = (YamlMappingNode)yamlDocument.RootNode;
                 if (yamlMapping.Children.ContainsKey(new YamlScalarNode("permalink")))
                 {

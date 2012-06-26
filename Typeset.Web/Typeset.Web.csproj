@@ -143,6 +143,7 @@
     <Compile Include="Controllers\Site\HomeController.cs" />
     <Compile Include="Controllers\Api\PostsController.cs" />
     <Compile Include="Controllers\DependencyResolvers\TinyIocDependencyResolver.cs" />
+    <Compile Include="Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -162,6 +163,9 @@
   <ItemGroup>
     <Content Include="App_Data\content\css\bootstrap.min.css" />
     <Content Include="App_Data\content\css\default.css" />
+    <Content Include="App_Data\content\images\github.png" />
+    <Content Include="App_Data\content\images\rss.png" />
+    <Content Include="App_Data\content\images\twitter.png" />
     <Content Include="App_Data\content\js\bootstrap.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -178,9 +182,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\content\images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -209,7 +211,7 @@
     <None Include="App_Data\posts\2012-06-18-Example-Textile-Post.textile" />
     <Content Include="Views\Post\Get.cshtml" />
     <None Include="App_Data\posts\2012-06-23-Example-Unpublished-Post.md" />
-    <Content Include="Views\Home\Atom.cshtml" />
+    <Content Include="Views\StaticFile\Atom.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -32,7 +32,7 @@ namespace Typeset.Web
             routes.MapRoute(
                 name: "Content",
                 url: "content/{*url}",
-                defaults: new { controller = "StaticFile", action = "Content", url = UrlParameter.Optional }
+                defaults: new { controller = "StaticFile", action = "Get", url = UrlParameter.Optional }
             );
 
             routes.MapRoute(

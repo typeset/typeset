@@ -1,10 +1,9 @@
 ﻿@model Typeset.Web.Models.Home.HomeViewModel
-@{ Layout = null; }
-<?xml version="1.0" encoding="utf-8"?>
+@{ Layout = null; }<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>@Model.About.FullName()</title>
- <link href="@Url.Content("/atom.xml")" rel="self"/>
- <link href="@Url.Content("~")"/>
+ <link href="@Url.Content("~/atom.xml", true)" rel="self"/>
+ <link href="@Url.Content("~/", true)"/>
  <updated>@string.Format("{0}-{1}-{2}T00:00:00-00:00", Model.Posts.Entities.First().Date.Year, Model.Posts.Entities.First().Date.Month, Model.Posts.Entities.First().Date.Day)</updated>
  <id>@Url.Content("~")</id>
  <author>
@@ -14,9 +13,9 @@
 {
     <entry>
         <title>@post.Title</title>
-        <link href="@post.Permalink"/>
+        <link href="@Url.Content(post.Permalink, true)"/>
         <updated>@string.Format("{0}-{1}-{2}T00:00:00-00:00", post.Date.Year, post.Date.Month, post.Date.Day)</updated>
-        <id>@post.Permalink</id>
+        <id>@Url.Content(post.Permalink, true)</id>
         <content type="html">@Html.Encode(post.HtmlContent)</content>
     </entry>
 }

@@ -19,9 +19,9 @@ namespace Typeset.Web.ViewResults
 
         public override void ExecuteResult(ControllerContext context)
         {
-            HttpContext.Current.Response.ContentType = "application/atom+xml";
             this.ViewData.Model = Model;
             base.ExecuteResult(context);
+            HttpContext.Current.Response.ContentType = "application/atom+xml";
         }
     }
 }
