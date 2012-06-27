@@ -87,3 +87,18 @@
 {
     float: right;
 }
+
+.content .pagination a
+{
+    border-left-width: 1px;
+}
+
+.content .pagination .next
+{
+    float: right;
+}
+
+.content .pagination .previous
+{
+    float: left;
+}

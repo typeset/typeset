@@ -8,6 +8,11 @@ namespace System.Web.Mvc
 {
     public static class HtmlHelperExtensions
     {
+        public static UrlHelper UrlHelper(this HtmlHelper helper)
+        {
+            return new UrlHelper(helper.ViewContext.RequestContext);
+        }
+
         public static HtmlString EmailLink(this HtmlHelper helper, string emailAddress, string text)
         {
             var tag = new TagBuilder("a");
@@ -79,7 +84,7 @@ namespace System.Web.Mvc
 
             var aRssTag = new TagBuilder("a");
             aRssTag.AddCssClass("rss");
-            aRssTag.Attributes.Add("href", UrlHelper.GenerateContentUrl("atom.xml", helper.ViewContext.HttpContext));
+            aRssTag.Attributes.Add("href", helper.UrlHelper().RouteUrl(routeName: "Atom"));
             aRssTag.InnerHtml = "rss";
             sectionLinkTag.InnerHtml += aRssTag.ToString();
 
@@ -104,15 +109,32 @@ namespace System.Web.Mvc
 
             if (hasNext)
             {
+                var limit = page.SearchCriteria.Limit;
+                var offset = page.SearchCriteria.Offset + page.SearchCriteria.Limit;
+
+                var aTag = new TagBuilder("a");
+                aTag.InnerHtml = string.Format("next {0}", numNext);
+                aTag.Attributes.Add("href", helper.UrlHelper().RouteUrl("Home", new { limit = limit, offset = offset }));
+
                 var liTag = new TagBuilder("li");
-                liTag.InnerHtml = string.Format("next {0}", numNext);
+                liTag.AddCssClass("next");
+                liTag.InnerHtml += aTag.ToString();
                 olTag.InnerHtml += liTag.ToString();
             }
 
             if (hasPrevious)
             {
+                var limit = page.SearchCriteria.Limit;
+                var offset = page.SearchCriteria.Offset - page.SearchCriteria.Limit;
+                offset = offset < 0 ? 0 : offset;
+
+                var aTag = new TagBuilder("a");
+                aTag.InnerHtml = string.Format("previous {0}", numPrevious);
+                aTag.Attributes.Add("href", helper.UrlHelper().RouteUrl("Home", new { limit = limit, offset = offset }));
+
                 var liTag = new TagBuilder("li");
-                liTag.InnerHtml = string.Format("previous {0}", numPrevious);
+                liTag.AddCssClass("previous");
+                liTag.InnerHtml += aTag.ToString();
                 olTag.InnerHtml += liTag.ToString();
             }
 
