@@ -47,16 +47,9 @@ namespace Typeset.Domain.About
                 if (mapping.Children.ContainsKey(new YamlScalarNode("usernames")))
                 {
                     var nameNode = (YamlMappingNode)mapping.Children[new YamlScalarNode("usernames")];
-                    if (nameNode.Children.ContainsKey(new YamlScalarNode("twitter")))
+                    foreach (var key in nameNode.Children.Keys)
                     {
-                        var username = nameNode.Children[new YamlScalarNode("twitter")].ToString();
-                        entity.Usernames.Add("twitter", username);
-                    }
-
-                    if (nameNode.Children.ContainsKey(new YamlScalarNode("github")))
-                    {
-                        var username = nameNode.Children[new YamlScalarNode("github")].ToString();
-                        entity.Usernames.Add("github", username);
+                        entity.Usernames.Add(key.ToString(), nameNode.Children[key].ToString());
                     }
                 }
 

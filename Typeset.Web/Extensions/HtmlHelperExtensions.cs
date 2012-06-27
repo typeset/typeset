@@ -64,21 +64,12 @@ namespace System.Web.Mvc
             var sectionLinkTag = new TagBuilder("section");
             sectionLinkTag.AddCssClass("links");
 
-            if (model.HasTwitterUsername())
+            foreach (var username in model.Usernames)
             {
                 var aTag = new TagBuilder("a");
-                aTag.AddCssClass("twitter");
-                aTag.Attributes.Add("href", model.TwitterUrl());
-                aTag.InnerHtml = "twitter";
-                sectionLinkTag.InnerHtml += aTag.ToString();
-            }
-
-            if (model.HasGithubUsername())
-            {
-                var aTag = new TagBuilder("a");
-                aTag.AddCssClass("github");
-                aTag.Attributes.Add("href", model.GithubUrl());
-                aTag.InnerHtml = "github";
+                aTag.AddCssClass(username.Key);
+                aTag.Attributes.Add("href", username.Value);
+                aTag.InnerHtml = username.Key;
                 sectionLinkTag.InnerHtml += aTag.ToString();
             }
 

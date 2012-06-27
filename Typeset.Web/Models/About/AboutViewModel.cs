@@ -40,30 +40,5 @@ namespace Typeset.Web.Models.About
             }
             return stringBuilder.ToString();
         }
-
-        public bool HasUsername(string service)
-        {
-            return !string.IsNullOrWhiteSpace(service) && Usernames.ContainsKey(service) && !string.IsNullOrWhiteSpace(Usernames[service]);
-        }
-
-        public bool HasGithubUsername()
-        {
-            return HasUsername("github");
-        }
-
-        public string GithubUrl()
-        {
-            return HasUsername("github") ? string.Format("https://github.com/{0}", Usernames["github"]) : "https://github.com";
-        }
-
-        public bool HasTwitterUsername()
-        {
-            return HasUsername("twitter");
-        }
-
-        public string TwitterUrl()
-        {
-            return HasUsername("twitter") ? string.Format("https://twitter.com/{0}", Usernames["twitter"]) : "https://twitter.com";
-        }
     }
 }
