@@ -16,7 +16,7 @@
         <link href="@Url.Content(post.Permalink, true)"/>
         <updated>@string.Format("{0}-{1}-{2}T00:00:00-00:00", post.Date.Year, post.Date.Month, post.Date.Day)</updated>
         <id>@Url.Content(post.Permalink, true)</id>
-        <content type="html">@Html.Encode(post.HtmlContent)</content>
+        <content type="html">@post.HtmlContent</content>
     </entry>
 }
 </feed>

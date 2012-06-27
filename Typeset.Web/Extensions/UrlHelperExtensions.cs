@@ -13,7 +13,7 @@ namespace System.Web.Mvc
             else
             {
                 var request = helper.RequestContext.HttpContext.Request;
-                return string.Format("{0}://{1}/{2}", request.Url.Scheme, request.Url.Authority, helper.Content(contentPath));
+                return string.Format("{0}://{1}/{2}", request.Url.Scheme, request.Url.Authority, helper.Content(contentPath).TrimStart('/'));
             }
         }
     }
