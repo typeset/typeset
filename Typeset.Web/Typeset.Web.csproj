@@ -150,6 +150,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\About\AboutViewModel.cs" />
+    <Compile Include="Models\Configuration\ConfigurationViewModel.cs" />
     <Compile Include="Models\Home\HomeViewModel.cs" />
     <Compile Include="Models\Posts\PageOfPostViewModel.cs" />
     <Compile Include="Models\Posts\PageOfPostsViewModel.cs" />
@@ -196,6 +197,10 @@
       <Project>{6AAFE0E8-1FCD-452B-AD80-B603730BF06E}</Project>
       <Name>Typeset.Domain.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Typeset.Domain.Configuration\Typeset.Domain.Configuration.csproj">
+      <Project>{6DC3BCEB-89E2-4127-AECE-5AA887A471A6}</Project>
+      <Name>Typeset.Domain.Configuration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Typeset.Domain.Markup\Typeset.Domain.Markup.csproj">
       <Project>{296DE20C-5F17-4509-9F81-0AE2031F3B8F}</Project>
       <Name>Typeset.Domain.Markup</Name>
@@ -207,6 +212,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Data\about.yml" />
+    <None Include="App_Data\config.yml" />
     <None Include="App_Data\posts\2012-06-19-Example-Markdown-Post.md" />
     <None Include="App_Data\posts\2512-07-05-Example-Future-Post.md" />
     <None Include="App_Data\posts\2012-06-18-Example-Textile-Post.textile" />

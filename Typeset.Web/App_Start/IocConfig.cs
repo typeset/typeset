@@ -1,13 +1,13 @@
-﻿using System.Configuration;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using TinyIoC;
+using Typeset.Domain.About;
+using Typeset.Domain.Configuration;
+using Typeset.Domain.Markup;
 using Typeset.Domain.Post;
 using Typeset.Web.Controllers.Api;
 using Typeset.Web.Controllers.DependencyResolvers;
 using Typeset.Web.Controllers.Factories;
 using Typeset.Web.Controllers.Site;
-using Typeset.Domain.About;
-using Typeset.Domain.Markup;
 
 namespace Typeset.Web
 {
@@ -24,6 +24,7 @@ namespace Typeset.Web
             container.Register<IControllerFactory, TinyIocControllerFactory>();
 
             //Domain
+            container.Register<IConfigurationRepository, ConfigurationRepository>();
             container.Register<IAboutRepository, AboutRepository>();
             container.Register<IPostRepository, PostRepository>();
             container.Register<IMarkupProcessorFactory, ProcessorFactory>();

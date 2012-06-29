@@ -23,6 +23,7 @@
     margin: 0.5em;
     font-weight: bold;
     text-transform: uppercase;
+    text-align: center;
     font-size: 1.5em;
     line-height: 1em;
 }
@@ -83,9 +84,15 @@
     border-bottom: 1px solid #eee;
 }
 
-.content .posts .post .date
+.content .posts .post .comments
 {
     float: right;
+    padding-right: 1em;
+}
+
+.content .posts .post .date
+{
+    padding-right: 1em;
 }
 
 .content .pagination a
@@ -101,4 +108,9 @@
 .content .pagination .previous
 {
     float: left;
+}
+
+.content .post
+{
+    padding-top: 1em;
 }

@@ -6,9 +6,11 @@
     </div>
     <section class="content span8">
         <section class="post">
-            <h1>@Model.Post.Title</h1>
-            <h2>@Model.Post.Date</h2>
             @Html.Raw(Model.Post.HtmlContent)
+        </section>
+        <hr />
+        <section class="comments">
+            @Html.GenerateDisqusComments(Model.Configuration)
         </section>
     </section>
 </section>
