@@ -145,24 +145,27 @@ namespace System.Web.Mvc
             return new HtmlString(sectionTag.ToString());
         }
 
-        public static HtmlString GenerateComments(this HtmlHelper helper, ConfigurationViewModel viewModel)
+        public static HtmlString GenerateComments(this HtmlHelper helper, PostViewModel postViewModel, ConfigurationViewModel configViewModel)
         {
             var html = string.Empty;
-            if (!string.IsNullOrWhiteSpace(viewModel.DisqusShortname))
+            if (!string.IsNullOrWhiteSpace(configViewModel.DisqusShortname))
             {
-                html += "<div id=\"disqus_thread\"></div><script type=\"text/javascript\">var disqus_shortname = '" + viewModel.DisqusShortname + "';(function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=\"http://disqus.com/?ref_noscript\">comments powered by Disqus.</a></noscript><a href=\"http://disqus.com\" class=\"dsq-brlink\">comments powered by <span class=\"logo-disqus\">Disqus</span></a>";
+                var disqus_identifier = postViewModel.Permalink;
+                var disqus_url = helper.UrlHelper().Content(postViewModel.Permalink, true);
+                html += "<div id=\"disqus_thread\"></div><script type=\"text/javascript\">var disqus_identifier= '" + disqus_identifier + "';var disqus_url= '" + disqus_url + "';var disqus_shortname = '" + configViewModel.DisqusShortname + "';(function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=\"http://disqus.com/?ref_noscript\">comments powered by Disqus.</a></noscript><a href=\"http://disqus.com\" class=\"dsq-brlink\">comments powered by <span class=\"logo-disqus\">Disqus</span></a>";
             }
             return new HtmlString(html);
         }
 
-        public static HtmlString GenerateCommentsCount(this HtmlHelper helper, ConfigurationViewModel viewModel, string posturl)
+        public static HtmlString GenerateCommentsCount(this HtmlHelper helper, PostViewModel postViewModel, ConfigurationViewModel viewModel)
         {
             var html = string.Empty;
             if (!string.IsNullOrWhiteSpace(viewModel.DisqusShortname))
             {
+                var disqus_identifier = postViewModel.Permalink;
                 var aTag = new TagBuilder("a");
-                aTag.AddCssClass("comments");
-                aTag.Attributes.Add("href", string.Format("{0}#disqus_thread", posturl));
+                aTag.Attributes.Add("data-disqus-identifier", disqus_identifier);
+                aTag.Attributes.Add("href", string.Format("{0}#disqus_thread", postViewModel.Permalink));
                 html = aTag.ToString();
             }
             return new HtmlString(html);

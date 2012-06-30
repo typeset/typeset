@@ -1,4 +1,5 @@
 ﻿@model Typeset.Web.Models.Home.HomeViewModel
+@{ ViewBag.Title = Model.About.FullName(); }
 
 <section class="row-fluid">
     <div class="span2">
@@ -11,8 +12,8 @@
             {
                 <li class="post">
                     <span class="date">@Html.FormatDate(post.Date)</span>
-                    <a href="@post.Permalink"><span class="title">@post.Title</span></a>
-                    @Html.GenerateCommentsCount(Model.Configuration, post.Permalink)
+                    <span class="title"><a href="@post.Permalink">@post.Title</a></span>
+                    <span class="comments">@Html.GenerateCommentsCount(post, Model.Configuration)</span>
                 </li>
             }
             @if (Model.Posts.Count.Equals(0))

@@ -1,3 +1,8 @@
+.content
+{
+    padding: 1em 0em;
+}
+
 .about
 {
     margin-top: 1em;
@@ -110,7 +115,22 @@
     float: left;
 }
 
-.content .post
+.content > .post .title
 {
-    padding-top: 1em;
+    border-bottom: 1px solid #eee;
+}
+
+.content > .post .date
+{
+    color: #888;
+}
+
+.content > .post .body
+{
+    margin: 1.5em 0 2em 0;
+}
+
+.content > .post .comments
+{
+    border-top: 1px solid #eee;
 }
