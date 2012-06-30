@@ -59,7 +59,18 @@ namespace Typeset.Web.Controllers.Site
                 var contentType = "application/octet-stream";
                 try
                 {
-                    if(url.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
+                    if (url.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                        url.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
+                    {
+                        contentType = "image/jpg";
+                    }
+
+                    if(url.EndsWith(".gif", StringComparison.OrdinalIgnoreCase))
+                    {
+                        contentType = "image/gif";
+                    }
+
+                    if (url.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
                     {
                         contentType = "image/png";
                     }
