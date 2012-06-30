@@ -56,7 +56,17 @@ namespace Typeset.Web.Controllers.Site
             try
             {
                 var fileStream = System.IO.File.OpenRead(HttpContext.Server.MapPath(string.Format("~/App_Data/content/{0}", url)));
-                return File(fileStream, "application/octet-stream");
+                var contentType = "application/octet-stream";
+                try
+                {
+                    if(url.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
+                    {
+                        contentType = "image/png";
+                    }
+                }
+                catch { }
+
+                return File(fileStream, contentType);
             }
             catch
             {
