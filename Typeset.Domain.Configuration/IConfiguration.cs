@@ -7,7 +7,6 @@ namespace Typeset.Domain.Configuration
 {
     public interface IConfiguration
     {
-        bool DisqusDeveloperMode { get; }
         string DisqusShortname { get; }
     }
 }

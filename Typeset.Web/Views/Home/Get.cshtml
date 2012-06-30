@@ -12,7 +12,7 @@
                 <li class="post">
                     <span class="date">@Html.FormatDate(post.Date)</span>
                     <a href="@post.Permalink"><span class="title">@post.Title</span></a>
-                    @Html.GenerateDisqusCommentsCount(post.Permalink)
+                    @Html.GenerateCommentsCount(Model.Configuration, post.Permalink)
                 </li>
             }
             @if (Model.Posts.Count.Equals(0))
@@ -24,4 +24,3 @@
         @Html.GeneratePagination(Model.Posts)
     </section>
 </section>
-@Html.GenerateDisqusCommentsCountJavaScript(Model.Configuration)

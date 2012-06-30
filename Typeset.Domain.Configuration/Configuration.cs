@@ -7,7 +7,6 @@ namespace Typeset.Domain.Configuration
 {
     internal class Configuration : IConfiguration
     {
-        public bool DisqusDeveloperMode { get; set; }
         public string DisqusShortname { get; set; }
     }
 }

@@ -27,11 +27,6 @@ namespace Typeset.Domain.Configuration
                     {
                         entity.DisqusShortname = nameNode.Children[new YamlScalarNode("shortname")].ToString();
                     }
-
-                    if (nameNode.Children.ContainsKey(new YamlScalarNode("developermode")))
-                    {
-                        entity.DisqusDeveloperMode = nameNode.Children[new YamlScalarNode("developermode")].ToString().Equals(bool.TrueString, System.StringComparison.OrdinalIgnoreCase);
-                    }
                 }
             }
             catch
