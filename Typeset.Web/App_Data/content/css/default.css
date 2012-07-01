@@ -125,8 +125,3 @@ body > .row-fluid > header .about .links .rss
 {
     margin: 1.5em 0 2em 0;
 }
-
-#content > .post .comments
-{
-    border-top: 1px solid #eee;
-}
