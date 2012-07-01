@@ -174,7 +174,7 @@
     <Content Include="App_Data\content\js\default\bootstrap.min.js" />
     <Content Include="App_Data\content\js\default\default.js" />
     <Content Include="App_Data\content\js\base\jquery-1.7.2.min.js" />
-    <Content Include="favicon.ico" />
+    <Content Include="App_Data\content\images\favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

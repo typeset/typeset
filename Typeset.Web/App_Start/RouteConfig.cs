@@ -30,6 +30,12 @@ namespace Typeset.Web
             );
 
             routes.MapRoute(
+                name: "Favicon",
+                url: "favicon.ico",
+                defaults: new { controller = "StaticFile", action = "Get", url = "/content/images/favicon.ico" }
+            );
+
+            routes.MapRoute(
                 name: "Content",
                 url: "content/{*url}",
                 defaults: new { controller = "StaticFile", action = "Get", url = UrlParameter.Optional }

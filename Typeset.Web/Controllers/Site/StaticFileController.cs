@@ -75,6 +75,11 @@ namespace Typeset.Web.Controllers.Site
                         contentType = "image/png";
                     }
 
+                    if (url.EndsWith(".ico", StringComparison.OrdinalIgnoreCase))
+                    {
+                        contentType = "image/x-icon";
+                    }
+
                     if (url.EndsWith(".css", StringComparison.OrdinalIgnoreCase))
                     {
                         contentType = "text/css";
