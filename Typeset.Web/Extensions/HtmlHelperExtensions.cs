@@ -168,19 +168,5 @@ namespace System.Web.Mvc
             }
             return new HtmlString(html);
         }
-
-        public static HtmlString GenerateCommentsCount(this HtmlHelper helper, PostViewModel postViewModel, ConfigurationViewModel viewModel)
-        {
-            var html = string.Empty;
-            if (!string.IsNullOrWhiteSpace(viewModel.DisqusShortname))
-            {
-                var disqus_identifier = postViewModel.Permalink;
-                var aTag = new TagBuilder("a");
-                aTag.Attributes.Add("data-disqus-identifier", disqus_identifier);
-                aTag.Attributes.Add("href", string.Format("{0}#disqus_thread", postViewModel.Permalink));
-                html = aTag.ToString();
-            }
-            return new HtmlString(html);
-        }
     }
 }

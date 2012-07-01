@@ -1,13 +1,11 @@
+
+/****Footer****/
 footer
 {
     text-align: center;
 }
 
-.content
-{
-    padding: 1em 0em;
-}
-
+/****About****/
 .about
 {
     margin-top: 1em;
@@ -83,59 +81,51 @@ footer
     display: inline-block;
 }
 
-.content .posts ul li.post
+/****Content****/
+#content
 {
-    list-style: none;
+    padding: 1em 0em;
 }
 
-.content .posts .post
+/****Home****/
+#content .posts .post
 {
     padding: 1em 0em;
     border-bottom: 1px solid #eee;
 }
 
-.content .posts .post .comments
-{
-    float: right;
-    padding-right: 1em;
-}
-
-.content .posts .post .date
-{
-    padding-right: 1em;
-}
-
-.content .pagination a
+#content .pagination a
 {
     border-left-width: 1px;
 }
 
-.content .pagination .next
+#content .pagination .next
 {
     float: right;
 }
 
-.content .pagination .previous
+#content .pagination .previous
 {
     float: left;
 }
 
-.content > .post .title
+/****Post****/
+#content > .post .title
 {
     border-bottom: 1px solid #eee;
 }
 
-.content > .post .date
+#content > .post .pubdate
 {
     color: #888;
 }
 
-.content > .post .body
+#content > .post .body
 {
     margin: 1.5em 0 2em 0;
 }
 
-.content > .post .comments
+#content > .post .comments
 {
     border-top: 1px solid #eee;
 }
