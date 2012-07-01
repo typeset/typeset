@@ -4,8 +4,11 @@ namespace Typeset.Web.Models.Configuration
 {
     public class ConfigurationViewModel
     {
+        public string DateFormat { get; set; }
+
         public ConfigurationViewModel(IConfiguration entity)
         {
+            DateFormat = entity.DateFormat;
         }
     }
 }

@@ -7,5 +7,11 @@ namespace Typeset.Domain.Configuration
 {
     internal class Configuration : IConfiguration
     {
+        public string DateFormat { get; set; }
+
+        public Configuration()
+        {
+            DateFormat = "MM-dd-yyyy";
+        }
     }
 }

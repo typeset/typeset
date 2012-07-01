@@ -19,6 +19,10 @@ namespace Typeset.Domain.Configuration
                     yamlStream.Load(stringReader);
                 }
                 var mapping = (YamlMappingNode)yamlStream.Documents[0].RootNode;
+                if (mapping.Children.ContainsKey(new YamlScalarNode("dateformat")))
+                {
+                    entity.DateFormat = mapping.Children[new YamlScalarNode("dateformat")].ToString();
+                }
             }
             catch
             {

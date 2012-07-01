@@ -7,5 +7,6 @@ namespace Typeset.Domain.Configuration
 {
     public interface IConfiguration
     {
+        string DateFormat { get; }
     }
 }

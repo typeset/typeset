@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Web.Helpers;
 using Typeset.Web.Models.About;
 using Typeset.Web.Models.Common;
+using Typeset.Web.Models.Configuration;
 using Typeset.Web.Models.Posts;
 
 namespace System.Web.Mvc
@@ -22,13 +23,25 @@ namespace System.Web.Mvc
             return new HtmlString(tag.ToString());
         }
 
-        public static string FormatDate(this HtmlHelper helper, DateViewModel date)
+        public static string MarkupDate(this HtmlHelper helper, DateViewModel date)
         {
-            var formattedDate = string.Format("{0}-{1}-{2}", date.Month, date.Day, date.Year);
+            return string.Format("{0}-{1}-{2}", date.Year, date.Month.ToString("00"), date.Day.ToString("00"));
+        }
+
+        public static string FormatDate(this HtmlHelper helper, ConfigurationViewModel configViewModel, DateViewModel date)
+        {
+            var formattedDate = string.Empty;
             DateTime dateTimeParsed;
-            if(DateTime.TryParse(formattedDate, out dateTimeParsed))
+            if (DateTime.TryParse(string.Format("{0}-{1}-{2}", date.Month, date.Day, date.Year), out dateTimeParsed))
             {
-                formattedDate = dateTimeParsed.ToShortDateString();
+                try
+                {
+                    formattedDate = dateTimeParsed.ToString(configViewModel.DateFormat);
+                }
+                catch
+                {
+                    formattedDate = dateTimeParsed.ToShortDateString();
+                }
             }
             return formattedDate;
         }
