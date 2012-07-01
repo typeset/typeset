@@ -1,1 +1,4 @@
 dateformat: dddd, MMMM dd, yyyy
+syndication:
+ title: example blog
+ author: firstname lastname

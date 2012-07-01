@@ -1,13 +1,13 @@
 ﻿@model Typeset.Web.Models.Home.HomeViewModel
 @{ Layout = null; }<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
- <title>@Model.About.FullName()</title>
+ <title>@Model.Configuration.SyndicationTitle</title>
  <link href="@Url.Content("~/atom.xml", true)" rel="self"/>
  <link href="@Url.Content("~/", true)"/>
  <updated>@string.Format("{0}-{1}-{2}T00:00:00-00:00", Model.Posts.Entities.First().Date.Year, Model.Posts.Entities.First().Date.Month, Model.Posts.Entities.First().Date.Day)</updated>
  <id>@Url.Content("~")</id>
  <author>
-   <name>@Model.About.FullName()</name>
+   <name>@Model.Configuration.SyndicationAuthor</name>
  </author>
 @foreach (var post in Model.Posts.Entities)
 {

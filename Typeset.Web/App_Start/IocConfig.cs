@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using TinyIoC;
-using Typeset.Domain.About;
 using Typeset.Domain.Configuration;
 using Typeset.Domain.Markup;
 using Typeset.Domain.Post;
@@ -25,7 +24,6 @@ namespace Typeset.Web
 
             //Domain
             container.Register<IConfigurationRepository, ConfigurationRepository>();
-            container.Register<IAboutRepository, AboutRepository>();
             container.Register<IPostRepository, PostRepository>();
             container.Register<IMarkupProcessorFactory, ProcessorFactory>();
             

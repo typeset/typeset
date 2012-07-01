@@ -23,6 +23,20 @@ namespace Typeset.Domain.Configuration
                 {
                     entity.DateFormat = mapping.Children[new YamlScalarNode("dateformat")].ToString();
                 }
+
+                if (mapping.Children.ContainsKey(new YamlScalarNode("syndication")))
+                {
+                    var nameNode = (YamlMappingNode)mapping.Children[new YamlScalarNode("syndication")];
+                    if (nameNode.Children.ContainsKey(new YamlScalarNode("title")))
+                    {
+                        entity.SyndicationTitle = nameNode.Children[new YamlScalarNode("title")].ToString();
+                    }
+
+                    if (nameNode.Children.ContainsKey(new YamlScalarNode("author")))
+                    {
+                        entity.SyndicationAuthor = nameNode.Children[new YamlScalarNode("author")].ToString();
+                    }
+                }
             }
             catch
             {

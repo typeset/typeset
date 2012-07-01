@@ -1,5 +1,5 @@
 ﻿@model Typeset.Web.Models.Home.HomeViewModel
-@{ ViewBag.Title = Model.About.FullName(); }
+@{ ViewBag.Title = Model.Configuration.SyndicationTitle; }
 
 <section class="posts">
     @foreach (var post in Model.Posts.Entities)

@@ -8,5 +8,7 @@ namespace Typeset.Domain.Configuration
     public interface IConfiguration
     {
         string DateFormat { get; }
+        string SyndicationAuthor { get; }
+        string SyndicationTitle { get; }
     }
 }

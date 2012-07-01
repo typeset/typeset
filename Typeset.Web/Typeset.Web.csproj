@@ -133,7 +133,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Api\BaseApiController.cs" />
-    <Compile Include="Controllers\Api\AboutController.cs" />
     <Compile Include="Controllers\Factories\TinyIocControllerFactory.cs" />
     <Compile Include="Controllers\Site\BaseController.cs" />
     <Compile Include="Controllers\Site\StaticFileController.cs" />
@@ -146,7 +145,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\About\AboutViewModel.cs" />
     <Compile Include="Models\Configuration\ConfigurationViewModel.cs" />
     <Compile Include="Models\Home\HomeViewModel.cs" />
     <Compile Include="Models\Posts\PageOfPostViewModel.cs" />
@@ -192,10 +190,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Typeset.Domain.About\Typeset.Domain.About.csproj">
-      <Project>{FFC0B956-1F98-4251-8CA9-22E262BBE5AE}</Project>
-      <Name>Typeset.Domain.About</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Typeset.Domain.Common\Typeset.Domain.Common.csproj">
       <Project>{6AAFE0E8-1FCD-452B-AD80-B603730BF06E}</Project>
       <Name>Typeset.Domain.Common</Name>
@@ -214,7 +208,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Data\about.yml" />
     <None Include="App_Data\config.yml" />
     <None Include="App_Data\posts\2012-06-19-Example-Markdown-Post.md" />
     <None Include="App_Data\posts\2512-07-05-Example-Future-Post.md" />
