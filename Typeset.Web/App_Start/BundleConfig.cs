@@ -12,7 +12,6 @@ namespace Typeset.Web
             bundles.Add(cssBundle);
 
             var jsBundle = new Bundle("~/scripts/all", new JsMinify());
-            jsBundle.IncludeDirectory("~/App_Data/content/js", "*jquery*.js", true);
             jsBundle.IncludeDirectory("~/App_Data/content/js", "*.js", true);
             bundles.Add(jsBundle);
             

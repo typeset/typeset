@@ -1,27 +1,21 @@
 ﻿@model Typeset.Web.Models.Home.HomeViewModel
 @{ ViewBag.Title = Model.About.FullName(); }
 
-<section class="row-fluid">
-    <div class="span2">
-        @Html.GenerateAbout(Model.About)
-    </div>
-    <section class="content span8">
-        <section class="posts">
-            <ul>
-            @foreach (var post in Model.Posts.Entities)
-            {
-                <li class="post">
-                    <span class="date">@Html.FormatDate(post.Date)</span>
-                    <span class="title"><a href="@post.Permalink">@post.Title</a></span>
-                    <span class="comments">@Html.GenerateCommentsCount(post, Model.Configuration)</span>
-                </li>
-            }
-            @if (Model.Posts.Count.Equals(0))
-            {
-                <li>No results</li>
-            }
-            </ul>
-        </section>
-        @Html.GeneratePagination(Model.Posts)
-    </section>
+@Html.GenerateAbout(Model.About)
+<section class="posts">
+    <ul>
+    @foreach (var post in Model.Posts.Entities)
+    {
+        <li class="post">
+            <span class="date">@Html.FormatDate(post.Date)</span>
+            <span class="title"><a href="@post.Permalink">@post.Title</a></span>
+            <span class="comments">@Html.GenerateCommentsCount(post, Model.Configuration)</span>
+        </li>
+    }
+    @if (Model.Posts.Count.Equals(0))
+    {
+        <li>No results</li>
+    }
+    </ul>
 </section>
+@Html.GeneratePagination(Model.Posts)

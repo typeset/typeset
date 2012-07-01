@@ -1,20 +1,14 @@
 ﻿@model Typeset.Web.Models.Posts.PageOfPostViewModel
 @{ ViewBag.Title = Model.Post.Title; }
 
-<section class="row-fluid">
-    <div class="span2">
-        @Html.GenerateAbout(Model.About)
-    </div>
-    <section class="content span8">
-        <section class="post">
-            <h1 class="title">@Model.Post.Title</h1>
-            <h2 class="date">@Model.Post.Date</h2>
-            <section class="body">
-                @Html.Raw(Model.Post.HtmlContent)
-            </section>
-            <section class="comments">
-                @Html.GenerateComments(Model.Post, Model.Configuration)
-            </section>
-        </section>
+@Html.GenerateAbout(Model.About)
+<section class="post">
+    <h1 class="title">@Model.Post.Title</h1>
+    <h2 class="date">@Model.Post.Date</h2>
+    <section class="body">
+        @Html.Raw(Model.Post.HtmlContent)
+    </section>
+    <section class="comments">
+        @Html.GenerateComments(Model.Post, Model.Configuration)
     </section>
 </section>

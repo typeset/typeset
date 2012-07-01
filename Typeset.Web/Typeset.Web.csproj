@@ -168,9 +168,11 @@
     <Content Include="App_Data\content\images\github.png" />
     <Content Include="App_Data\content\images\rss.png" />
     <Content Include="App_Data\content\images\twitter.png" />
-    <Content Include="App_Data\content\js\bootstrap.min.js" />
-    <Content Include="App_Data\content\js\disqus.js" />
-    <Content Include="App_Data\content\js\jquery.1.7.2.min.js" />
+    <Content Include="App_Data\content\js\base\jquery-1.7.2-vsdoc.js" />
+    <Content Include="App_Data\content\js\default\bootstrap.min.js" />
+    <Content Include="App_Data\content\js\default\default.js" />
+    <Content Include="App_Data\content\js\base\disqus.js" />
+    <Content Include="App_Data\content\js\base\jquery-1.7.2.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
