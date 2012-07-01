@@ -4,6 +4,7 @@ using Typeset.Web.Models.About;
 using Typeset.Web.Models.Common;
 using Typeset.Web.Models.Configuration;
 using Typeset.Web.Models.Posts;
+using System.IO;
 
 namespace System.Web.Mvc
 {
@@ -31,6 +32,17 @@ namespace System.Web.Mvc
                 formattedDate = dateTimeParsed.ToShortDateString();
             }
             return formattedDate;
+        }
+
+        public static HtmlString GenerateFooter(this HtmlHelper helper)
+        {
+            var html = string.Empty;
+            var path = helper.ViewContext.HttpContext.Server.MapPath("~/App_Data/content/html/footer.html");
+            if (File.Exists(path))
+            {
+                html = File.ReadAllText(path);
+            }
+            return new HtmlString(html);
         }
 
         public static HtmlString GenerateAbout(this HtmlHelper helper, AboutViewModel model)

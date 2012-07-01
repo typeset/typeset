@@ -2,6 +2,7 @@
 $(document).ready(function () {
     //Apply twitter Bootstrap classes
     $('body').addClass('container');
+    $('footer').addClass('row-fluid span12');
     $('section.content').addClass('row-fluid');
     $('section.about').addClass('span2');
     $('section.posts').addClass('span8');

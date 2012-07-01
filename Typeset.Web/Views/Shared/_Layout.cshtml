@@ -10,6 +10,9 @@
     <section class="content">
         @RenderBody()
     </section>
+    <footer>
+        @Html.GenerateFooter()
+    </footer>
     @Scripts.Render("~/scripts/all")
     @RenderSection("scripts", false)
 </body>
