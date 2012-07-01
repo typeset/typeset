@@ -165,6 +165,7 @@
   <ItemGroup>
     <Content Include="App_Data\content\css\bootstrap.min.css" />
     <Content Include="App_Data\content\css\default.css" />
+    <Content Include="App_Data\content\html\comments.html" />
     <Content Include="App_Data\content\html\footer.html" />
     <Content Include="App_Data\content\images\github.png" />
     <Content Include="App_Data\content\images\rss.png" />
@@ -172,7 +173,6 @@
     <Content Include="App_Data\content\js\base\jquery-1.7.2-vsdoc.js" />
     <Content Include="App_Data\content\js\default\bootstrap.min.js" />
     <Content Include="App_Data\content\js\default\default.js" />
-    <Content Include="App_Data\content\js\base\disqus.js" />
     <Content Include="App_Data\content\js\base\jquery-1.7.2.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

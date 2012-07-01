@@ -7,6 +7,5 @@ namespace Typeset.Domain.Configuration
 {
     internal class Configuration : IConfiguration
     {
-        public string DisqusShortname { get; set; }
     }
 }

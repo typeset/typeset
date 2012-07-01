@@ -1,10 +1,9 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using Microsoft.Web.Helpers;
 using Typeset.Web.Models.About;
 using Typeset.Web.Models.Common;
-using Typeset.Web.Models.Configuration;
 using Typeset.Web.Models.Posts;
-using System.IO;
 
 namespace System.Web.Mvc
 {
@@ -157,14 +156,13 @@ namespace System.Web.Mvc
             return new HtmlString(sectionTag.ToString());
         }
 
-        public static HtmlString GenerateComments(this HtmlHelper helper, PostViewModel postViewModel, ConfigurationViewModel configViewModel)
+        public static HtmlString GenerateComments(this HtmlHelper helper)
         {
             var html = string.Empty;
-            if (!string.IsNullOrWhiteSpace(configViewModel.DisqusShortname))
+            var path = helper.ViewContext.HttpContext.Server.MapPath("~/App_Data/content/html/comments.html");
+            if (File.Exists(path))
             {
-                var disqus_identifier = postViewModel.Permalink;
-                var disqus_url = helper.UrlHelper().Content(postViewModel.Permalink, true);
-                html += "<div id=\"disqus_thread\"></div><script type=\"text/javascript\">var disqus_identifier= '" + disqus_identifier + "';var disqus_url= '" + disqus_url + "';var disqus_shortname = '" + configViewModel.DisqusShortname + "';(function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=\"http://disqus.com/?ref_noscript\">comments powered by Disqus.</a></noscript><a href=\"http://disqus.com\" class=\"dsq-brlink\">comments powered by <span class=\"logo-disqus\">Disqus</span></a>";
+                html = File.ReadAllText(path);
             }
             return new HtmlString(html);
         }

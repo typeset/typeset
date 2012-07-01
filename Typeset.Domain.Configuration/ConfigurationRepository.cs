@@ -19,15 +19,6 @@ namespace Typeset.Domain.Configuration
                     yamlStream.Load(stringReader);
                 }
                 var mapping = (YamlMappingNode)yamlStream.Documents[0].RootNode;
-
-                if (mapping.Children.ContainsKey(new YamlScalarNode("disqus")))
-                {
-                    var nameNode = (YamlMappingNode)mapping.Children[new YamlScalarNode("disqus")];
-                    if (nameNode.Children.ContainsKey(new YamlScalarNode("shortname")))
-                    {
-                        entity.DisqusShortname = nameNode.Children[new YamlScalarNode("shortname")].ToString();
-                    }
-                }
             }
             catch
             {
