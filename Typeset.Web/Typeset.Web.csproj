@@ -38,9 +38,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Web.Helpers">
-      <HintPath>..\packages\microsoft-web-helpers.2.0.20505.1\lib\net40\Microsoft.Web.Helpers.dll</HintPath>
-    </Reference>
     <Reference Include="NodaTime, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NodaTime.1.0.0-beta1\lib\net35-Client\NodaTime.dll</HintPath>
     </Reference>
@@ -166,6 +163,7 @@
     <Content Include="App_Data\content\css\bootstrap.min.css" />
     <Content Include="App_Data\content\css\default.css" />
     <Content Include="App_Data\content\html\comments.html" />
+    <Content Include="App_Data\content\html\header.html" />
     <Content Include="App_Data\content\html\footer.html" />
     <Content Include="App_Data\content\images\github.png" />
     <Content Include="App_Data\content\images\rss.png" />

@@ -1,7 +1,6 @@
 ﻿@model Typeset.Web.Models.Home.HomeViewModel
 @{ ViewBag.Title = Model.About.FullName(); }
 
-@Html.GenerateAbout(Model.About)
 <section class="posts">
     @foreach (var post in Model.Posts.Entities)
     {

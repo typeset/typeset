@@ -8,19 +8,11 @@ namespace Typeset.Web.Models.About
     {
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
-        public string Bio { get; private set; }
-        public string Email { get; private set; }
-        public IDictionary<string, string> Usernames { get; private set; }
-        public IDictionary<string, string> Links { get; private set; }
 
         public AboutViewModel(IAbout entity)
         {
             FirstName = entity.FirstName;
             LastName = entity.LastName;
-            Bio = entity.Bio;
-            Email = entity.Email;
-            Usernames = entity.Usernames;
-            Links = entity.Links;
         }
 
         public string FullName()

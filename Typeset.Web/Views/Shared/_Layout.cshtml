@@ -7,6 +7,9 @@
     @Styles.Render("~/Content/css/all")
 </head>
 <body>
+    <header>
+        @Html.GenerateHeader()
+    </header>
     <section id="content">
         @RenderBody()
     </section>

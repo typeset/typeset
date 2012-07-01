@@ -2,9 +2,9 @@
 $(document).ready(function () {
     //Apply twitter Bootstrap classes
     $('body').addClass('container');
-    $('footer').addClass('row-fluid span12');
+    $('body > header').addClass('span2');
+    $('body > footer').addClass('row-fluid span12');
     $('#content').addClass('row-fluid');
-    $('#content > .about').addClass('span2');
     $('#content > .posts').addClass('span8');
     $('#content > article.post').addClass('span8');
 });
