@@ -74,6 +74,21 @@ namespace Typeset.Web.Controllers.Site
                     {
                         contentType = "image/png";
                     }
+
+                    if (url.EndsWith(".css", StringComparison.OrdinalIgnoreCase))
+                    {
+                        contentType = "text/css";
+                    }
+
+                    if (url.EndsWith(".js", StringComparison.OrdinalIgnoreCase))
+                    {
+                        contentType = "text/javascript";
+                    }
+
+                    if (url.EndsWith(".html", StringComparison.OrdinalIgnoreCase))
+                    {
+                        contentType = "text/html";
+                    }
                 }
                 catch { }
 
