@@ -26,25 +26,19 @@ namespace Typeset.Web
             routes.MapRoute(
                 name: "Atom",
                 url: "atom.xml",
-                defaults: new { controller = "StaticFile", action = "Atom" }
+                defaults: new { controller = "Url", action = "Atom" }
             );
 
             routes.MapRoute(
                 name: "Favicon",
                 url: "favicon.ico",
-                defaults: new { controller = "StaticFile", action = "Get", url = "/content/images/favicon.ico" }
+                defaults: new { controller = "Url", action = "Get", url = "/images/favicon.ico" }
             );
 
             routes.MapRoute(
-                name: "Content",
-                url: "content/{*url}",
-                defaults: new { controller = "StaticFile", action = "Get", url = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
-                name: "Permalink",
-                url: "{*permalink}",
-                defaults: new { controller = "Post", action = "Get", permalink = UrlParameter.Optional }
+                name: "Unknown",
+                url: "{*url}",
+                defaults: new { controller = "Url", action = "Get", url = UrlParameter.Optional }
             );
         }
     }

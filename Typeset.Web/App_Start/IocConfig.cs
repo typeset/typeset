@@ -2,6 +2,7 @@
 using TinyIoC;
 using Typeset.Domain.Configuration;
 using Typeset.Domain.Markup;
+using Typeset.Domain.Pages;
 using Typeset.Domain.Post;
 using Typeset.Web.Controllers.Api;
 using Typeset.Web.Controllers.DependencyResolvers;
@@ -25,15 +26,15 @@ namespace Typeset.Web
             //Domain
             container.Register<IConfigurationRepository, ConfigurationRepository>();
             container.Register<IPostRepository, PostRepository>();
-            container.Register<IMarkupProcessorFactory, ProcessorFactory>();
+            container.Register<IPageRepository, PageRepository>();
+            container.Register<IMarkupProcessorFactory, MarkupProcessorFactory>();
             
             //WebApi Controllers
             container.Register<PostsController>();
 
             //Mvc Controllers
-            container.Register<IController, StaticFileController>("StaticFile").AsMultiInstance();
+            container.Register<IController, UrlController>("Url").AsMultiInstance();
             container.Register<IController, HomeController>("Home").AsMultiInstance();
-            container.Register<IController, PostController>("Post").AsMultiInstance();
 
             return container;
         }

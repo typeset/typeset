@@ -52,7 +52,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="TextileProcessor.cs" />
-    <Compile Include="ProcessorFactory.cs" />
+    <Compile Include="MarkupProcessorFactory.cs" />
     <Compile Include="IMarkupProcessorFactory.cs" />
     <Compile Include="MarkdownProcessor.cs" />
     <Compile Include="IMarkupProcessor.cs" />
@@ -60,6 +60,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Typeset.Domain.Common\Typeset.Domain.Common.csproj">
+      <Project>{6AAFE0E8-1FCD-452B-AD80-B603730BF06E}</Project>
+      <Name>Typeset.Domain.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

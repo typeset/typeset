@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Typeset.Domain.Common;
 
 namespace Typeset.Domain.Markup
 {
-    public class ProcessorFactory : IMarkupProcessorFactory
+    public class MarkupProcessorFactory : IMarkupProcessorFactory
     {
-        public IMarkupProcessor CreateInstance(ProcessorType processorType)
+        public IMarkupProcessor CreateInstance(ContentType processorType)
         {
             switch (processorType)
             {
                 default:
-                case ProcessorType.markdown:
+                case ContentType.markdown:
                     return new MarkdownProcessor();
-                case ProcessorType.textile:
+                case ContentType.textile:
                     return new TextileProcessor();
             }
         }

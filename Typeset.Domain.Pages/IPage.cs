@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Typeset.Domain.Common;
-using NodaTime;
 
-namespace Typeset.Domain.Post
+namespace Typeset.Domain.Pages
 {
-    public interface IPost
+    public interface IPage
     {
-        LocalDate Date { get; }
         string Title { get; }
         string Content { get; }
         ContentType ContentType { get; }
         string Filename { get; }
         string Permalink { get; }
-        IEnumerable<string> Tags { get; }
         bool Published { get; }
     }
 }

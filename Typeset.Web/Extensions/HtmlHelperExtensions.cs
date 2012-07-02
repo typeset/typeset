@@ -46,7 +46,7 @@ namespace System.Web.Mvc
         public static HtmlString GenerateHeader(this HtmlHelper helper)
         {
             var html = string.Empty;
-            var path = helper.ViewContext.HttpContext.Server.MapPath("~/App_Data/content/html/header.html");
+            var path = helper.ViewContext.HttpContext.Server.MapPath("~/App_Data/html/header.html");
             if (File.Exists(path))
             {
                 html = File.ReadAllText(path);
@@ -57,7 +57,7 @@ namespace System.Web.Mvc
         public static HtmlString GenerateFooter(this HtmlHelper helper)
         {
             var html = string.Empty;
-            var path = helper.ViewContext.HttpContext.Server.MapPath("~/App_Data/content/html/footer.html");
+            var path = helper.ViewContext.HttpContext.Server.MapPath("~/App_Data/html/footer.html");
             if (File.Exists(path))
             {
                 html = File.ReadAllText(path);
@@ -120,7 +120,7 @@ namespace System.Web.Mvc
         public static HtmlString GenerateComments(this HtmlHelper helper)
         {
             var html = string.Empty;
-            var path = helper.ViewContext.HttpContext.Server.MapPath("~/App_Data/content/html/comments.html");
+            var path = helper.ViewContext.HttpContext.Server.MapPath("~/App_Data/html/comments.html");
             if (File.Exists(path))
             {
                 html = File.ReadAllText(path);

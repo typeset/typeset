@@ -135,8 +135,7 @@
     <Compile Include="Controllers\Api\BaseApiController.cs" />
     <Compile Include="Controllers\Factories\TinyIocControllerFactory.cs" />
     <Compile Include="Controllers\Site\BaseController.cs" />
-    <Compile Include="Controllers\Site\StaticFileController.cs" />
-    <Compile Include="Controllers\Site\PostController.cs" />
+    <Compile Include="Controllers\Site\UrlController.cs" />
     <Compile Include="Controllers\Site\HomeController.cs" />
     <Compile Include="Controllers\Api\PostsController.cs" />
     <Compile Include="Controllers\DependencyResolvers\TinyIocDependencyResolver.cs" />
@@ -158,19 +157,19 @@
     <Compile Include="ViewResults\AtomViewResult.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\content\css\bootstrap.min.css" />
-    <Content Include="App_Data\content\css\default.css" />
-    <Content Include="App_Data\content\html\comments.html" />
-    <Content Include="App_Data\content\html\header.html" />
-    <Content Include="App_Data\content\html\footer.html" />
-    <Content Include="App_Data\content\images\github.png" />
-    <Content Include="App_Data\content\images\rss.png" />
-    <Content Include="App_Data\content\images\twitter.png" />
-    <Content Include="App_Data\content\js\base\jquery-1.7.2-vsdoc.js" />
-    <Content Include="App_Data\content\js\default\bootstrap.min.js" />
-    <Content Include="App_Data\content\js\default\default.js" />
-    <Content Include="App_Data\content\js\base\jquery-1.7.2.min.js" />
-    <Content Include="App_Data\content\images\favicon.ico" />
+    <Content Include="App_Data\css\bootstrap.min.css" />
+    <Content Include="App_Data\css\default.css" />
+    <Content Include="App_Data\html\comments.html" />
+    <Content Include="App_Data\html\header.html" />
+    <Content Include="App_Data\html\footer.html" />
+    <Content Include="App_Data\images\github.png" />
+    <Content Include="App_Data\images\rss.png" />
+    <Content Include="App_Data\images\twitter.png" />
+    <Content Include="App_Data\js\base\jquery-1.7.2-vsdoc.js" />
+    <Content Include="App_Data\js\default\bootstrap.min.js" />
+    <Content Include="App_Data\js\default\default.js" />
+    <Content Include="App_Data\js\base\jquery-1.7.2.min.js" />
+    <Content Include="App_Data\images\favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -202,6 +201,10 @@
       <Project>{296DE20C-5F17-4509-9F81-0AE2031F3B8F}</Project>
       <Name>Typeset.Domain.Markup</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Typeset.Domain.Pages\Typeset.Domain.Pages.csproj">
+      <Project>{7D8D1698-6C74-4BBE-AC6B-FD683224E2F6}</Project>
+      <Name>Typeset.Domain.Pages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Typeset.Domain.Posts\Typeset.Domain.Posts.csproj">
       <Project>{024584D0-FA35-46F3-9B21-36523C7AE382}</Project>
       <Name>Typeset.Domain.Posts</Name>
@@ -209,6 +212,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Data\config.yml" />
+    <None Include="App_Data\pages\about.md" />
     <None Include="App_Data\posts\2012-06-19-Example-Markdown-Post.md" />
     <None Include="App_Data\posts\2512-07-05-Example-Future-Post.md" />
     <None Include="App_Data\posts\2012-06-18-Example-Textile-Post.textile" />
