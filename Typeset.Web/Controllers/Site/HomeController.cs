@@ -42,11 +42,11 @@ namespace Typeset.Web.Controllers.Site
 
         public ActionResult Get(int limit = 10, int offset = 0)
         {
-            var configPath = HttpContext.Server.MapPath("~/App_Data/config.yml");
+            var configPath = HttpContext.Server.MapPath("~/App_Data/_config.yml");
             var config = ConfigRepository.Read(configPath);
             var configViewModel = new ConfigurationViewModel(config);
 
-            var postsPath = HttpContext.Server.MapPath("~/App_Data/posts");
+            var postsPath = HttpContext.Server.MapPath("~/App_Data/_posts");
             var postSearchCriteria = new PostSearchCriteria(limit, offset, Domain.Common.Order.Descending, postsPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, string.Empty, true);
             var pageOfPost = PostRepository.Get(postSearchCriteria);
             var pageOfPostViewModel = new PageOfPostsViewModel(pageOfPost, MarkupProcessorFactory);

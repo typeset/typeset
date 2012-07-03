@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using NodaTime;
 using YamlDotNet.RepresentationModel;
@@ -15,6 +16,21 @@ namespace Typeset.Domain.Common
 
     public static class FrontMatter
     {
+        public static IEnumerable<string> HtmlExtensions = new string[] { ".html", ".htm" };
+        public static IEnumerable<string> MarkdownExtensions = new string[] { ".md", ".mkd", ".mkdn", ".mdwn", ".mdown", ".markdown" };
+        public static IEnumerable<string> TextileExtensions = new string[] { ".textile" };
+        public static IEnumerable<string> FrontMatterExtensions
+        {
+            get
+            {
+                var extensions = new List<string>();
+                extensions.AddRange(HtmlExtensions);
+                extensions.AddRange(MarkdownExtensions);
+                extensions.AddRange(TextileExtensions);
+                return extensions;
+            }
+        }
+
         public static class Yaml
         {
             public static LocalDate ParseDate(string path)
@@ -144,19 +160,19 @@ namespace Typeset.Domain.Common
 
             public static ContentType ParseContentType(string path)
             {
-                switch (Path.GetExtension(path))
+                var extension = Path.GetExtension(path).ToLower();
+
+                if (MarkdownExtensions.Any(ext => ext.Equals(extension)))
                 {
-                    case ".md":
-                    case ".mkd":
-                    case ".mkdn":
-                    case ".mdwn":
-                    case ".mdown":
-                    case ".markdown":
-                        return ContentType.markdown;
-                    case ".textile":
-                        return ContentType.textile;
-                    default:
-                        throw new Exception("Unknown content type");
+                    return ContentType.markdown;
+                }
+                else if (TextileExtensions.Any(ext => ext.Equals(extension)))
+                {
+                    return ContentType.textile;
+                }
+                else
+                {
+                    throw new Exception("Unknown content type");
                 }
             }
         }

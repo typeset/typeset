@@ -31,7 +31,7 @@ namespace Typeset.Web.Controllers.Api
 
         public PageOfPostsViewModel Get(int limit = SearchCriteria.DefaultLimit, int offset = SearchCriteria.DefaultOffset, string order = "descending")
         {
-            var path = HttpContext.Current.Server.MapPath("~/App_Data/Posts");
+            var path = HttpContext.Current.Server.MapPath("~/App_Data/_posts");
             var from = PostSearchCriteria.DefaultFrom;
             var to = PostSearchCriteria.DefaultTo;
             var orderParsed = SearchCriteria.DefaultOrder;

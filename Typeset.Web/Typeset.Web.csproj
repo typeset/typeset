@@ -157,18 +157,18 @@
     <Compile Include="ViewResults\AtomViewResult.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\css\bootstrap.min.css" />
-    <Content Include="App_Data\css\default.css" />
-    <Content Include="App_Data\html\comments.html" />
-    <Content Include="App_Data\html\header.html" />
-    <Content Include="App_Data\html\footer.html" />
+    <Content Include="App_Data\styles\css\bootstrap.min.css" />
+    <Content Include="App_Data\styles\css\default.css" />
+    <Content Include="App_Data\_includes\comments.html" />
+    <Content Include="App_Data\_includes\header.html" />
+    <Content Include="App_Data\_includes\footer.html" />
     <Content Include="App_Data\images\github.png" />
     <Content Include="App_Data\images\rss.png" />
     <Content Include="App_Data\images\twitter.png" />
-    <Content Include="App_Data\js\base\jquery-1.7.2-vsdoc.js" />
-    <Content Include="App_Data\js\default\bootstrap.min.js" />
-    <Content Include="App_Data\js\default\default.js" />
-    <Content Include="App_Data\js\base\jquery-1.7.2.min.js" />
+    <Content Include="App_Data\scripts\javascript\base\jquery-1.7.2-vsdoc.js" />
+    <Content Include="App_Data\scripts\javascript\default\bootstrap.min.js" />
+    <Content Include="App_Data\scripts\javascript\default\default.js" />
+    <Content Include="App_Data\scripts\javascript\base\jquery-1.7.2.min.js" />
     <Content Include="App_Data\images\favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -184,7 +184,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\scripts\coffeescript\" />
+    <Folder Include="App_Data\styles\less\" />
+    <Folder Include="App_Data\styles\scss\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -211,13 +215,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Data\config.yml" />
-    <None Include="App_Data\pages\about.md" />
-    <None Include="App_Data\posts\2012-06-19-Example-Markdown-Post.md" />
-    <None Include="App_Data\posts\2512-07-05-Example-Future-Post.md" />
-    <None Include="App_Data\posts\2012-06-18-Example-Textile-Post.textile" />
+    <None Include="App_Data\readme.md" />
+    <None Include="App_Data\_config.yml" />
+    <None Include="App_Data\about.md" />
+    <None Include="App_Data\_posts\2012-06-19-Example-Markdown-Post.md" />
+    <None Include="App_Data\_posts\2512-07-05-Example-Future-Post.md" />
+    <None Include="App_Data\_posts\2012-06-18-Example-Textile-Post.textile" />
     <Content Include="Views\Post\Get.cshtml" />
-    <None Include="App_Data\posts\2012-06-23-Example-Unpublished-Post.md" />
+    <None Include="App_Data\_posts\2012-06-23-Example-Unpublished-Post.md" />
     <Content Include="Views\StaticFile\Atom.cshtml" />
   </ItemGroup>
   <PropertyGroup>

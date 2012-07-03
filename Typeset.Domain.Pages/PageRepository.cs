@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Typeset.Domain.Common;
+﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Typeset.Domain.Common;
 
 namespace Typeset.Domain.Pages
 {
@@ -35,7 +33,16 @@ namespace Typeset.Domain.Pages
 
         protected virtual IEnumerable<string> GetAllFiles(string path)
         {
-            var entities = Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories);
+            var entities = new List<string>();
+
+            foreach (var extension in FrontMatter.FrontMatterExtensions)
+            {
+                var searchPattern = string.Format("*{0}", extension);
+                var files = Directory.EnumerateFiles(path, searchPattern, SearchOption.AllDirectories);
+                files = files.Where(e => !e.Contains("\\_"));
+                entities.AddRange(files);
+            }
+
             return entities;
         }
 

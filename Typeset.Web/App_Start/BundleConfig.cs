@@ -8,11 +8,11 @@ namespace Typeset.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             var cssBundle = new Bundle("~/css/all", new CssMinify());
-            cssBundle.IncludeDirectory("~/App_Data/css", "*.css", true);
+            cssBundle.IncludeDirectory("~/App_Data/styles/css", "*.css", true);
             bundles.Add(cssBundle);
 
             var jsBundle = new Bundle("~/scripts/all", new JsMinify());
-            jsBundle.IncludeDirectory("~/App_Data/js", "*.js", true);
+            jsBundle.IncludeDirectory("~/App_Data/scripts/javascript", "*.js", true);
             bundles.Add(jsBundle);
             
             BundleTable.EnableOptimizations = true;
