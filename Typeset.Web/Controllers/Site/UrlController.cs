@@ -112,10 +112,18 @@ namespace Typeset.Web.Controllers.Site
 
         private ActionResult GetFile(string url)
         {
-            var contentType = url.GetMimeType();
             var path = Path.Combine(ContentPath, url);
-            var fileStream = System.IO.File.OpenRead(path);
-            return File(fileStream, contentType);
+
+            if (FrontMatterParser.Yaml.HasFrontMatter(path))
+            {
+                return new HttpStatusCodeResult(404);
+            }
+            else
+            {
+                var contentType = url.GetMimeType();
+                var fileStream = System.IO.File.OpenRead(path);
+                return File(fileStream, contentType);
+            }
         }
 
         private bool IsPost(string url)

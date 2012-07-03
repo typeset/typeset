@@ -24,9 +24,13 @@ namespace Typeset.Domain.FrontMatter
 
                 try
                 {
-                    var fileText = File.ReadAllText(path);
-                    var yamlDocument = ParseYaml(fileText);
-                    hasFrontMatter = true;
+                    var extension = Path.GetExtension(path).ToLower();
+                    if (FrontMatterExtensions.Any(ext => ext.Equals(extension)))
+                    {
+                        var fileText = File.ReadAllText(path);
+                        var yamlDocument = ParseYaml(fileText);
+                        hasFrontMatter = true;
+                    }
                 }
                 catch { }
 
@@ -74,14 +78,18 @@ namespace Typeset.Domain.FrontMatter
 
             private static YamlDocument ParseYaml(string fileText)
             {
-                var yamlStream = new YamlStream();
+                YamlDocument yamlDocument;
 
+                var yamlStream = new YamlStream();
                 using (var stringReader = new StringReader(fileText))
                 {
                     yamlStream.Load(stringReader);
                 }
 
-                return yamlStream.Documents[0];
+                yamlDocument = yamlStream.Documents[0];
+                var rootNode = (YamlMappingNode)yamlDocument.RootNode; //throws exception when not valid yaml, we want this.
+
+                return yamlDocument;
             }
 
             private static LocalDate? ParseDate(string path, string fileText)
