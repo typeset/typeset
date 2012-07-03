@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using Typeset.Domain.Common;
 using Typeset.Domain.Configuration;
 using Typeset.Domain.FrontMatter;
 using Typeset.Domain.Markup;
@@ -10,9 +12,6 @@ using Typeset.Web.Models.Configuration;
 using Typeset.Web.Models.Home;
 using Typeset.Web.Models.Posts;
 using Typeset.Web.ViewResults;
-using System.IO;
-using Typeset.Domain.Common;
-using NodaTime;
 
 namespace Typeset.Web.Controllers.Site
 {
@@ -51,7 +50,7 @@ namespace Typeset.Web.Controllers.Site
             var config = ConfigRepository.Read(ConfigPath);
             var configViewModel = new ConfigurationViewModel(config);
 
-            var postSearchCriteria = new FrontMatterSearchCriteria(10, 0, Domain.Common.Order.Descending, PostPath, FrontMatterSearchCriteria.DefaultFrom, FrontMatterSearchCriteria.DefaultTo, string.Empty, true);
+            var postSearchCriteria = new FrontMatterSearchCriteria(10, 0, Order.Descending, PostPath, FrontMatterSearchCriteria.DefaultFrom, FrontMatterSearchCriteria.DefaultTo, string.Empty, true);
             var pageOfPosts = FrontMatterRepository.Get(postSearchCriteria);
             var pageOfPostsViewModel = new PageOfPostsViewModel(pageOfPosts, MarkupProcessorFactory);
 
@@ -83,12 +82,18 @@ namespace Typeset.Web.Controllers.Site
             }
         }
 
-        private ActionResult GetFile(string url)
+        private ActionResult GetPost(string url)
         {
-            var contentType = url.GetMimeType();
-            var path = Path.Combine(ContentPath, url);
-            var fileStream = System.IO.File.OpenRead(path);
-            return File(fileStream, contentType);
+            var config = ConfigRepository.Read(ConfigPath);
+            var configViewModel = new ConfigurationViewModel(config);
+
+            var postSearchCriteria = new FrontMatterSearchCriteria(1, 0, Order.Descending, PostPath, FrontMatterSearchCriteria.DefaultFrom, FrontMatterSearchCriteria.DefaultTo, url, true);
+            var pageOfPost = FrontMatterRepository.Get(postSearchCriteria);
+            var postViewModel = new PostViewModel(pageOfPost.Entities.First(), MarkupProcessorFactory);
+
+            var pageOfPostViewModel = new PageOfPostViewModel(configViewModel, postViewModel);
+
+            return View("~/Views/Post/Get.cshtml", pageOfPostViewModel);
         }
 
         private ActionResult GetPage(string url)
@@ -105,23 +110,17 @@ namespace Typeset.Web.Controllers.Site
             };
         }
 
-        private ActionResult GetPost(string url)
+        private ActionResult GetFile(string url)
         {
-            var config = ConfigRepository.Read(ConfigPath);
-            var configViewModel = new ConfigurationViewModel(config);
-
-            var postSearchCriteria = new FrontMatterSearchCriteria(1, 0, Domain.Common.Order.Descending, PostPath, FrontMatterSearchCriteria.DefaultFrom, FrontMatterSearchCriteria.DefaultTo, url, true);
-            var pageOfPost = FrontMatterRepository.Get(postSearchCriteria);
-            var postViewModel = new PostViewModel(pageOfPost.Entities.First(), MarkupProcessorFactory);
-
-            var pageOfPostViewModel = new PageOfPostViewModel(configViewModel, postViewModel);
-
-            return View("~/Views/Post/Get.cshtml", pageOfPostViewModel);
+            var contentType = url.GetMimeType();
+            var path = Path.Combine(ContentPath, url);
+            var fileStream = System.IO.File.OpenRead(path);
+            return File(fileStream, contentType);
         }
 
         private bool IsPost(string url)
         {
-            var searchCriteria = new FrontMatterSearchCriteria(1, 0, Domain.Common.Order.Descending, PostPath, FrontMatterSearchCriteria.DefaultFrom, FrontMatterSearchCriteria.DefaultTo, url, true);
+            var searchCriteria = new FrontMatterSearchCriteria(1, 0, Order.Descending, PostPath, FrontMatterSearchCriteria.DefaultFrom, FrontMatterSearchCriteria.DefaultTo, url, true);
             var pageOf = FrontMatterRepository.Get(searchCriteria);
             return pageOf.Entities.Any();
         }
