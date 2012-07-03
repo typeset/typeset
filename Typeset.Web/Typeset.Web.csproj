@@ -139,6 +139,7 @@
     <Compile Include="Controllers\Site\HomeController.cs" />
     <Compile Include="Controllers\Api\PostsController.cs" />
     <Compile Include="Controllers\DependencyResolvers\TinyIocDependencyResolver.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">

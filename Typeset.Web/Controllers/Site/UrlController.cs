@@ -12,6 +12,7 @@ using Typeset.Web.Models.Configuration;
 using Typeset.Web.Models.Home;
 using Typeset.Web.Models.Posts;
 using Typeset.Web.ViewResults;
+using Typeset.Web.Extensions;
 
 namespace Typeset.Web.Controllers.Site
 {
@@ -92,54 +93,8 @@ namespace Typeset.Web.Controllers.Site
 
         private ActionResult GetFile(string url)
         {
+            var contentType = url.GetMimeType();
             var fileStream = System.IO.File.OpenRead(string.Format("{0}/{1}", ContentPath, url));
-            var contentType = "application/octet-stream";
-            try
-            {
-                if (url.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
-                    url.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
-                {
-                    contentType = "image/jpg";
-                }
-
-                if (url.EndsWith(".gif", StringComparison.OrdinalIgnoreCase))
-                {
-                    contentType = "image/gif";
-                }
-
-                if (url.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
-                {
-                    contentType = "image/png";
-                }
-
-                if (url.EndsWith(".ico", StringComparison.OrdinalIgnoreCase))
-                {
-                    contentType = "image/x-icon";
-                }
-
-                if (url.EndsWith(".css", StringComparison.OrdinalIgnoreCase))
-                {
-                    contentType = "text/css";
-                }
-
-                if (url.EndsWith(".js", StringComparison.OrdinalIgnoreCase))
-                {
-                    contentType = "text/javascript";
-                }
-
-                if (url.EndsWith(".html", StringComparison.OrdinalIgnoreCase))
-                {
-                    contentType = "text/html";
-                }
-
-                if (FrontMatter.FrontMatterExtensions.Any(ext => url.EndsWith(ext, StringComparison.OrdinalIgnoreCase)) ||
-                    url.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
-                {
-                    contentType = "text/plain";
-                }
-            }
-            catch { }
-
             return File(fileStream, contentType);
         }
 
