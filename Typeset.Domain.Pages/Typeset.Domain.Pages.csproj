@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Typeset.Common\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="PageSearchCriteria.cs" />
     <Compile Include="PageRepository.cs" />
     <Compile Include="IPageRepository.cs" />
