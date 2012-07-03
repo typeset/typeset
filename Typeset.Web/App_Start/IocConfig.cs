@@ -1,9 +1,8 @@
 ﻿using System.Web.Mvc;
 using TinyIoC;
 using Typeset.Domain.Configuration;
+using Typeset.Domain.FrontMatter;
 using Typeset.Domain.Markup;
-using Typeset.Domain.Pages;
-using Typeset.Domain.Post;
 using Typeset.Web.Controllers.Api;
 using Typeset.Web.Controllers.DependencyResolvers;
 using Typeset.Web.Controllers.Factories;
@@ -25,8 +24,7 @@ namespace Typeset.Web
 
             //Domain
             container.Register<IConfigurationRepository, ConfigurationRepository>();
-            container.Register<IPostRepository, PostRepository>();
-            container.Register<IPageRepository, PageRepository>();
+            container.Register<IFrontMatterRepository, FrontMatterRepository>();
             container.Register<IMarkupProcessorFactory, MarkupProcessorFactory>();
             
             //WebApi Controllers

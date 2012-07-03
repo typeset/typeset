@@ -4,12 +4,6 @@ using Typeset.Domain.Common;
 
 namespace Typeset.Domain.FrontMatter
 {
-    public enum ContentType
-    {
-        markdown,
-        textile
-    }
-
     public interface IFrontMatter
     {
         string Content { get; }

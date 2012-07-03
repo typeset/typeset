@@ -1,23 +1,22 @@
 ﻿using System;
-using System.Web;
 using Typeset.Domain.Common;
+using Typeset.Domain.FrontMatter;
 using Typeset.Domain.Markup;
-using Typeset.Domain.Post;
 using Typeset.Web.Models.Posts;
 
 namespace Typeset.Web.Controllers.Api
 {
     public class PostsController : BaseApiController
     {
-        private IPostRepository PostRepository { get; set; }
+        private IFrontMatterRepository FrontMatterRepository { get; set; }
         private IMarkupProcessorFactory MarkupProcessorFactory { get; set; }
 
-        public PostsController(IPostRepository postRepository,
+        public PostsController(IFrontMatterRepository frontMatterRepository,
             IMarkupProcessorFactory markupProcessorFactory)
         {
-            if (postRepository == null)
+            if (frontMatterRepository == null)
             {
-                throw new ArgumentNullException("postRepository");
+                throw new ArgumentNullException("frontMatterRepository");
             }
 
             if (markupProcessorFactory == null)
@@ -25,19 +24,18 @@ namespace Typeset.Web.Controllers.Api
                 throw new ArgumentNullException("markupProcessorFactory");
             }
 
-            PostRepository = postRepository;
+            FrontMatterRepository = frontMatterRepository;
             MarkupProcessorFactory = markupProcessorFactory;
         }
 
         public PageOfPostsViewModel Get(int limit = SearchCriteria.DefaultLimit, int offset = SearchCriteria.DefaultOffset, string order = "descending")
         {
-            var path = HttpContext.Current.Server.MapPath("~/App_Data/_posts");
-            var from = PostSearchCriteria.DefaultFrom;
-            var to = PostSearchCriteria.DefaultTo;
+            var from = FrontMatterSearchCriteria.DefaultFrom;
+            var to = FrontMatterSearchCriteria.DefaultTo;
             var orderParsed = SearchCriteria.DefaultOrder;
             Enum.TryParse<Order>(order, true, out orderParsed);
-            var searchCriteria = new PostSearchCriteria(limit, offset, orderParsed, path, from, to, string.Empty, true);
-            var pageOfPost = PostRepository.Get(searchCriteria);
+            var searchCriteria = new FrontMatterSearchCriteria(limit, offset, orderParsed, PostPath, from, to, string.Empty, true);
+            var pageOfPost = FrontMatterRepository.Get(searchCriteria);
             
             var pageOfPostViewModel = new PageOfPostsViewModel(pageOfPost, MarkupProcessorFactory);
 

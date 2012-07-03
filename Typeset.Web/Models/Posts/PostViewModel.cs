@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Typeset.Domain.Common;
+using Typeset.Domain.FrontMatter;
 using Typeset.Domain.Markup;
-using Typeset.Domain.Post;
 using Typeset.Web.Models.Common;
 
 namespace Typeset.Web.Models.Posts
@@ -16,9 +15,9 @@ namespace Typeset.Web.Models.Posts
         public string Permalink { get; set; }
         public IEnumerable<string> Tags { get; set; }
 
-        public PostViewModel(IPost entity, IMarkupProcessorFactory markupProcessorFactory)
+        public PostViewModel(IFrontMatter entity, IMarkupProcessorFactory markupProcessorFactory)
         {
-            Date = new DateViewModel(entity.Date);
+            Date = new DateViewModel(entity.Date.Value);
             Title = entity.Title;
             Content = entity.Content;
             ContentType = entity.ContentType.ToString();

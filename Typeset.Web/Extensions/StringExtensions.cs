@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.IO;
 using System.Linq;
-using System.Web;
-using System.IO;
-using Typeset.Domain.Common;
+using Typeset.Domain.FrontMatter;
 
 namespace Typeset.Web.Extensions
 {
@@ -47,7 +44,7 @@ namespace Typeset.Web.Extensions
                         mimeType = "text/plain";
                         break;
                     default:
-                        if(FrontMatter.FrontMatterExtensions.Any(ext => extension.Equals(ext)))
+                        if(FrontMatterParser.FrontMatterExtensions.Any(ext => extension.Equals(ext)))
                         {
                             mimeType = "text/plain";
                         }

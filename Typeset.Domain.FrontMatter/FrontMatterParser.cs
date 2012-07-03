@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using NodaTime;
+using Typeset.Domain.Common;
 using YamlDotNet.RepresentationModel;
 
 namespace Typeset.Domain.FrontMatter
@@ -32,10 +33,32 @@ namespace Typeset.Domain.FrontMatter
                 return hasFrontMatter;
             }
 
+            public static bool TryParseFrontMatter(string path, out IFrontMatter frontMatter)
+            {
+                var success = false;
+
+                try
+                {
+                    frontMatter = ParseFrontMatter(path);
+                    success = true;
+                }
+                catch
+                {
+                    frontMatter = null;
+                }
+
+                return success;
+            }
+
             public static IFrontMatter ParseFrontMatter(string path)
             {
                 var fileText = File.ReadAllText(path);
-                
+
+                if (!HasFrontMatter(path))
+                {
+                    throw new ArgumentException("FrontMatter not found");
+                }
+
                 var frontMatter = new FrontMatter();
                 frontMatter.Content = ParseContent(fileText);
                 frontMatter.ContentType = ParseContentType(path);

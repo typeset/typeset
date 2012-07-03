@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Web.Mvc;
 using Typeset.Domain.Configuration;
+using Typeset.Domain.FrontMatter;
 using Typeset.Domain.Markup;
-using Typeset.Domain.Post;
 using Typeset.Web.Models.Configuration;
 using Typeset.Web.Models.Home;
 using Typeset.Web.Models.Posts;
@@ -12,11 +12,11 @@ namespace Typeset.Web.Controllers.Site
     public class HomeController : BaseController
     {
         private IConfigurationRepository ConfigRepository { get; set; }
-        private IPostRepository PostRepository { get; set; }
+        private IFrontMatterRepository FrontMatterRepository { get; set; }
         private IMarkupProcessorFactory MarkupProcessorFactory { get; set; }
 
         public HomeController(IConfigurationRepository configRepository,
-            IPostRepository postRepository,
+            IFrontMatterRepository frontMatterRepository,
             IMarkupProcessorFactory markupProcessorFactory)
         {
             if (configRepository == null)
@@ -24,9 +24,9 @@ namespace Typeset.Web.Controllers.Site
                 throw new ArgumentNullException("configRepository");
             }
 
-            if (postRepository == null)
+            if (frontMatterRepository == null)
             {
-                throw new ArgumentNullException("postRepository");
+                throw new ArgumentNullException("frontMatterRepository");
             }
 
             if (markupProcessorFactory == null)
@@ -35,7 +35,7 @@ namespace Typeset.Web.Controllers.Site
             }
 
             ConfigRepository = configRepository;
-            PostRepository = postRepository;
+            FrontMatterRepository = frontMatterRepository;
             MarkupProcessorFactory = markupProcessorFactory;
         }
 
@@ -44,9 +44,9 @@ namespace Typeset.Web.Controllers.Site
             var config = ConfigRepository.Read(ConfigPath);
             var configViewModel = new ConfigurationViewModel(config);
 
-            var postSearchCriteria = new PostSearchCriteria(limit, offset, Domain.Common.Order.Descending, PostPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, string.Empty, true);
-            var pageOfPost = PostRepository.Get(postSearchCriteria);
-            var pageOfPostViewModel = new PageOfPostsViewModel(pageOfPost, MarkupProcessorFactory);
+            var searchCriteria = new FrontMatterSearchCriteria(limit, offset, Domain.Common.Order.Descending, PostPath, FrontMatterSearchCriteria.DefaultFrom, FrontMatterSearchCriteria.DefaultTo, string.Empty, true);
+            var pageOfPosts = FrontMatterRepository.Get(searchCriteria);
+            var pageOfPostViewModel = new PageOfPostsViewModel(pageOfPosts, MarkupProcessorFactory);
 
             var homeViewModel = new HomeViewModel(configViewModel, pageOfPostViewModel);
 

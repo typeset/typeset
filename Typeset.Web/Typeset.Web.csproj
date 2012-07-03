@@ -198,17 +198,13 @@
       <Project>{6DC3BCEB-89E2-4127-AECE-5AA887A471A6}</Project>
       <Name>Typeset.Domain.Configuration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Typeset.Domain.FrontMatter\Typeset.Domain.FrontMatter.csproj">
+      <Project>{D0018890-42AA-4AD6-A441-CBBC2B132964}</Project>
+      <Name>Typeset.Domain.FrontMatter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Typeset.Domain.Markup\Typeset.Domain.Markup.csproj">
       <Project>{296DE20C-5F17-4509-9F81-0AE2031F3B8F}</Project>
       <Name>Typeset.Domain.Markup</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Typeset.Domain.Pages\Typeset.Domain.Pages.csproj">
-      <Project>{7D8D1698-6C74-4BBE-AC6B-FD683224E2F6}</Project>
-      <Name>Typeset.Domain.Pages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Typeset.Domain.Posts\Typeset.Domain.Posts.csproj">
-      <Project>{024584D0-FA35-46F3-9B21-36523C7AE382}</Project>
-      <Name>Typeset.Domain.Posts</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
