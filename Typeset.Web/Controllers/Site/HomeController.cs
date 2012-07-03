@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Web;
 using System.Web.Mvc;
 using Typeset.Domain.Configuration;
 using Typeset.Domain.Markup;
 using Typeset.Domain.Post;
+using Typeset.Web.Models.Configuration;
 using Typeset.Web.Models.Home;
 using Typeset.Web.Models.Posts;
-using Typeset.Web.Models.Configuration;
 
 namespace Typeset.Web.Controllers.Site
 {
@@ -42,12 +41,10 @@ namespace Typeset.Web.Controllers.Site
 
         public ActionResult Get(int limit = 10, int offset = 0)
         {
-            var configPath = HttpContext.Server.MapPath("~/App_Data/_config.yml");
-            var config = ConfigRepository.Read(configPath);
+            var config = ConfigRepository.Read(ConfigPath);
             var configViewModel = new ConfigurationViewModel(config);
 
-            var postsPath = HttpContext.Server.MapPath("~/App_Data/_posts");
-            var postSearchCriteria = new PostSearchCriteria(limit, offset, Domain.Common.Order.Descending, postsPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, string.Empty, true);
+            var postSearchCriteria = new PostSearchCriteria(limit, offset, Domain.Common.Order.Descending, PostPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, string.Empty, true);
             var pageOfPost = PostRepository.Get(postSearchCriteria);
             var pageOfPostViewModel = new PageOfPostsViewModel(pageOfPost, MarkupProcessorFactory);
 

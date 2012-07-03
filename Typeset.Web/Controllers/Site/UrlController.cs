@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Typeset.Domain.Common;
 using Typeset.Domain.Configuration;
 using Typeset.Domain.Markup;
 using Typeset.Domain.Pages;
@@ -11,7 +12,6 @@ using Typeset.Web.Models.Configuration;
 using Typeset.Web.Models.Home;
 using Typeset.Web.Models.Posts;
 using Typeset.Web.ViewResults;
-using Typeset.Domain.Common;
 
 namespace Typeset.Web.Controllers.Site
 {
@@ -55,12 +55,10 @@ namespace Typeset.Web.Controllers.Site
 
         public ActionResult Atom()
         {
-            var configPath = HttpContext.Server.MapPath("~/App_Data/_config.yml");
-            var config = ConfigRepository.Read(configPath);
+            var config = ConfigRepository.Read(ConfigPath);
             var configViewModel = new ConfigurationViewModel(config);
 
-            var postsPath = HttpContext.Server.MapPath("~/App_Data/_posts");
-            var postSearchCriteria = new PostSearchCriteria(10, 0, Domain.Common.Order.Descending, postsPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, string.Empty, true);
+            var postSearchCriteria = new PostSearchCriteria(10, 0, Domain.Common.Order.Descending, PostPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, string.Empty, true);
             var pageOfPosts = PostRepository.Get(postSearchCriteria);
             var pageOfPostsViewModel = new PageOfPostsViewModel(pageOfPosts, MarkupProcessorFactory);
 
@@ -94,7 +92,7 @@ namespace Typeset.Web.Controllers.Site
 
         private ActionResult GetFile(string url)
         {
-            var fileStream = System.IO.File.OpenRead(HttpContext.Server.MapPath(string.Format("~/App_Data/{0}", url)));
+            var fileStream = System.IO.File.OpenRead(string.Format("{0}/{1}", ContentPath, url));
             var contentType = "application/octet-stream";
             try
             {
@@ -147,8 +145,7 @@ namespace Typeset.Web.Controllers.Site
 
         private ActionResult GetPage(string url)
         {
-            var path = HttpContext.Server.MapPath("~/App_Data");
-            var searchCriteria = new PageSearchCriteria(1, 0, Domain.Common.Order.Ascending, path, url, true);
+            var searchCriteria = new PageSearchCriteria(1, 0, Domain.Common.Order.Ascending, ContentPath, url, true);
             var pageOfPages = PageRepository.Get(searchCriteria);
             var entity = pageOfPages.Entities.First();
             var content = MarkupProcessorFactory.CreateInstance(entity.ContentType).Process(entity.Content);
@@ -162,12 +159,10 @@ namespace Typeset.Web.Controllers.Site
 
         private ActionResult GetPost(string url)
         {
-            var configPath = HttpContext.Server.MapPath("~/App_Data/_config.yml");
-            var config = ConfigRepository.Read(configPath);
+            var config = ConfigRepository.Read(ConfigPath);
             var configViewModel = new ConfigurationViewModel(config);
 
-            var postsPath = HttpContext.Server.MapPath("~/App_Data/_posts");
-            var postSearchCriteria = new PostSearchCriteria(1, 0, Domain.Common.Order.Descending, postsPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, url, true);
+            var postSearchCriteria = new PostSearchCriteria(1, 0, Domain.Common.Order.Descending, PostPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, url, true);
             var pageOfPost = PostRepository.Get(postSearchCriteria);
             var postViewModel = new PostViewModel(pageOfPost.Entities.First(), MarkupProcessorFactory);
 
@@ -178,8 +173,7 @@ namespace Typeset.Web.Controllers.Site
 
         private bool IsPost(string permalink)
         {
-            var postsPath = HttpContext.Server.MapPath("~/App_Data/_posts");
-            var postSearchCriteria = new PostSearchCriteria(1, 0, Domain.Common.Order.Descending, postsPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, permalink, true);
+            var postSearchCriteria = new PostSearchCriteria(1, 0, Domain.Common.Order.Descending, PostPath, PostSearchCriteria.DefaultFrom, PostSearchCriteria.DefaultTo, permalink, true);
             var pageOfPost = PostRepository.Get(postSearchCriteria);
             return pageOfPost.Entities.Any();
 
@@ -187,8 +181,7 @@ namespace Typeset.Web.Controllers.Site
 
         private bool IsPage(string permalink)
         {
-            var path = HttpContext.Server.MapPath("~/App_Data");
-            var searchCriteria = new PageSearchCriteria(1, 0, Domain.Common.Order.Ascending, path, permalink, true);
+            var searchCriteria = new PageSearchCriteria(1, 0, Domain.Common.Order.Ascending, ContentPath, permalink, true);
             var pageOfPages = PageRepository.Get(searchCriteria);
             return pageOfPages.Entities.Any();
         }
