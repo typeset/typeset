@@ -184,11 +184,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\scripts\coffeescript\" />
-    <Folder Include="App_Data\styles\less\" />
-    <Folder Include="App_Data\styles\scss\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
