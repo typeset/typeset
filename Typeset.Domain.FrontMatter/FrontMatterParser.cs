@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using YamlDotNet.RepresentationModel;
-using Typeset.Domain.Common;
-using NodaTime;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
+using NodaTime;
+using YamlDotNet.RepresentationModel;
 
 namespace Typeset.Domain.FrontMatter
 {
@@ -15,31 +13,35 @@ namespace Typeset.Domain.FrontMatter
         public static IEnumerable<string> HtmlExtensions = new string[] { ".html", ".htm" };
         public static IEnumerable<string> MarkdownExtensions = new string[] { ".md", ".mkd", ".mkdn", ".mdwn", ".mdown", ".markdown" };
         public static IEnumerable<string> TextileExtensions = new string[] { ".textile" };
-        public static IEnumerable<string> FrontMatterExtensions
-        {
-            get
-            {
-                var extensions = new List<string>();
-                extensions.AddRange(HtmlExtensions);
-                extensions.AddRange(MarkdownExtensions);
-                extensions.AddRange(TextileExtensions);
-                return extensions;
-            }
-        }
+        public static IEnumerable<string> FrontMatterExtensions = Enumerable.Concat(HtmlExtensions, MarkdownExtensions).Concat(TextileExtensions);
 
         public static class Yaml
         {
+            public static bool HasFrontMatter(string path)
+            {
+                var hasFrontMatter = false;
+
+                try
+                {
+                    var fileText = File.ReadAllText(path);
+                    var yamlDocument = ParseYaml(fileText);
+                    hasFrontMatter = true;
+                }
+                catch { }
+
+                return hasFrontMatter;
+            }
+
             public static IFrontMatter ParseFrontMatter(string path)
             {
-                var frontMatter = new FrontMatter();
-
                 var fileText = File.ReadAllText(path);
-
+                
+                var frontMatter = new FrontMatter();
                 frontMatter.Content = ParseContent(fileText);
                 frontMatter.ContentType = ParseContentType(path);
                 frontMatter.Date = ParseDate(path, fileText);
                 frontMatter.Filename = Path.GetFileNameWithoutExtension(path);
-                frontMatter.Permalink = ParsePermalink(path, fileText, 0);
+                frontMatter.Permalink = ParsePermalink(path, fileText);
                 frontMatter.Published = ParsePublished(fileText);
                 frontMatter.Tags = ParseTags(fileText);
                 frontMatter.Title = ParseTitle(path, fileText);
@@ -47,7 +49,7 @@ namespace Typeset.Domain.FrontMatter
                 return frontMatter;
             }
 
-            public static YamlDocument ParseYaml(string fileText)
+            private static YamlDocument ParseYaml(string fileText)
             {
                 var yamlStream = new YamlStream();
 
@@ -59,18 +61,53 @@ namespace Typeset.Domain.FrontMatter
                 return yamlStream.Documents[0];
             }
 
-            private static LocalDate ParseDate(string path, string fileText)
+            private static LocalDate? ParseDate(string path, string fileText)
             {
-                var filenameNoExtension = Path.GetFileNameWithoutExtension(path);
-                var year = int.Parse(filenameNoExtension.Substring(0, 4));
-                var month = int.Parse(filenameNoExtension.Substring(5, 2));
-                var day = int.Parse(filenameNoExtension.Substring(8, 2));
-                return new LocalDate(year, month, day);
+                LocalDate? date = null;
+
+                if (path.ToLower().Contains("_posts"))
+                {
+                    var filenameNoExtension = Path.GetFileNameWithoutExtension(path);
+                    var year = int.Parse(filenameNoExtension.Substring(0, 4));
+                    var month = int.Parse(filenameNoExtension.Substring(5, 2));
+                    var day = int.Parse(filenameNoExtension.Substring(8, 2));
+                    date = new LocalDate(year, month, day);
+                }
+
+                try
+                {
+                    var yamlDocument = ParseYaml(fileText);
+                    var yamlMapping = (YamlMappingNode)yamlDocument.RootNode;
+                    if (yamlMapping.Children.ContainsKey(new YamlScalarNode("date")))
+                    {
+                        var dateTimeString = yamlMapping.Children[new YamlScalarNode("date")].ToString();
+                        var dateTime = DateTimeOffset.Parse(dateTimeString);
+                        date = new LocalDate(dateTime.Year, dateTime.Month, dateTime.Day);
+                    }
+                }
+                catch { }
+
+                return date;
             }
 
-            private static LocalTime ParseTime(string path, string fileText)
+            private static LocalTime? ParseTime(string path, string fileText)
             {
-                return new LocalTime();
+                LocalTime? time = null;
+
+                try
+                {
+                    var yamlDocument = ParseYaml(fileText);
+                    var yamlMapping = (YamlMappingNode)yamlDocument.RootNode;
+                    if (yamlMapping.Children.ContainsKey(new YamlScalarNode("date")))
+                    {
+                        var dateTimeString = yamlMapping.Children[new YamlScalarNode("date")].ToString();
+                        var dateTime = DateTimeOffset.Parse(dateTimeString);
+                        time = new LocalTime(dateTime.Hour, dateTime.Minute, dateTime.Second);
+                    }
+                }
+                catch { }
+
+                return time;
             }
 
             private static string ParseContent(string fileText)
@@ -101,8 +138,11 @@ namespace Typeset.Domain.FrontMatter
 
                 try
                 {
-                    var filenameNoExtension = Path.GetFileNameWithoutExtension(path);
-                    title = filenameNoExtension.Substring(11);
+                    if (path.ToLower().Contains("_posts"))
+                    {
+                        var filenameNoExtension = Path.GetFileNameWithoutExtension(path);
+                        title = filenameNoExtension.Substring(11);
+                    }
 
                     var yamlDocument = ParseYaml(fileText);
                     var yamlMapping = (YamlMappingNode)yamlDocument.RootNode;
@@ -116,12 +156,13 @@ namespace Typeset.Domain.FrontMatter
                 return title;
             }
 
-            private static string ParsePermalink(string path, string fileText, int startOffset)
+            private static string ParsePermalink(string path, string fileText)
             {
                 var permalink = string.Empty;
 
                 try
                 {
+                    var startOffset = path.ToLower().Contains("_posts") ? 11 : 0;
                     var filenameNoExtension = Path.GetFileNameWithoutExtension(path);
                     permalink = filenameNoExtension.Substring(startOffset);
 
