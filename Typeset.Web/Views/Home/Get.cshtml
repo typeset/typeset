@@ -1,6 +1,49 @@
 ﻿@model Typeset.Web.Models.Home.HomeViewModel
 @{ ViewBag.Title = Model.Configuration.SyndicationTitle; }
 
+@section head_html 
+{
+    @foreach (var url in Model.Layout.HeadHtml)
+    {
+        @Html.Include(string.Format("~/App_Data/{0}", url))
+    }
+}
+
+@section head_styles {
+    @foreach (var url in Model.Layout.HeadStyles)
+    {
+        <link type="text/css" rel="stylesheet" href="@url" />
+    }
+}
+
+@section head_scripts {
+    @foreach (var url in Model.Layout.HeadScripts)
+    {
+        <script type="text/javascript" src="@url"></script>
+    }
+}
+
+@section body_content_pre {
+    @foreach (var url in Model.Layout.BodyHtmlPreContent)
+    {
+        @Html.Include(string.Format("~/App_Data/{0}", url))
+    }
+}
+
+@section body_content_post {
+    @foreach (var url in Model.Layout.BodyHtmlPostContent)
+    {
+        @Html.Include(string.Format("~/App_Data/{0}", url))
+    }
+}
+
+@section body_scripts {
+    @foreach (var url in Model.Layout.BodyScripts)
+    {
+        <script type="text/javascript" src="@url"></script>
+    }
+}
+
 <section class="posts">
     @foreach (var post in Model.Posts.Entities)
     {

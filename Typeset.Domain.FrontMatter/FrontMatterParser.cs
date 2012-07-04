@@ -70,6 +70,7 @@ namespace Typeset.Domain.FrontMatter
                 var frontMatter = new FrontMatter();
                 frontMatter.Content = ParseContent(fileText);
                 frontMatter.ContentType = ParseContentType(path);
+                frontMatter.Layout = ParseLayout(fileText);
                 frontMatter.Date = ParseDate(path, fileText);
                 frontMatter.Time = ParseTime(fileText);
                 frontMatter.Filename = Path.GetFileNameWithoutExtension(path);
@@ -99,6 +100,24 @@ namespace Typeset.Domain.FrontMatter
                 }
 
                 return yamlDocument;
+            }
+
+            private static string ParseLayout(string fileText)
+            {
+                var layout = string.Empty;
+
+                try
+                {
+                    var yamlDocument = ParseYaml(fileText);
+                    var yamlMapping = (YamlMappingNode)yamlDocument.RootNode;
+                    if (yamlMapping.Children.ContainsKey(new YamlScalarNode("layout")))
+                    {
+                        layout = yamlMapping.Children[new YamlScalarNode("layout")].ToString();
+                    }
+                }
+                catch { }
+
+                return layout;
             }
 
             private static LocalDate? ParseDate(string path, string fileText)

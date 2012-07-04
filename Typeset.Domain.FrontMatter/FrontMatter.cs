@@ -8,6 +8,7 @@ namespace Typeset.Domain.FrontMatter
     {
         public string Content { get; set; }
         public ContentType ContentType { get; set; }
+        public string Layout { get; set; }
         public LocalDate? Date { get; set; }
         public LocalTime? Time { get; set; }
         public string Filename { get; set; }

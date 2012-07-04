@@ -6,8 +6,10 @@ using System.Web.Mvc;
 using Typeset.Domain.Common;
 using Typeset.Domain.Configuration;
 using Typeset.Domain.FrontMatter;
+using Typeset.Domain.Layout;
 using Typeset.Domain.Markup;
 using Typeset.Web.Extensions;
+using Typeset.Web.Models.Common;
 using Typeset.Web.Models.Configuration;
 using Typeset.Web.Models.Home;
 using Typeset.Web.Models.Posts;
@@ -54,9 +56,11 @@ namespace Typeset.Web.Controllers.Site
             var pageOfPosts = FrontMatterRepository.Get(postSearchCriteria);
             var pageOfPostsViewModel = new PageOfPostsViewModel(pageOfPosts, MarkupProcessorFactory);
 
-            var homeViewModel = new HomeViewModel(configViewModel, pageOfPostsViewModel);
+            var layoutViewModel = new LayoutViewModel();
 
-            return new AtomViewResult(homeViewModel);
+            var homeViewModel = new HomeViewModel(configViewModel, layoutViewModel, pageOfPostsViewModel);
+
+            return new AtomViewResult("~/Views/StaticFile/Atom.cshtml", homeViewModel);
         }
 
         public ActionResult Get(string url)
@@ -89,25 +93,35 @@ namespace Typeset.Web.Controllers.Site
 
             var postSearchCriteria = new FrontMatterSearchCriteria(1, 0, Order.Descending, PostPath, FrontMatterSearchCriteria.DefaultFrom, FrontMatterSearchCriteria.DefaultTo, url, true);
             var pageOfPost = FrontMatterRepository.Get(postSearchCriteria);
-            var postViewModel = new PostViewModel(pageOfPost.Entities.First(), MarkupProcessorFactory);
+            var post = pageOfPost.Entities.First();
+            var postViewModel = new PostViewModel(post, MarkupProcessorFactory);
 
-            var pageOfPostViewModel = new PageOfPostViewModel(configViewModel, postViewModel);
+            var layoutPath = GetLayoutPath(post.Layout);
+            var layout = LayoutParser.Parse(layoutPath);
+            var layoutViewModel = new LayoutViewModel(layout);
+
+            var pageOfPostViewModel = new PageOfPostViewModel(configViewModel, layoutViewModel, postViewModel);
 
             return View("~/Views/Post/Get.cshtml", pageOfPostViewModel);
         }
 
         private ActionResult GetPage(string url)
         {
+            var config = ConfigRepository.Read(ConfigPath);
+            var configViewModel = new ConfigurationViewModel(config);
+
             var searchCriteria = new FrontMatterSearchCriteria(1, 0, Order.Ascending, ContentPath, null, null, url, true);
             var pageOfPages = FrontMatterRepository.Get(searchCriteria);
-            var entity = pageOfPages.Entities.First();
-            var content = MarkupProcessorFactory.CreateInstance(entity.ContentType).Process(entity.Content);
-            return new ContentResult()
-            {
-                Content = content,
-                ContentEncoding = Encoding.UTF8,
-                ContentType = "text/html"
-            };
+            var frontMatter = pageOfPages.Entities.First();
+            var frontMatterContentViewModel = new FrontMatterContentViewModel(frontMatter, MarkupProcessorFactory);
+
+            var layoutPath = GetLayoutPath(frontMatter.Layout);
+            var layout = LayoutParser.Parse(layoutPath);
+            var layoutViewModel = new LayoutViewModel(layout);
+
+            var pageOfFrontMatterContentViewModel = new PageOfFrontMatterContentViewModel(configViewModel, layoutViewModel, frontMatterContentViewModel);
+
+            return View("~/Views/StaticFile/Default.cshtml", pageOfFrontMatterContentViewModel);
         }
 
         private ActionResult GetFile(string url)

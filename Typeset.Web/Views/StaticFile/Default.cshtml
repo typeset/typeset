@@ -1,5 +1,5 @@
-﻿@model Typeset.Web.Models.Posts.PageOfPostViewModel
-@{ ViewBag.Title = Model.Post.Title; }
+﻿@model Typeset.Web.Models.Common.PageOfFrontMatterContentViewModel
+@{ ViewBag.Title = Model.FrontMatterContent.Title; }
 
 @section head_html 
 {
@@ -44,12 +44,4 @@
     }
 }
 
-<article class="post">
-    <header>
-        <h1 class="title">@Model.Post.Title</h1>
-        <time class="pubdate" pubdate="pubdate" datetime="@Html.MarkupDate(Model.Post.Date)">@Html.FormatDate(Model.Configuration, Model.Post.Date)</time>
-    </header>
-    <section class="body">
-        @Html.Raw(Model.Post.HtmlContent)
-    </section>
-</article>
+@Html.Raw(Model.FrontMatterContent.HtmlContent)

@@ -1,4 +1,5 @@
 ---
+layout: post
 permalink: posts/example-markdown-post
 tags:
  - example

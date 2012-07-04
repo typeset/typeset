@@ -4,22 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    @Html.Include("~/App_Data/_includes/all/head_html.html")
     @RenderSection("head_html", false)
-    @Html.Include("~/App_Data/_includes/all/head_styles.html")
     @RenderSection("head_styles", false)
-    @Html.Include("~/App_Data/_includes/all/head_scripts.html")
     @RenderSection("head_scripts", false)
 </head>
 <body>
-    @Html.Include("~/App_Data/_includes/all/body_content_pre.html")
     @RenderSection("body_content_pre", false)
     <section id="content">
         @RenderBody()
     </section>
-    @Html.Include("~/App_Data/_includes/all/body_content_post.html")
     @RenderSection("body_content_post", false)
-    @Html.Include("~/App_Data/_includes/all/body_scripts.html")
     @RenderSection("body_scripts", false)
 </body>
 </html>

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
-using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
 
 namespace Typeset.Web.ViewResults
 {
@@ -15,6 +10,12 @@ namespace Typeset.Web.ViewResults
         public AtomViewResult(object model)
         {
             Model = model;
+        }
+
+        public AtomViewResult(string viewName, object model)
+        {
+            Model = model;
+            this.ViewName = viewName;
         }
 
         public override void ExecuteResult(ControllerContext context)

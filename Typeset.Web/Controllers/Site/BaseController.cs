@@ -17,5 +17,10 @@ namespace Typeset.Web.Controllers.Site
             PostPath = HttpContext.Server.MapPath("~/App_Data/_posts");
             IncludesPath = HttpContext.Server.MapPath("~/App_Data/_includes");
         }
+
+        protected string GetLayoutPath(string name)
+        {
+            return HttpContext.Server.MapPath(string.Format("~/App_Data/_layouts/{0}.yml", name));
+        }
     }
 }

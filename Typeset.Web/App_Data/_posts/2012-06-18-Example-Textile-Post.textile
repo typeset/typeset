@@ -1,4 +1,5 @@
 ---
+layout: post
 ---
 h1. Example Post
 

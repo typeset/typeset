@@ -12,11 +12,14 @@ namespace Typeset.Web.Models.Common
         public int Month { get; set; }
         public int Day { get; set; }
 
-        public DateViewModel(LocalDate entity)
+        public DateViewModel(LocalDate? entity)
         {
-            Year = entity.Year;
-            Month = entity.Month;
-            Day = entity.Day;
+            if (entity.HasValue)
+            {
+                Year = entity.Value.Year;
+                Month = entity.Value.Month;
+                Day = entity.Value.Day;
+            }
         }
     }
 }

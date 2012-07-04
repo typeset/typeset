@@ -1,6 +1,7 @@
 ---
+layout: home
 title: about me
-permalink: aboutme
+permalink: about
 ---
 About
 ===

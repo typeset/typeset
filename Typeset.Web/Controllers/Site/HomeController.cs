@@ -2,7 +2,9 @@
 using System.Web.Mvc;
 using Typeset.Domain.Configuration;
 using Typeset.Domain.FrontMatter;
+using Typeset.Domain.Layout;
 using Typeset.Domain.Markup;
+using Typeset.Web.Models.Common;
 using Typeset.Web.Models.Configuration;
 using Typeset.Web.Models.Home;
 using Typeset.Web.Models.Posts;
@@ -48,7 +50,11 @@ namespace Typeset.Web.Controllers.Site
             var pageOfPosts = FrontMatterRepository.Get(searchCriteria);
             var pageOfPostViewModel = new PageOfPostsViewModel(pageOfPosts, MarkupProcessorFactory);
 
-            var homeViewModel = new HomeViewModel(configViewModel, pageOfPostViewModel);
+            var layoutPath = GetLayoutPath("home");
+            var layout = LayoutParser.Parse(layoutPath);
+            var layoutViewModel = new LayoutViewModel(layout);
+
+            var homeViewModel = new HomeViewModel(configViewModel, layoutViewModel, pageOfPostViewModel);
 
             return View(homeViewModel);
         }

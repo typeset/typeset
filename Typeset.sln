@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typeset.Domain.Configuratio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typeset.Domain.FrontMatter", "Typeset.Domain.FrontMatter\Typeset.Domain.FrontMatter.csproj", "{D0018890-42AA-4AD6-A441-CBBC2B132964}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typeset.Domain.Layout", "Typeset.Domain.Layout\Typeset.Domain.Layout.csproj", "{9206775B-DE0A-4E31-90FF-09B265B6E4C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{D0018890-42AA-4AD6-A441-CBBC2B132964}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0018890-42AA-4AD6-A441-CBBC2B132964}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0018890-42AA-4AD6-A441-CBBC2B132964}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9206775B-DE0A-4E31-90FF-09B265B6E4C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9206775B-DE0A-4E31-90FF-09B265B6E4C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9206775B-DE0A-4E31-90FF-09B265B6E4C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9206775B-DE0A-4E31-90FF-09B265B6E4C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

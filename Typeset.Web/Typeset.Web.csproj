@@ -145,6 +145,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Common\LayoutViewModel.cs" />
+    <Compile Include="Models\Common\FrontMatterContentViewModel.cs" />
+    <Compile Include="Models\Common\PageOfFrontMatterContentViewModel.cs" />
     <Compile Include="Models\Configuration\ConfigurationViewModel.cs" />
     <Compile Include="Models\Home\HomeViewModel.cs" />
     <Compile Include="Models\Posts\PageOfPostViewModel.cs" />
@@ -160,13 +163,8 @@
   <ItemGroup>
     <Content Include="App_Data\styles\css\bootstrap.min.css" />
     <Content Include="App_Data\styles\css\default.css" />
-    <Content Include="App_Data\_includes\all\body_scripts.html" />
-    <Content Include="App_Data\_includes\all\head_scripts.html" />
-    <Content Include="App_Data\_includes\all\head_styles.html" />
-    <Content Include="App_Data\_includes\posts\body_content_post.html" />
-    <Content Include="App_Data\_includes\all\head_html.html" />
-    <Content Include="App_Data\_includes\all\body_content_pre.html" />
-    <Content Include="App_Data\_includes\all\body_content_post.html" />
+    <Content Include="App_Data\_includes\header.html" />
+    <Content Include="App_Data\_includes\footer.html" />
     <Content Include="App_Data\images\github.png" />
     <Content Include="App_Data\images\rss.png" />
     <Content Include="App_Data\images\twitter.png" />
@@ -175,11 +173,6 @@
     <Content Include="App_Data\scripts\javascript\default.js" />
     <Content Include="App_Data\scripts\javascript\jquery-1.7.2.min.js" />
     <Content Include="App_Data\images\favicon.ico" />
-    <Content Include="App_Data\_includes\posts\body_content_pre.html" />
-    <Content Include="App_Data\_includes\posts\body_scripts.html" />
-    <Content Include="App_Data\_includes\posts\head_html.html" />
-    <Content Include="App_Data\_includes\posts\head_scripts.html" />
-    <Content Include="App_Data\_includes\posts\head_styles.html" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -211,6 +204,10 @@
       <Project>{D0018890-42AA-4AD6-A441-CBBC2B132964}</Project>
       <Name>Typeset.Domain.FrontMatter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Typeset.Domain.Layout\Typeset.Domain.Layout.csproj">
+      <Project>{9206775B-DE0A-4E31-90FF-09B265B6E4C1}</Project>
+      <Name>Typeset.Domain.Layout</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Typeset.Domain.Markup\Typeset.Domain.Markup.csproj">
       <Project>{296DE20C-5F17-4509-9F81-0AE2031F3B8F}</Project>
       <Name>Typeset.Domain.Markup</Name>
@@ -220,12 +217,15 @@
     <None Include="App_Data\readme.md" />
     <None Include="App_Data\_config.yml" />
     <None Include="App_Data\about.md" />
+    <None Include="App_Data\_layouts\home.yml" />
+    <None Include="App_Data\_layouts\post.yml" />
     <None Include="App_Data\_posts\2012-06-19-Example-Markdown-Post.md" />
     <None Include="App_Data\_posts\2512-07-05-Example-Future-Post.md" />
     <None Include="App_Data\_posts\2012-06-18-Example-Textile-Post.textile" />
     <Content Include="Views\Post\Get.cshtml" />
     <None Include="App_Data\_posts\2012-06-23-Example-Unpublished-Post.md" />
     <Content Include="Views\StaticFile\Atom.cshtml" />
+    <Content Include="Views\StaticFile\Default.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
