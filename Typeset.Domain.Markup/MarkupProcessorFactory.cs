@@ -12,11 +12,13 @@ namespace Typeset.Domain.Markup
         {
             switch (processorType)
             {
-                default:
                 case ContentType.markdown:
                     return new MarkdownProcessor();
                 case ContentType.textile:
                     return new TextileProcessor();
+                case ContentType.html:
+                default:
+                    return new DefaultProcessor();
             }
         }
     }

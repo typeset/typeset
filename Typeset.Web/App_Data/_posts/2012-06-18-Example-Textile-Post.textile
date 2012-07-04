@@ -1,3 +1,5 @@
+---
+---
 h1. Example Post
 
 This is an example body.

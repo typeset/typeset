@@ -18,14 +18,18 @@ namespace Typeset.Domain.FrontMatter
 
         public static class Yaml
         {
+            public static bool IsFrontMatterExtension(string extension)
+            {
+                return FrontMatterExtensions.Any(ext => ext.ToLower().Equals(extension.ToLower()));
+            }
+
             public static bool HasFrontMatter(string path)
             {
                 var hasFrontMatter = false;
 
                 try
                 {
-                    var extension = Path.GetExtension(path).ToLower();
-                    if (FrontMatterExtensions.Any(ext => ext.Equals(extension)))
+                    if (IsFrontMatterExtension(Path.GetExtension(path)))
                     {
                         var fileText = File.ReadAllText(path);
                         var yamlDocument = ParseYaml(fileText);
@@ -67,6 +71,7 @@ namespace Typeset.Domain.FrontMatter
                 frontMatter.Content = ParseContent(fileText);
                 frontMatter.ContentType = ParseContentType(path);
                 frontMatter.Date = ParseDate(path, fileText);
+                frontMatter.Time = ParseTime(fileText);
                 frontMatter.Filename = Path.GetFileNameWithoutExtension(path);
                 frontMatter.Permalink = ParsePermalink(path, fileText);
                 frontMatter.Published = ParsePublished(fileText);
@@ -87,7 +92,11 @@ namespace Typeset.Domain.FrontMatter
                 }
 
                 yamlDocument = yamlStream.Documents[0];
-                var rootNode = (YamlMappingNode)yamlDocument.RootNode; //throws exception when not valid yaml, we want this.
+
+                if (!(yamlDocument.RootNode is YamlScalarNode || yamlDocument.RootNode is YamlMappingNode))
+                {
+                    throw new ArgumentException("Yaml document not found");
+                }
 
                 return yamlDocument;
             }
@@ -96,14 +105,19 @@ namespace Typeset.Domain.FrontMatter
             {
                 LocalDate? date = null;
 
-                if (path.ToLower().Contains("_posts"))
+                try
                 {
+                    var regex = new Regex("^[0-9]{4}-[0-9]{2}-[0-9]{2}");
                     var filenameNoExtension = Path.GetFileNameWithoutExtension(path);
-                    var year = int.Parse(filenameNoExtension.Substring(0, 4));
-                    var month = int.Parse(filenameNoExtension.Substring(5, 2));
-                    var day = int.Parse(filenameNoExtension.Substring(8, 2));
-                    date = new LocalDate(year, month, day);
+                    if (regex.IsMatch(filenameNoExtension))
+                    {
+                        var year = int.Parse(filenameNoExtension.Substring(0, 4));
+                        var month = int.Parse(filenameNoExtension.Substring(5, 2));
+                        var day = int.Parse(filenameNoExtension.Substring(8, 2));
+                        date = new LocalDate(year, month, day);
+                    }
                 }
+                catch { }
 
                 try
                 {
@@ -113,6 +127,7 @@ namespace Typeset.Domain.FrontMatter
                     {
                         var dateTimeString = yamlMapping.Children[new YamlScalarNode("date")].ToString();
                         var dateTime = DateTimeOffset.Parse(dateTimeString);
+                        dateTime = dateTime.UtcDateTime;
                         date = new LocalDate(dateTime.Year, dateTime.Month, dateTime.Day);
                     }
                 }
@@ -121,7 +136,7 @@ namespace Typeset.Domain.FrontMatter
                 return date;
             }
 
-            private static LocalTime? ParseTime(string path, string fileText)
+            private static LocalTime? ParseTime(string fileText)
             {
                 LocalTime? time = null;
 
@@ -133,6 +148,7 @@ namespace Typeset.Domain.FrontMatter
                     {
                         var dateTimeString = yamlMapping.Children[new YamlScalarNode("date")].ToString();
                         var dateTime = DateTimeOffset.Parse(dateTimeString);
+                        dateTime = dateTime.UtcDateTime;
                         time = new LocalTime(dateTime.Hour, dateTime.Minute, dateTime.Second);
                     }
                 }
@@ -143,22 +159,15 @@ namespace Typeset.Domain.FrontMatter
 
             private static string ParseContent(string fileText)
             {
-                var content = fileText;
-                var regex = new Regex(@"^(---\s)([\s\S]+?)(\s---)(\s*)");
-                var hasFrontMatter = regex.IsMatch(fileText);
+                var content = string.Empty;
 
-                if (hasFrontMatter)
+                var yamlStream = new YamlStream();
+                using (var stringReader = new StringReader(fileText))
                 {
-                    var frontMatter = regex.Match(fileText).Value;
-                    var yamlStream = new YamlStream();
-
-                    using (var stringReader = new StringReader(frontMatter))
-                    {
-                        yamlStream.Load(stringReader);
-                    }
-
-                    content = fileText.Replace(frontMatter, string.Empty);
+                    yamlStream.Load(stringReader);
                 }
+
+                content = yamlStream.Documents[1].RootNode.ToString();
 
                 return content;
             }
@@ -169,12 +178,17 @@ namespace Typeset.Domain.FrontMatter
 
                 try
                 {
-                    if (path.ToLower().Contains("_posts"))
+                    var regex = new Regex("^[0-9]{4}-[0-9]{2}-[0-9]{2}");
+                    var filenameNoExtension = Path.GetFileNameWithoutExtension(path);
+                    if (regex.IsMatch(filenameNoExtension))
                     {
-                        var filenameNoExtension = Path.GetFileNameWithoutExtension(path);
                         title = filenameNoExtension.Substring(11);
                     }
+                }
+                catch { }
 
+                try
+                {
                     var yamlDocument = ParseYaml(fileText);
                     var yamlMapping = (YamlMappingNode)yamlDocument.RootNode;
                     if (yamlMapping.Children.ContainsKey(new YamlScalarNode("title")))
@@ -193,9 +207,21 @@ namespace Typeset.Domain.FrontMatter
 
                 try
                 {
-                    var startOffset = path.ToLower().Contains("_posts") ? 11 : 0;
+                    var regex = new Regex("^[0-9]{4}-[0-9]{2}-[0-9]{2}");
                     var filenameNoExtension = Path.GetFileNameWithoutExtension(path);
-                    permalink = filenameNoExtension.Substring(startOffset);
+                    if (regex.IsMatch(filenameNoExtension))
+                    {
+                        permalink = filenameNoExtension.Substring(11);
+                    }
+                    else
+                    {
+                        permalink = filenameNoExtension;
+                    }
+                }
+                catch { }
+
+                try
+                {
 
                     var yamlDocument = ParseYaml(fileText);
                     var yamlMapping = (YamlMappingNode)yamlDocument.RootNode;
@@ -260,6 +286,10 @@ namespace Typeset.Domain.FrontMatter
                 else if (TextileExtensions.Any(ext => ext.Equals(extension)))
                 {
                     return ContentType.textile;
+                }
+                else if (HtmlExtensions.Any(ext => ext.Equals(extension)))
+                {
+                    return ContentType.html;
                 }
                 else
                 {

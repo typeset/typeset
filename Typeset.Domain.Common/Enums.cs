@@ -8,6 +8,7 @@ namespace Typeset.Domain.Common
     public enum ContentType
     {
         markdown,
-        textile
+        textile,
+        html
     }
 }
