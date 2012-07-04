@@ -161,13 +161,9 @@ namespace Typeset.Domain.FrontMatter
             {
                 var content = string.Empty;
 
-                var yamlStream = new YamlStream();
-                using (var stringReader = new StringReader(fileText))
-                {
-                    yamlStream.Load(stringReader);
-                }
-
-                content = yamlStream.Documents[1].RootNode.ToString();
+                var regex = new Regex(@"^(---\s)([\s\S]*?)(\s---)(\s*)");
+                var frontMatter = regex.Match(fileText).Value;
+                content = fileText.Replace(frontMatter, string.Empty);
 
                 return content;
             }
