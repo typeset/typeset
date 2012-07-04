@@ -43,28 +43,6 @@ namespace System.Web.Mvc
             return formattedDate;
         }
 
-        public static HtmlString GenerateHeader(this HtmlHelper helper)
-        {
-            var html = string.Empty;
-            var path = helper.ViewContext.HttpContext.Server.MapPath("~/App_Data/_includes/header.html");
-            if (File.Exists(path))
-            {
-                html = File.ReadAllText(path);
-            }
-            return new HtmlString(html);
-        }
-
-        public static HtmlString GenerateFooter(this HtmlHelper helper)
-        {
-            var html = string.Empty;
-            var path = helper.ViewContext.HttpContext.Server.MapPath("~/App_Data/_includes/footer.html");
-            if (File.Exists(path))
-            {
-                html = File.ReadAllText(path);
-            }
-            return new HtmlString(html);
-        }
-
         public static HtmlString GeneratePagination(this HtmlHelper helper, PageOfPostsViewModel page)
         {
             var hasPrevious = page.SearchCriteria.Offset > 0;
@@ -117,14 +95,20 @@ namespace System.Web.Mvc
             return new HtmlString(sectionTag.ToString());
         }
 
-        public static HtmlString GenerateComments(this HtmlHelper helper)
+        public static HtmlString Include(this HtmlHelper helper, string relativePath)
         {
             var html = string.Empty;
-            var path = helper.ViewContext.HttpContext.Server.MapPath("~/App_Data/_includes/comments.html");
-            if (File.Exists(path))
+
+            try
             {
-                html = File.ReadAllText(path);
+                var absolutePath = helper.ViewContext.HttpContext.Server.MapPath(relativePath);
+                if (File.Exists(absolutePath))
+                {
+                    html = File.ReadAllText(absolutePath);
+                }
             }
+            catch { }
+
             return new HtmlString(html);
         }
     }

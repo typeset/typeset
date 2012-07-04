@@ -57,7 +57,7 @@ body > .row-fluid > header .about .links a
 
 body > .row-fluid > header .about .links .github
 {
-    background-image: url('../images/github.png');
+    background-image: url('/images/github.png');
     width: 16px;
     height: 16px;
     text-indent:-9999px;
@@ -66,7 +66,7 @@ body > .row-fluid > header .about .links .github
 
 body > .row-fluid > header .about .links .twitter
 {
-    background-image: url('../images/twitter.png');
+    background-image: url('/images/twitter.png');
     width: 16px;
     height: 16px;
     text-indent:-9999px;
@@ -75,7 +75,7 @@ body > .row-fluid > header .about .links .twitter
 
 body > .row-fluid > header .about .links .rss
 {
-    background-image: url('../images/rss.png');
+    background-image: url('/images/rss.png');
     width: 16px;
     height: 16px;
     text-indent:-9999px;

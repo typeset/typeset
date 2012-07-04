@@ -17,7 +17,6 @@ namespace Typeset.Web
             ControllerBuilderConfig.RegisterControllerFactory(container.Resolve<IControllerFactory>());
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
             ViewEnginesConfig.RegisterViewEngines();
         }
 

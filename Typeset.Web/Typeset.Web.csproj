@@ -123,7 +123,6 @@
     <Compile Include="..\Typeset.Common\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ControllerBuilderConfig.cs" />
     <Compile Include="App_Start\ResponseTimeHeaderConfig.cs" />
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
@@ -161,17 +160,26 @@
   <ItemGroup>
     <Content Include="App_Data\styles\css\bootstrap.min.css" />
     <Content Include="App_Data\styles\css\default.css" />
-    <Content Include="App_Data\_includes\comments.html" />
-    <Content Include="App_Data\_includes\header.html" />
-    <Content Include="App_Data\_includes\footer.html" />
+    <Content Include="App_Data\_includes\all\body_scripts.html" />
+    <Content Include="App_Data\_includes\all\head_scripts.html" />
+    <Content Include="App_Data\_includes\all\head_styles.html" />
+    <Content Include="App_Data\_includes\posts\body_content_post.html" />
+    <Content Include="App_Data\_includes\all\head_html.html" />
+    <Content Include="App_Data\_includes\all\body_content_pre.html" />
+    <Content Include="App_Data\_includes\all\body_content_post.html" />
     <Content Include="App_Data\images\github.png" />
     <Content Include="App_Data\images\rss.png" />
     <Content Include="App_Data\images\twitter.png" />
-    <Content Include="App_Data\scripts\javascript\base\jquery-1.7.2-vsdoc.js" />
-    <Content Include="App_Data\scripts\javascript\default\bootstrap.min.js" />
-    <Content Include="App_Data\scripts\javascript\default\default.js" />
-    <Content Include="App_Data\scripts\javascript\base\jquery-1.7.2.min.js" />
+    <Content Include="App_Data\scripts\javascript\jquery-1.7.2-vsdoc.js" />
+    <Content Include="App_Data\scripts\javascript\bootstrap.min.js" />
+    <Content Include="App_Data\scripts\javascript\default.js" />
+    <Content Include="App_Data\scripts\javascript\jquery-1.7.2.min.js" />
     <Content Include="App_Data\images\favicon.ico" />
+    <Content Include="App_Data\_includes\posts\body_content_pre.html" />
+    <Content Include="App_Data\_includes\posts\body_scripts.html" />
+    <Content Include="App_Data\_includes\posts\head_html.html" />
+    <Content Include="App_Data\_includes\posts\head_scripts.html" />
+    <Content Include="App_Data\_includes\posts\head_styles.html" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

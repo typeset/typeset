@@ -1,6 +1,13 @@
 ﻿@model Typeset.Web.Models.Posts.PageOfPostViewModel
 @{ ViewBag.Title = Model.Post.Title; }
 
+@section head_html {@Html.Include("~/App_Data/_includes/posts/head_html.html")}
+@section head_styles {@Html.Include("~/App_Data/_includes/posts/head_styles.html")}
+@section head_scripts {@Html.Include("~/App_Data/_includes/posts/head_scripts.html")}
+@section body_content_pre {@Html.Include("~/App_Data/_includes/posts/body_content_pre.html")}
+@section body_content_post {@Html.Include("~/App_Data/_includes/posts/body_content_post.html")}
+@section body_scripts {@Html.Include("~/App_Data/_includes/posts/body_scripts.html")}
+
 <article class="post">
     <header>
         <h1 class="title">@Model.Post.Title</h1>
@@ -8,8 +15,5 @@
     </header>
     <section class="body">
         @Html.Raw(Model.Post.HtmlContent)
-    </section>
-    <section class="comments">
-        @Html.GenerateComments()
     </section>
 </article>
