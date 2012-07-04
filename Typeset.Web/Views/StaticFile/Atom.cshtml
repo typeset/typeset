@@ -5,7 +5,7 @@
  <link href="@Url.Content("~/atom.xml", true)" rel="self"/>
  <link href="@Url.Content("~/", true)"/>
  <updated>@string.Format("{0}-{1}-{2}T00:00:00-00:00", Model.Posts.Entities.First().Date.Year, Model.Posts.Entities.First().Date.Month, Model.Posts.Entities.First().Date.Day)</updated>
- <id>@Url.Content("~")</id>
+ <id>@Url.Content("~/", true)</id>
  <author>
    <name>@Model.Configuration.SyndicationAuthor</name>
  </author>
