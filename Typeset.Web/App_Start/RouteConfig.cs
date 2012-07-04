@@ -9,7 +9,6 @@ namespace Typeset.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.IgnoreRoute("favicon.ico");
 
             routes.MapHttpRoute(
                 name: "DefaultApi",
@@ -32,7 +31,7 @@ namespace Typeset.Web
             routes.MapRoute(
                 name: "Favicon",
                 url: "favicon.ico",
-                defaults: new { controller = "Url", action = "Get", url = "/images/favicon.ico" }
+                defaults: new { controller = "Url", action = "Get", url = "images/favicon.ico" }
             );
 
             routes.MapRoute(
