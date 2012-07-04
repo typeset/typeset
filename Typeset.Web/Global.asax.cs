@@ -24,6 +24,7 @@ namespace Typeset.Web
         public override void Init()
         {
             ExceptionHandlingConfig.RegisterEvents(this);
+            ResponseTimeHeaderConfig.RegisterEvents(this);
         }
     }
 }
