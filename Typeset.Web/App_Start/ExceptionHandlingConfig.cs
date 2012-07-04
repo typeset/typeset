@@ -44,7 +44,7 @@ namespace Typeset.Web
             e.SetObserved();
         }
 
-        public class WebApiMessageHandler : DelegatingHandler
+        private class WebApiMessageHandler : DelegatingHandler
         {
             protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
             {
@@ -57,6 +57,4 @@ namespace Typeset.Web
             }
         }
     }
-
-    
 }
