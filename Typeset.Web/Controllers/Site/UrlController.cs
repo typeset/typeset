@@ -114,7 +114,9 @@ namespace Typeset.Web.Controllers.Site
         {
             var path = Path.Combine(ContentPath, url);
 
-            if (FrontMatterParser.Yaml.HasFrontMatter(path))
+            if (url.StartsWith("_") ||
+                url.Contains("/_") ||
+                FrontMatterParser.Yaml.HasFrontMatter(path))
             {
                 return new HttpStatusCodeResult(404);
             }
