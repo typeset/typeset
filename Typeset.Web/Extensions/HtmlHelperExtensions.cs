@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web.Optimization;
 using Typeset.Web.Models.Common;
 using Typeset.Web.Models.Configuration;
 using Typeset.Web.Models.Posts;
@@ -110,6 +113,57 @@ namespace System.Web.Mvc
             catch { }
 
             return new HtmlString(html);
+        }
+
+        public static HtmlString BundleAndMinifyJs(this HtmlHelper helper, string name, IEnumerable<string> paths)
+        {
+            var html = new HtmlString(string.Empty);
+
+            if (paths != null && paths.Any())
+            {
+                BundleTable.EnableOptimizations = true;
+                BundleTable.Bundles.IgnoreList.Clear();
+                BundleTable.Bundles.FileSetOrderList.Clear();
+                BundleTable.Bundles.FileExtensionReplacementList.Clear();
+
+                var virtualPath = string.Format("~/scripts/javascript/{0}", helper.UrlHelper().Encode(name));
+                var bundle = new Bundle(virtualPath, new JsMinify());
+                bundle.Include(paths.Select(p => string.Format("~/App_Data{0}", p)).ToArray());
+                BundleTable.Bundles.Add(bundle);
+
+                var scriptTag = new TagBuilder("script");
+                scriptTag.Attributes.Add("type", "text/javascript");
+                scriptTag.Attributes.Add("src", BundleTable.Bundles.ResolveBundleUrl(virtualPath));
+                html = new HtmlString(scriptTag.ToString());
+            }
+
+            return html;
+        }
+
+        public static HtmlString BundleAndMinifyCss(this HtmlHelper helper, string name, IEnumerable<string> paths)
+        {
+            var html = new HtmlString(string.Empty);
+
+            if (paths != null && paths.Any())
+            {
+                BundleTable.EnableOptimizations = true;
+                BundleTable.Bundles.IgnoreList.Clear();
+                BundleTable.Bundles.FileSetOrderList.Clear();
+                BundleTable.Bundles.FileExtensionReplacementList.Clear();
+
+                var virtualPath = string.Format("~/styles/css/{0}", helper.UrlHelper().Encode(name));
+                var bundle = new Bundle(virtualPath, new CssMinify());
+                bundle.Include(paths.Select(p => string.Format("~/App_Data{0}", p)).ToArray());
+                BundleTable.Bundles.Add(bundle);
+
+                var scriptTag = new TagBuilder("link");
+                scriptTag.Attributes.Add("type", "text/css");
+                scriptTag.Attributes.Add("rel", "stylesheet");
+                scriptTag.Attributes.Add("href", BundleTable.Bundles.ResolveBundleUrl(virtualPath));
+                html = new HtmlString(scriptTag.ToString(TagRenderMode.SelfClosing));
+            }
+
+            return html;
         }
     }
 }
