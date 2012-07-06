@@ -48,6 +48,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Typeset.Common\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Layout.cs" />
     <Compile Include="ILayout.cs" />
     <Compile Include="LayoutParser.cs" />
