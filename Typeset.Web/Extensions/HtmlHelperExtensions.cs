@@ -104,7 +104,7 @@ namespace System.Web.Mvc
 
             try
             {
-                var absolutePath = helper.ViewContext.HttpContext.Server.MapPath(relativePath);
+                var absolutePath = helper.ViewContext.HttpContext.Server.MapPath(string.Format("~/App_Data{0}", relativePath));
                 if (File.Exists(absolutePath))
                 {
                     html = File.ReadAllText(absolutePath);
