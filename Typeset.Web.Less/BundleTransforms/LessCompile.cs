@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Optimization;
 
@@ -10,19 +9,22 @@ namespace Typeset.Web.Less.BundleTransforms
     {
         public void Process(BundleContext context, BundleResponse response)
         {
-            var lessFiles = response.Files.Where(f => f.Extension.Equals(".less", StringComparison.OrdinalIgnoreCase));
-            foreach (var file in lessFiles)
-            {
-                using (var reader = new StreamReader(file.FullName))
-                {
-                    var less = reader.ReadToEnd();
-                    var compiledLess = Less.Compiler.Compile(less);
-                    reader.Close();
-                    response.Content = response.Content.Replace(less, compiledLess);
-                }
-            }
+            response.Content = string.Empty;
             response.ContentType = "text/css";
             response.Cacheability = HttpCacheability.Public;
+
+            foreach (var file in response.Files)
+            {
+                var fileText = File.ReadAllText(file.FullName);
+                if (file.Extension.Equals(".less", StringComparison.OrdinalIgnoreCase))
+                {
+                    response.Content += Less.Compiler.Compile(fileText);
+                }
+                else
+                {
+                    response.Content += fileText;
+                }
+            }
         }
     }
 }
