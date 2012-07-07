@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typeset.Domain.Layout", "Ty
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typeset.Web.CoffeeScript", "Typeset.Web.CoffeeScript\Typeset.Web.CoffeeScript.csproj", "{AE26FA1A-6DCF-4523-A5B6-571D115E802D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typeset.Web.Less", "Typeset.Web.Less\Typeset.Web.Less.csproj", "{E967771C-4971-440E-98CF-C820CFFE3139}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{AE26FA1A-6DCF-4523-A5B6-571D115E802D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE26FA1A-6DCF-4523-A5B6-571D115E802D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE26FA1A-6DCF-4523-A5B6-571D115E802D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E967771C-4971-440E-98CF-C820CFFE3139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E967771C-4971-440E-98CF-C820CFFE3139}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E967771C-4971-440E-98CF-C820CFFE3139}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E967771C-4971-440E-98CF-C820CFFE3139}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

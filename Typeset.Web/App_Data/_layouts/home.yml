@@ -1,6 +1,7 @@
 head:
  html:
  styles:
+  - /styles/less/sample.less
   - /styles/css/bootstrap.min.css
   - /styles/css/default.css
  scripts:

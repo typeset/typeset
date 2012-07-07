@@ -164,6 +164,7 @@
     <None Include="App_Data\scripts\coffeescript\sample.coffee" />
     <Content Include="App_Data\styles\css\bootstrap.min.css" />
     <Content Include="App_Data\styles\css\default.css" />
+    <None Include="App_Data\styles\less\sample.less" />
     <Content Include="App_Data\_includes\header.html" />
     <Content Include="App_Data\_includes\footer.html" />
     <Content Include="App_Data\images\github.png" />
@@ -216,6 +217,10 @@
     <ProjectReference Include="..\Typeset.Web.CoffeeScript\Typeset.Web.CoffeeScript.csproj">
       <Project>{AE26FA1A-6DCF-4523-A5B6-571D115E802D}</Project>
       <Name>Typeset.Web.CoffeeScript</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Typeset.Web.Less\Typeset.Web.Less.csproj">
+      <Project>{E967771C-4971-440E-98CF-C820CFFE3139}</Project>
+      <Name>Typeset.Web.Less</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
