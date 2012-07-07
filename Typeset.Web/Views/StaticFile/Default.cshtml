@@ -1,9 +1,9 @@
 ﻿@model Typeset.Web.Models.Common.PageOfFrontMatterContentViewModel
 @{ ViewBag.Title = Model.FrontMatterContent.Title; }
 @section head_html {@foreach (var url in Model.Layout.HeadHtml){@Html.Include(url)}}
-@section head_styles {@Html.BundleAndMinifyCss("head", Model.Layout.HeadStyles)}
-@section head_scripts {@Html.BundleAndMinifyJs("head", Model.Layout.HeadScripts)}
+@section head_styles {@Html.CompileBundleAndMinifyStyles("head", Model.Layout.HeadStyles)}
+@section head_scripts {@Html.CompileBundleAndMinifyScripts("head", Model.Layout.HeadScripts)}
 @section body_content_pre {@foreach (var url in Model.Layout.BodyHtmlPreContent){@Html.Include(url)}}
 @section body_content_post {@foreach (var url in Model.Layout.BodyHtmlPostContent){@Html.Include(url)}}
-@section body_scripts {@Html.BundleAndMinifyJs("body", Model.Layout.BodyScripts)}
+@section body_scripts {@Html.CompileBundleAndMinifyScripts("body", Model.Layout.BodyScripts)}
 @Html.Raw(Model.FrontMatterContent.HtmlContent)

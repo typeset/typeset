@@ -161,6 +161,7 @@
     <Compile Include="ViewResults\AtomViewResult.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App_Data\scripts\coffeescript\sample.coffee" />
     <Content Include="App_Data\styles\css\bootstrap.min.css" />
     <Content Include="App_Data\styles\css\default.css" />
     <Content Include="App_Data\_includes\header.html" />
@@ -211,6 +212,10 @@
     <ProjectReference Include="..\Typeset.Domain.Markup\Typeset.Domain.Markup.csproj">
       <Project>{296DE20C-5F17-4509-9F81-0AE2031F3B8F}</Project>
       <Name>Typeset.Domain.Markup</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Typeset.Web.CoffeeScript\Typeset.Web.CoffeeScript.csproj">
+      <Project>{AE26FA1A-6DCF-4523-A5B6-571D115E802D}</Project>
+      <Name>Typeset.Web.CoffeeScript</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

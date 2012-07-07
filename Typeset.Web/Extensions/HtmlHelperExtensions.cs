@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Web.Optimization;
+using Typeset.Web.CoffeeScript.BundleTransforms;
 using Typeset.Web.Models.Common;
 using Typeset.Web.Models.Configuration;
 using Typeset.Web.Models.Posts;
@@ -115,7 +116,7 @@ namespace System.Web.Mvc
             return new HtmlString(html);
         }
 
-        public static HtmlString BundleAndMinifyJs(this HtmlHelper helper, string name, IEnumerable<string> paths)
+        public static HtmlString CompileBundleAndMinifyScripts(this HtmlHelper helper, string name, IEnumerable<string> paths)
         {
             var html = new HtmlString(string.Empty);
 
@@ -126,9 +127,13 @@ namespace System.Web.Mvc
                 BundleTable.Bundles.FileSetOrderList.Clear();
                 BundleTable.Bundles.FileExtensionReplacementList.Clear();
 
+                var javaScript = paths.Select(p => string.Format("~/App_Data{0}", p)).ToArray();
                 var virtualPath = string.Format("~/scripts/javascript/{0}", helper.UrlHelper().Encode(name));
-                var bundle = new Bundle(virtualPath, new JsMinify());
-                bundle.Include(paths.Select(p => string.Format("~/App_Data{0}", p)).ToArray());
+                
+                var bundle = new Bundle(virtualPath);
+                bundle.Include(javaScript);
+                bundle.Transforms.Add(new CoffeeScriptCompile());
+                bundle.Transforms.Add(new JsMinify());
                 BundleTable.Bundles.Add(bundle);
 
                 var scriptTag = new TagBuilder("script");
@@ -140,7 +145,7 @@ namespace System.Web.Mvc
             return html;
         }
 
-        public static HtmlString BundleAndMinifyCss(this HtmlHelper helper, string name, IEnumerable<string> paths)
+        public static HtmlString CompileBundleAndMinifyStyles(this HtmlHelper helper, string name, IEnumerable<string> paths)
         {
             var html = new HtmlString(string.Empty);
 
