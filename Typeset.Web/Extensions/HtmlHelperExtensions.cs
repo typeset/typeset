@@ -7,6 +7,7 @@ using Typeset.Web.Less.BundleTransforms;
 using Typeset.Web.Models.Common;
 using Typeset.Web.Models.Configuration;
 using Typeset.Web.Models.Posts;
+using Typeset.Web.Sass.BundleTransforms;
 
 namespace System.Web.Mvc
 {
@@ -158,7 +159,10 @@ namespace System.Web.Mvc
                 BundleTable.Bundles.FileExtensionReplacementList.Clear();
 
                 var virtualPath = string.Format("~/styles/css/{0}", helper.UrlHelper().Encode(name));
-                var bundle = new Bundle(virtualPath, new LessCompile(), new CssMinify());
+                var bundle = new Bundle(virtualPath);
+                bundle.Transforms.Add(new SassCompile());
+                bundle.Transforms.Add(new LessCompile());
+                bundle.Transforms.Add(new CssMinify());
                 bundle.Include(paths.Select(p => string.Format("~/App_Data{0}", p)).ToArray());
                 BundleTable.Bundles.Add(bundle);
 

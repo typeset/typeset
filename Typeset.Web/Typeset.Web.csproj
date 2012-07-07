@@ -222,9 +222,14 @@
       <Project>{E967771C-4971-440E-98CF-C820CFFE3139}</Project>
       <Name>Typeset.Web.Less</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Typeset.Web.Sass\Typeset.Web.Sass.csproj">
+      <Project>{92505096-B544-4C4A-BD94-050F66AD7070}</Project>
+      <Name>Typeset.Web.Sass</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Data\readme.md" />
+    <None Include="App_Data\styles\sass\sample.scss" />
     <None Include="App_Data\_config.yml" />
     <None Include="App_Data\about.md" />
     <None Include="App_Data\_layouts\home.yml" />
