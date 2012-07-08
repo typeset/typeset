@@ -1,7 +1,8 @@
 ---
 layout: home
 title: about me
-permalink: about
+permalink:
+ - about
 ---
 About
 ===

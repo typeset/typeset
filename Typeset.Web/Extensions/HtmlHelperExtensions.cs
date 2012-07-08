@@ -26,27 +26,21 @@ namespace System.Web.Mvc
             return new HtmlString(tag.ToString());
         }
 
-        public static string MarkupDate(this HtmlHelper helper, DateViewModel date)
+        public static string Html5DateTime(this HtmlHelper helper, DateTimeOffset dateTime)
         {
-            return string.Format("{0}-{1}-{2}", date.Year, date.Month.ToString("00"), date.Day.ToString("00"));
+            return string.Format("{0:yyyy-MM-dd}T{0:hh:mm:ss}Z", dateTime);
         }
 
-        public static string FormatDate(this HtmlHelper helper, ConfigurationViewModel configViewModel, DateViewModel date)
+        public static string FormatDate(this HtmlHelper helper, ConfigurationViewModel configViewModel, DateTimeOffset dateTime)
         {
-            var formattedDate = string.Empty;
-            DateTime dateTimeParsed;
-            if (DateTime.TryParse(string.Format("{0}-{1}-{2}", date.Month, date.Day, date.Year), out dateTimeParsed))
+            try
             {
-                try
-                {
-                    formattedDate = dateTimeParsed.ToString(configViewModel.DateFormat);
-                }
-                catch
-                {
-                    formattedDate = dateTimeParsed.ToShortDateString();
-                }
+                return dateTime.ToString(configViewModel.DateFormat);
             }
-            return formattedDate;
+            catch
+            {
+                return dateTime.ToString("g"); // format: 3/9/2008 4:05 PM
+            }
         }
 
         public static HtmlString GeneratePagination(this HtmlHelper helper, PageOfPostsViewModel page)

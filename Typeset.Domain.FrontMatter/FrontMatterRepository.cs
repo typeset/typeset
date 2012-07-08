@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Typeset.Domain.Common;
@@ -9,8 +10,49 @@ namespace Typeset.Domain.FrontMatter
     {
         public virtual PageOf<IFrontMatter, FrontMatterSearchCriteria> Get(FrontMatterSearchCriteria searchCriteria)
         {
+            var entities = new List<IFrontMatter>() as IEnumerable<IFrontMatter>;
+
+            entities = GetAllFrontMatterFiles(searchCriteria.Path);
+
+            //Filter
+            entities = entities.Where(p => p.Published.Equals(searchCriteria.Published));
+
+            if (searchCriteria.From.HasValue)
+            {
+                entities = entities.Where(p => p.DateTime.HasValue && p.DateTime >= searchCriteria.From);
+            }
+
+            if (searchCriteria.To.HasValue)
+            {
+                entities = entities.Where(p => p.DateTime.HasValue && p.DateTime <= searchCriteria.To);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchCriteria.Permalink))
+            {
+                entities = entities.Where(e => e.Permalinks.Any(p => p.Equals(searchCriteria.Permalink, StringComparison.OrdinalIgnoreCase)));
+            }
+            
+            var totalCount = entities.Count();
+
+            //Cut
+            if (searchCriteria.Order == Order.Ascending)
+            {
+                entities = entities.OrderBy(e => e.DateTime).ThenBy(e => e.Title);
+            }
+            else
+            {
+                entities = entities.OrderByDescending(e => e.DateTime).ThenByDescending(e => e.Title);
+            }
+
+            entities = entities.Count() > searchCriteria.Offset ? entities.Skip(searchCriteria.Offset).Take(searchCriteria.Limit) : new List<IFrontMatter>();
+
+            return new PageOf<IFrontMatter, FrontMatterSearchCriteria>(searchCriteria, entities, totalCount);
+        }
+
+        protected virtual IEnumerable<IFrontMatter> GetAllFrontMatterFiles(string path)
+        {
             var entities = new List<IFrontMatter>();
-            var allFiles = GetAllFiles(searchCriteria.Path);
+            var allFiles = GetAllFiles(path);
 
             foreach (var file in allFiles)
             {
@@ -21,35 +63,7 @@ namespace Typeset.Domain.FrontMatter
                 }
             }
 
-            entities = entities.Where(p => p.Published.Equals(searchCriteria.Published)).ToList();
-
-            if (searchCriteria.From.HasValue)
-            {
-                entities = entities.Where(p => p.Date >= searchCriteria.From).ToList();
-            }
-            if (searchCriteria.To.HasValue)
-            {
-                entities = entities.Where(p => p.Date <= searchCriteria.To).ToList();
-            }
-            if (!string.IsNullOrWhiteSpace(searchCriteria.Permalink))
-            {
-                entities = entities.Where(p => p.Permalink.ToLower().Contains(searchCriteria.Permalink.ToLower())).ToList();
-            }
-            
-            var totalCount = entities.Count;
-
-            if (searchCriteria.Order == Order.Ascending)
-            {
-                entities = entities.OrderBy(e => e.Date).ThenBy(e => e.Title).ToList();
-            }
-            else
-            {
-                entities = entities.OrderByDescending(e => e.Date).ThenByDescending(e => e.Title).ToList();
-            }
-
-            entities = entities.Count > searchCriteria.Offset ? entities.Skip(searchCriteria.Offset).Take(searchCriteria.Limit).ToList() : new List<IFrontMatter>();
-
-            return new PageOf<IFrontMatter, FrontMatterSearchCriteria>(searchCriteria, entities, totalCount);
+            return entities;
         }
 
         protected virtual IEnumerable<string> GetAllFiles(string path)
@@ -60,6 +74,7 @@ namespace Typeset.Domain.FrontMatter
             {
                 var searchPattern = string.Format("*{0}", extension);
                 var files = Directory.EnumerateFiles(path, searchPattern, SearchOption.AllDirectories);
+                // ignore directories and files that start with an underscore
                 files = files.Where(e => !e.Substring(path.Length).Contains("\\_"));
                 entities.AddRange(files);
             }

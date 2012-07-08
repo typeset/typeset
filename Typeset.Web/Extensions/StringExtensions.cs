@@ -44,7 +44,7 @@ namespace Typeset.Web.Extensions
                         mimeType = "text/plain";
                         break;
                     default:
-                        if(FrontMatterParser.FrontMatterExtensions.Any(ext => extension.Equals(ext)))
+                        if(FrontMatterParser.IsFrontMatterExtension(extension))
                         {
                             mimeType = "text/plain";
                         }

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using NodaTime;
+﻿using System;
+using System.Collections.Generic;
 using Typeset.Domain.Common;
 
 namespace Typeset.Domain.FrontMatter
@@ -9,10 +9,9 @@ namespace Typeset.Domain.FrontMatter
         string Content { get; }
         ContentType ContentType { get; }
         string Layout { get; }
-        LocalDate? Date { get; }
-        LocalTime? Time { get; }
+        DateTimeOffset? DateTime { get; }
         string Filename { get; }
-        string Permalink { get; }
+        IEnumerable<string> Permalinks { get; }
         bool Published { get; }
         IEnumerable<string> Tags { get; }
         string Title { get; }

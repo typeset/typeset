@@ -38,9 +38,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="NodaTime, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NodaTime.1.0.0-beta1\lib\net35-Client\NodaTime.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -153,7 +150,6 @@
     <Compile Include="Models\Posts\PageOfPostViewModel.cs" />
     <Compile Include="Models\Posts\PageOfPostsViewModel.cs" />
     <Compile Include="Models\Posts\PostSearchCriteriaViewModel.cs" />
-    <Compile Include="Models\Common\DateViewModel.cs" />
     <Compile Include="Models\Common\SearchCriteriaViewModel.cs" />
     <Compile Include="Models\Posts\PostViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -234,11 +230,11 @@
     <None Include="App_Data\about.md" />
     <None Include="App_Data\_layouts\home.yml" />
     <None Include="App_Data\_layouts\post.yml" />
-    <None Include="App_Data\_posts\2012-06-19-Example-Markdown-Post.md" />
-    <None Include="App_Data\_posts\2512-07-05-Example-Future-Post.md" />
-    <None Include="App_Data\_posts\2012-06-18-Example-Textile-Post.textile" />
+    <None Include="App_Data\_posts\Example-Markdown-Post.md" />
+    <None Include="App_Data\_posts\Example-Future-Post.md" />
+    <None Include="App_Data\_posts\Example-Textile-Post.textile" />
     <Content Include="Views\Post\Get.cshtml" />
-    <None Include="App_Data\_posts\2012-06-23-Example-Unpublished-Post.md" />
+    <None Include="App_Data\_posts\Example-Unpublished-Post.md" />
     <Content Include="Views\StaticFile\Atom.cshtml" />
     <Content Include="Views\StaticFile\Default.cshtml" />
   </ItemGroup>
