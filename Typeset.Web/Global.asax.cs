@@ -1,6 +1,5 @@
 ﻿using System.Web;
 using System.Web.Mvc;
-using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace Typeset.Web
@@ -18,13 +17,14 @@ namespace Typeset.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ViewEnginesConfig.RegisterViewEngines();
-            CloneRepositoryConfig.CloneRepository();
+            SiteRepositoryConfig.CloneRepository();
         }
 
         public override void Init()
         {
             ExceptionHandlingConfig.RegisterEvents(this);
             ResponseTimeHeaderConfig.RegisterEvents(this);
+            SiteRepositoryConfig.RegisterEvents(this);
         }
     }
 }

@@ -7,9 +7,19 @@ namespace Typeset.Domain.Git
 {
     public static class Git
     {
+        public static void Pull(string path)
+        {
+            var repository = NGit.Api.Git.Open(path);
+            var command = repository.Pull();
+            var result = command.Call();
+        }
+
         public static void Clone(string url, string path)
         {
-            GitSharp.Git.Clone(url, path);
+            var command = new NGit.Api.CloneCommand();
+            command.SetURI(url);
+            command.SetDirectory(new Sharpen.FilePath(path));
+            var result = command.Call();
         }
     }
 }

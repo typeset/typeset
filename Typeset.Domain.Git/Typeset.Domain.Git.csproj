@@ -33,15 +33,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GitSharp">
-      <HintPath>..\packages\GitSharp.0.3\lib\GitSharp.dll</HintPath>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <Private>True</Private>
+      <HintPath>..\packages\ngit.1.0.0.20110815\lib\net35\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="GitSharp.Core">
-      <HintPath>..\packages\GitSharp.0.3\lib\GitSharp.Core.dll</HintPath>
+    <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\ngit.1.0.0.20110815\lib\net35\Mono.Posix.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    <Reference Include="Mono.Security, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\ngit.1.0.0.20110815\lib\net35\Mono.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Security.Win32, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\ngit.1.0.0.20110815\lib\net35\Mono.Security.Win32.dll</HintPath>
+    </Reference>
+    <Reference Include="NGit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ngit.1.0.0.20110815\lib\net35\NGit.dll</HintPath>
+    </Reference>
+    <Reference Include="NSch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ngit.1.0.0.20110815\lib\net35\NSch.dll</HintPath>
+    </Reference>
+    <Reference Include="Sharpen, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ngit.1.0.0.20110815\lib\net35\Sharpen.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -50,12 +62,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tamir.SharpSSH">
-      <HintPath>..\packages\Tamir.SharpSSH.1.1.1.13\lib\Tamir.SharpSSH.dll</HintPath>
-    </Reference>
-    <Reference Include="Winterdom.IO.FileMap">
-      <HintPath>..\packages\Winterdom.IO.FileMap.2.0.2.0\lib\Winterdom.IO.FileMap.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Typeset.Common\GlobalAssemblyInfo.cs">

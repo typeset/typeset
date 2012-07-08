@@ -121,7 +121,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App_Start\ControllerBuilderConfig.cs" />
-    <Compile Include="App_Start\CloneRepositoryConfig.cs" />
+    <Compile Include="App_Start\SiteRepositoryConfig.cs" />
     <Compile Include="App_Start\ResponseTimeHeaderConfig.cs" />
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="App_Start\FormattersConfig.cs" />
