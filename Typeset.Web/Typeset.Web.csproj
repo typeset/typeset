@@ -121,6 +121,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App_Start\ControllerBuilderConfig.cs" />
+    <Compile Include="App_Start\CloneRepositoryConfig.cs" />
     <Compile Include="App_Start\ResponseTimeHeaderConfig.cs" />
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="App_Start\FormattersConfig.cs" />
@@ -157,20 +158,6 @@
     <Compile Include="ViewResults\AtomViewResult.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Data\scripts\coffeescript\sample.coffee" />
-    <Content Include="App_Data\styles\css\bootstrap.min.css" />
-    <Content Include="App_Data\styles\css\default.css" />
-    <None Include="App_Data\styles\less\sample.less" />
-    <Content Include="App_Data\_includes\header.html" />
-    <Content Include="App_Data\_includes\footer.html" />
-    <Content Include="App_Data\images\github.png" />
-    <Content Include="App_Data\images\rss.png" />
-    <Content Include="App_Data\images\twitter.png" />
-    <Content Include="App_Data\scripts\javascript\jquery-1.7.2-vsdoc.js" />
-    <Content Include="App_Data\scripts\javascript\bootstrap.min.js" />
-    <Content Include="App_Data\scripts\javascript\default.js" />
-    <Content Include="App_Data\scripts\javascript\jquery-1.7.2.min.js" />
-    <Content Include="App_Data\favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -184,7 +171,6 @@
     <Content Include="Views\Home\Get.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -200,6 +186,10 @@
     <ProjectReference Include="..\Typeset.Domain.FrontMatter\Typeset.Domain.FrontMatter.csproj">
       <Project>{D0018890-42AA-4AD6-A441-CBBC2B132964}</Project>
       <Name>Typeset.Domain.FrontMatter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Typeset.Domain.Git\Typeset.Domain.Git.csproj">
+      <Project>{03C54E04-FC6A-490C-B893-7DEAEAB124FF}</Project>
+      <Name>Typeset.Domain.Git</Name>
     </ProjectReference>
     <ProjectReference Include="..\Typeset.Domain.Layout\Typeset.Domain.Layout.csproj">
       <Project>{9206775B-DE0A-4E31-90FF-09B265B6E4C1}</Project>
@@ -223,19 +213,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Data\readme.md" />
-    <None Include="App_Data\styles\sass\sample.scss" />
-    <None Include="App_Data\_config.yml" />
-    <None Include="App_Data\about.md" />
-    <None Include="App_Data\_layouts\home.yml" />
-    <None Include="App_Data\_layouts\post.yml" />
-    <None Include="App_Data\_posts\Example-Markdown-Post.md" />
-    <None Include="App_Data\_posts\Example-Future-Post.md" />
-    <None Include="App_Data\_posts\Example-Textile-Post.textile" />
     <Content Include="Views\Url\Post.cshtml" />
-    <None Include="App_Data\_posts\Example-Unpublished-Post.md" />
     <Content Include="Views\Url\Atom.cshtml" />
     <Content Include="Views\Url\Default.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

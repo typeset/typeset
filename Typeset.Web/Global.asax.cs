@@ -18,6 +18,7 @@ namespace Typeset.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ViewEnginesConfig.RegisterViewEngines();
+            CloneRepositoryConfig.CloneRepository();
         }
 
         public override void Init()
