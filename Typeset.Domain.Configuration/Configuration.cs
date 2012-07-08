@@ -13,7 +13,7 @@ namespace Typeset.Domain.Configuration
 
         public Configuration()
         {
-            DateFormat = "MM-dd-yyyy";
+            DateFormat = "dddd, MMMM d, yyyy";
         }
     }
 }
