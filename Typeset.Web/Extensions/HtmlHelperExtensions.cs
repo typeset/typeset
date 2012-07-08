@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web.Optimization;
 using Typeset.Web.CoffeeScript.BundleTransforms;
 using Typeset.Web.Less.BundleTransforms;
-using Typeset.Web.Models.Common;
 using Typeset.Web.Models.Configuration;
 using Typeset.Web.Models.Posts;
 using Typeset.Web.Sass.BundleTransforms;
@@ -13,6 +13,13 @@ namespace System.Web.Mvc
 {
     public static class HtmlHelperExtensions
     {
+        private static string AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+        public static string GetAssemblyVersion(this HtmlHelper helper)
+        {
+            return AssemblyVersion;
+        }
+
         public static UrlHelper UrlHelper(this HtmlHelper helper)
         {
             return new UrlHelper(helper.ViewContext.RequestContext);
