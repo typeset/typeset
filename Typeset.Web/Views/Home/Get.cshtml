@@ -1,5 +1,5 @@
 ﻿@model Typeset.Web.Models.Home.HomeViewModel
-@{ ViewBag.Title = Model.Configuration.SyndicationTitle; }
+@{ ViewBag.Title = Model.Configuration.Title; }
 @section head_html {@foreach (var url in Model.Layout.HeadHtml){@Html.Include(url)}}
 @section head_styles {@Html.CompileBundleAndMinifyStyles("head", Model.Layout.HeadStyles)}
 @section head_scripts {@Html.CompileBundleAndMinifyScripts("head", Model.Layout.HeadScripts)}

@@ -1,20 +1,20 @@
 ﻿@model Typeset.Web.Models.Home.HomeViewModel
 @{ Layout = null; }<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
- <title>@Model.Configuration.SyndicationTitle</title>
+ <title>@Model.Configuration.Title</title>
  <link href="@Url.Content("~/atom.xml", true)" rel="self"/>
- <link href="@Url.Content("~/", true)"/>
- <updated>@string.Format("{0}-{1}-{2}T00:00:00-00:00", Model.Posts.Entities.First().Date.Year, Model.Posts.Entities.First().Date.Month, Model.Posts.Entities.First().Date.Day)</updated>
+ <link type="text/html" href="@Url.Content("~/", true)" rel="alternate"/>
+ <updated>@string.Format("{0:0000}-{1:00}-{2:00}T00:00:00Z", Model.Posts.Entities.First().Date.Year, Model.Posts.Entities.First().Date.Month, Model.Posts.Entities.First().Date.Day)</updated>
  <id>@Url.Content("~/", true)</id>
  <author>
-   <name>@Model.Configuration.SyndicationAuthor</name>
+   <name>@Model.Configuration.Author</name>
  </author>
 @foreach (var post in Model.Posts.Entities)
 {
     <entry>
         <title>@post.Title</title>
         <link href="@Url.Content(post.Permalink, true)"/>
-        <updated>@string.Format("{0}-{1}-{2}T00:00:00-00:00", post.Date.Year, post.Date.Month, post.Date.Day)</updated>
+        <updated>@string.Format("{0:0000}-{1:00}-{2:00}T00:00:00Z", post.Date.Year, post.Date.Month, post.Date.Day)</updated>
         <id>@Url.Content(post.Permalink, true)</id>
         <content type="html">@post.HtmlContent</content>
     </entry>

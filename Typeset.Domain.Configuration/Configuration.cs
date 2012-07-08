@@ -8,8 +8,8 @@ namespace Typeset.Domain.Configuration
     internal class Configuration : IConfiguration
     {
         public string DateFormat { get; set; }
-        public string SyndicationAuthor { get; set; }
-        public string SyndicationTitle { get; set; }
+        public string Author { get; set; }
+        public string Title { get; set; }
 
         public Configuration()
         {

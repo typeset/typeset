@@ -19,23 +19,20 @@ namespace Typeset.Domain.Configuration
                     yamlStream.Load(stringReader);
                 }
                 var mapping = (YamlMappingNode)yamlStream.Documents[0].RootNode;
+                
                 if (mapping.Children.ContainsKey(new YamlScalarNode("dateformat")))
                 {
                     entity.DateFormat = mapping.Children[new YamlScalarNode("dateformat")].ToString();
                 }
 
-                if (mapping.Children.ContainsKey(new YamlScalarNode("syndication")))
+                if (mapping.Children.ContainsKey(new YamlScalarNode("title")))
                 {
-                    var nameNode = (YamlMappingNode)mapping.Children[new YamlScalarNode("syndication")];
-                    if (nameNode.Children.ContainsKey(new YamlScalarNode("title")))
-                    {
-                        entity.SyndicationTitle = nameNode.Children[new YamlScalarNode("title")].ToString();
-                    }
+                    entity.Title = mapping.Children[new YamlScalarNode("title")].ToString();
+                }
 
-                    if (nameNode.Children.ContainsKey(new YamlScalarNode("author")))
-                    {
-                        entity.SyndicationAuthor = nameNode.Children[new YamlScalarNode("author")].ToString();
-                    }
+                if (mapping.Children.ContainsKey(new YamlScalarNode("author")))
+                {
+                    entity.Author = mapping.Children[new YamlScalarNode("author")].ToString();
                 }
             }
             catch
