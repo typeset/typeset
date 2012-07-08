@@ -12,15 +12,19 @@ namespace Typeset.Web
             var sitePath = HttpContext.Current.Server.MapPath("~/App_Data/site");
             var siteRepository = ConfigurationManager.AppSettings["SiteRepository"];
 
-            if (!Directory.Exists(sitePath))
+            try
             {
-                Directory.CreateDirectory(sitePath);
+                //if (!Directory.Exists(sitePath))
+                //{
+                //    Directory.CreateDirectory(sitePath);
 
-                if (siteRepository.EndsWith(".git", System.StringComparison.OrdinalIgnoreCase))
-                {
-                    Git.Clone(siteRepository, sitePath);
-                }
+                //    if (siteRepository.EndsWith(".git", System.StringComparison.OrdinalIgnoreCase))
+                //    {
+                //        Git.Clone(siteRepository, sitePath);
+                //    }
+                //}
             }
+            catch { }
         }
     }
 }

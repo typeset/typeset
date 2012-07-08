@@ -70,13 +70,16 @@ namespace Typeset.Domain.FrontMatter
         {
             var entities = new List<string>();
 
-            foreach (var extension in FrontMatterParser.FrontMatterExtensions)
+            if (Directory.Exists(path))
             {
-                var searchPattern = string.Format("*{0}", extension);
-                var files = Directory.EnumerateFiles(path, searchPattern, SearchOption.AllDirectories);
-                // ignore directories and files that start with an underscore
-                files = files.Where(e => !e.Substring(path.Length).Contains("\\_"));
-                entities.AddRange(files);
+                foreach (var extension in FrontMatterParser.FrontMatterExtensions)
+                {
+                    var searchPattern = string.Format("*{0}", extension);
+                    var files = Directory.EnumerateFiles(path, searchPattern, SearchOption.AllDirectories);
+                    // ignore directories and files that start with an underscore
+                    files = files.Where(e => !e.Substring(path.Length).Contains("\\_"));
+                    entities.AddRange(files);
+                }
             }
 
             return entities;
