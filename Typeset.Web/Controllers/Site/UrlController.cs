@@ -113,13 +113,13 @@ namespace Typeset.Web.Controllers.Site
             var searchCriteria = new FrontMatterSearchCriteria(1, 0, Order.Ascending, ContentPath, null, null, url, true);
             var pageOfPages = FrontMatterRepository.Get(searchCriteria);
             var frontMatter = pageOfPages.Entities.First();
-            var frontMatterContentViewModel = new FrontMatterContentViewModel(frontMatter, MarkupProcessorFactory);
+            var frontMatterContentViewModel = new ContentViewModel(frontMatter, MarkupProcessorFactory);
 
             var layoutPath = GetLayoutPath(frontMatter.Layout);
             var layout = LayoutParser.Parse(layoutPath);
             var layoutViewModel = new LayoutViewModel(layout);
 
-            var pageOfFrontMatterContentViewModel = new PageOfFrontMatterContentViewModel(configViewModel, layoutViewModel, frontMatterContentViewModel);
+            var pageOfFrontMatterContentViewModel = new PageOfContentViewModel(configViewModel, layoutViewModel, frontMatterContentViewModel);
 
             return View("Default", pageOfFrontMatterContentViewModel);
         }

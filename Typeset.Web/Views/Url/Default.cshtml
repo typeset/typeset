@@ -1,4 +1,4 @@
-﻿@model Typeset.Web.Models.Common.PageOfFrontMatterContentViewModel
+﻿@model Typeset.Web.Models.Common.PageOfContentViewModel
 @{ ViewBag.Title = Model.FrontMatterContent.Title; }
 @section head_html {@foreach (var url in Model.Layout.HeadHtml){@Html.Include(url)}}
 @section head_styles {@Html.CompileBundleAndMinifyStyles("head", Model.Layout.HeadStyles)}

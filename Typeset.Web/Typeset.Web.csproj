@@ -143,8 +143,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Common\LayoutViewModel.cs" />
-    <Compile Include="Models\Common\FrontMatterContentViewModel.cs" />
-    <Compile Include="Models\Common\PageOfFrontMatterContentViewModel.cs" />
+    <Compile Include="Models\Common\ContentViewModel.cs" />
+    <Compile Include="Models\Common\PageOfContentViewModel.cs" />
     <Compile Include="Models\Configuration\ConfigurationViewModel.cs" />
     <Compile Include="Models\Home\HomeViewModel.cs" />
     <Compile Include="Models\Posts\PageOfPostViewModel.cs" />
@@ -182,7 +182,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Get.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup />

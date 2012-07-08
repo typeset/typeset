@@ -2,13 +2,13 @@
 
 namespace Typeset.Web.Models.Common
 {
-    public class PageOfFrontMatterContentViewModel
+    public class PageOfContentViewModel
     {
         public ConfigurationViewModel Configuration { get; set; }
         public LayoutViewModel Layout { get; set; }
-        public FrontMatterContentViewModel FrontMatterContent { get; set; }
+        public ContentViewModel FrontMatterContent { get; set; }
 
-        public PageOfFrontMatterContentViewModel(ConfigurationViewModel configViewModel, LayoutViewModel layoutViewModel, FrontMatterContentViewModel frontMatterContentViewModel)
+        public PageOfContentViewModel(ConfigurationViewModel configViewModel, LayoutViewModel layoutViewModel, ContentViewModel frontMatterContentViewModel)
         {
             Configuration = configViewModel;
             Layout = layoutViewModel;

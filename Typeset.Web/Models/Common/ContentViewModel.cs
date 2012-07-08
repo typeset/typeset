@@ -5,7 +5,7 @@ using Typeset.Domain.Markup;
 
 namespace Typeset.Web.Models.Common
 {
-    public class FrontMatterContentViewModel
+    public class ContentViewModel
     {
         public DateTimeOffset Date { get; set; }
         public string Title { get; set; }
@@ -15,7 +15,7 @@ namespace Typeset.Web.Models.Common
         public IEnumerable<string> Permalinks { get; set; }
         public IEnumerable<string> Tags { get; set; }
 
-        public FrontMatterContentViewModel(IFrontMatter entity, IMarkupProcessorFactory markupProcessorFactory)
+        public ContentViewModel(IFrontMatter entity, IMarkupProcessorFactory markupProcessorFactory)
         {
             Date = entity.DateTime.HasValue ? entity.DateTime.Value : DateTimeOffset.MinValue;
             Title = entity.Title;
