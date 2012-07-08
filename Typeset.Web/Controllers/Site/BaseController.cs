@@ -12,15 +12,15 @@ namespace Typeset.Web.Controllers.Site
 
         protected override void OnActionExecuting(ActionExecutingContext ctx)
         {
-            ContentPath = HttpContext.Server.MapPath("~/App_Data");
-            ConfigPath = HttpContext.Server.MapPath("~/App_Data/_config.yml");
-            PostPath = HttpContext.Server.MapPath("~/App_Data/_posts");
-            IncludesPath = HttpContext.Server.MapPath("~/App_Data/_includes");
+            ContentPath = HttpContext.Server.MapPath("~/App_Data/site");
+            ConfigPath = HttpContext.Server.MapPath("~/App_Data/site/_config.yml");
+            PostPath = HttpContext.Server.MapPath("~/App_Data/site/_posts");
+            IncludesPath = HttpContext.Server.MapPath("~/App_Data/site/_includes");
         }
 
         protected string GetLayoutPath(string name)
         {
-            return HttpContext.Server.MapPath(string.Format("~/App_Data/_layouts/{0}.yml", name));
+            return HttpContext.Server.MapPath(string.Format("~/App_Data/site/_layouts/{0}.yml", name));
         }
     }
 }

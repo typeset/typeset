@@ -16,10 +16,10 @@ namespace Typeset.Web.Controllers.Api
 
         public override Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext, CancellationToken cancellationToken)
         {
-            ContentPath = HttpContext.Current.Server.MapPath("~/App_Data");
-            ConfigPath = HttpContext.Current.Server.MapPath("~/App_Data/_config.yml");
-            PostPath = HttpContext.Current.Server.MapPath("~/App_Data/_posts");
-            IncludesPath = HttpContext.Current.Server.MapPath("~/App_Data/_includes");
+            ContentPath = HttpContext.Current.Server.MapPath("~/App_Data/site");
+            ConfigPath = HttpContext.Current.Server.MapPath("~/App_Data/site/_config.yml");
+            PostPath = HttpContext.Current.Server.MapPath("~/App_Data/site/_posts");
+            IncludesPath = HttpContext.Current.Server.MapPath("~/App_Data/site/_includes");
 
             return base.ExecuteAsync(controllerContext, cancellationToken);
         }

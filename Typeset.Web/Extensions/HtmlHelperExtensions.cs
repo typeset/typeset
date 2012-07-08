@@ -101,7 +101,7 @@ namespace System.Web.Mvc
 
             try
             {
-                var absolutePath = helper.ViewContext.HttpContext.Server.MapPath(string.Format("~/App_Data{0}", relativePath));
+                var absolutePath = helper.ViewContext.HttpContext.Server.MapPath(string.Format("~/App_Data/site{0}", relativePath));
                 if (File.Exists(absolutePath))
                 {
                     html = File.ReadAllText(absolutePath);
@@ -123,7 +123,7 @@ namespace System.Web.Mvc
                 BundleTable.Bundles.FileSetOrderList.Clear();
                 BundleTable.Bundles.FileExtensionReplacementList.Clear();
 
-                var javaScript = paths.Select(p => string.Format("~/App_Data{0}", p)).ToArray();
+                var javaScript = paths.Select(p => string.Format("~/App_Data/site{0}", p)).ToArray();
                 var virtualPath = string.Format("~/scripts/javascript/{0}", helper.UrlHelper().Encode(name));
                 
                 var bundle = new Bundle(virtualPath);
@@ -157,7 +157,7 @@ namespace System.Web.Mvc
                 bundle.Transforms.Add(new SassCompile());
                 bundle.Transforms.Add(new LessCompile());
                 bundle.Transforms.Add(new CssMinify());
-                bundle.Include(paths.Select(p => string.Format("~/App_Data{0}", p)).ToArray());
+                bundle.Include(paths.Select(p => string.Format("~/App_Data/site{0}", p)).ToArray());
                 BundleTable.Bundles.Add(bundle);
 
                 var scriptTag = new TagBuilder("link");

@@ -9,7 +9,7 @@ namespace Typeset.Web
     {
         public static void CloneRepository()
         {
-            var sitePath = HttpContext.Current.Server.MapPath("~/App_Data/Site");
+            var sitePath = HttpContext.Current.Server.MapPath("~/App_Data/site");
             var siteRepository = ConfigurationManager.AppSettings["SiteRepository"];
 
             if (!Directory.Exists(sitePath))
