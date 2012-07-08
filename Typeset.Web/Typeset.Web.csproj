@@ -233,10 +233,10 @@
     <None Include="App_Data\_posts\Example-Markdown-Post.md" />
     <None Include="App_Data\_posts\Example-Future-Post.md" />
     <None Include="App_Data\_posts\Example-Textile-Post.textile" />
-    <Content Include="Views\Post\Get.cshtml" />
+    <Content Include="Views\Url\Post.cshtml" />
     <None Include="App_Data\_posts\Example-Unpublished-Post.md" />
-    <Content Include="Views\StaticFile\Atom.cshtml" />
-    <Content Include="Views\StaticFile\Default.cshtml" />
+    <Content Include="Views\Url\Atom.cshtml" />
+    <Content Include="Views\Url\Default.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

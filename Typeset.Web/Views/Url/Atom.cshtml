@@ -13,9 +13,9 @@
 {
     <entry>
         <title>@post.Title</title>
-        <link href="@Url.Content(post.Permalink, true)"/>
+        <link href="@Url.Content(post.Permalinks.First(), true)"/>
         <updated>@string.Format("{0:0000}-{1:00}-{2:00}T00:00:00Z", post.Date.Year, post.Date.Month, post.Date.Day)</updated>
-        <id>@Url.Content(post.Permalink, true)</id>
+        <id>@Url.Content(post.Permalinks.First(), true)</id>
         <content type="html">@post.HtmlContent</content>
     </entry>
 }

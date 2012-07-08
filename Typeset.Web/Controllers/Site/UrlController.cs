@@ -60,7 +60,7 @@ namespace Typeset.Web.Controllers.Site
 
             var homeViewModel = new HomeViewModel(configViewModel, layoutViewModel, pageOfPostsViewModel);
 
-            return new AtomViewResult("~/Views/StaticFile/Atom.cshtml", homeViewModel);
+            return new AtomViewResult(homeViewModel);
         }
 
         public ActionResult Get(string url)
@@ -102,7 +102,7 @@ namespace Typeset.Web.Controllers.Site
 
             var pageOfPostViewModel = new PageOfPostViewModel(configViewModel, layoutViewModel, postViewModel);
 
-            return View("~/Views/Post/Get.cshtml", pageOfPostViewModel);
+            return View("Post", pageOfPostViewModel);
         }
 
         private ActionResult GetPage(string url)
@@ -121,7 +121,7 @@ namespace Typeset.Web.Controllers.Site
 
             var pageOfFrontMatterContentViewModel = new PageOfFrontMatterContentViewModel(configViewModel, layoutViewModel, frontMatterContentViewModel);
 
-            return View("~/Views/StaticFile/Default.cshtml", pageOfFrontMatterContentViewModel);
+            return View("Default", pageOfFrontMatterContentViewModel);
         }
 
         private ActionResult GetFile(string url)
