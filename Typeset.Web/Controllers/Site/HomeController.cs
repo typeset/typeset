@@ -4,6 +4,7 @@ using Typeset.Domain.Configuration;
 using Typeset.Domain.FrontMatter;
 using Typeset.Domain.Layout;
 using Typeset.Domain.Markup;
+using Typeset.Web.Configuration;
 using Typeset.Web.Models.Common;
 using Typeset.Web.Models.Configuration;
 using Typeset.Web.Models.Home;
@@ -17,9 +18,11 @@ namespace Typeset.Web.Controllers.Site
         private IFrontMatterRepository FrontMatterRepository { get; set; }
         private IMarkupProcessorFactory MarkupProcessorFactory { get; set; }
 
-        public HomeController(IConfigurationRepository configRepository,
+        public HomeController(IConfigurationManager configurationManager,
+            IConfigurationRepository configRepository,
             IFrontMatterRepository frontMatterRepository,
             IMarkupProcessorFactory markupProcessorFactory)
+            : base(configurationManager)
         {
             if (configRepository == null)
             {

@@ -3,6 +3,7 @@ using TinyIoC;
 using Typeset.Domain.Configuration;
 using Typeset.Domain.FrontMatter;
 using Typeset.Domain.Markup;
+using Typeset.Web.Configuration;
 using Typeset.Web.Controllers.Api;
 using Typeset.Web.Controllers.DependencyResolvers;
 using Typeset.Web.Controllers.Factories;
@@ -16,7 +17,8 @@ namespace Typeset.Web
         {
             var container = new TinyIoCContainer();
 
-            //App Settings
+            //Configuration
+            container.Register<IConfigurationManager, ConfigurationManagerProxy>();
 
             //MVC Framework
             container.Register<System.Web.Http.Dependencies.IDependencyResolver, TinyIocDependencyResolver>();
@@ -28,7 +30,8 @@ namespace Typeset.Web
             container.Register<IMarkupProcessorFactory, MarkupProcessorFactory>();
             
             //WebApi Controllers
-            container.Register<PostsController>();
+            container.Register<PostsController>().AsMultiInstance();
+            container.Register<RepositoryController>().AsMultiInstance();
 
             //Mvc Controllers
             container.Register<IController, UrlController>("Url").AsMultiInstance();

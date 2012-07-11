@@ -131,6 +131,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Api\BaseApiController.cs" />
+    <Compile Include="Controllers\Api\RepositoryController.cs" />
     <Compile Include="Controllers\Factories\TinyIocControllerFactory.cs" />
     <Compile Include="Controllers\Site\BaseController.cs" />
     <Compile Include="Controllers\Site\UrlController.cs" />
@@ -202,6 +203,10 @@
     <ProjectReference Include="..\Typeset.Web.CoffeeScript\Typeset.Web.CoffeeScript.csproj">
       <Project>{AE26FA1A-6DCF-4523-A5B6-571D115E802D}</Project>
       <Name>Typeset.Web.CoffeeScript</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Typeset.Web.Configuration\Typeset.Web.Configuration.csproj">
+      <Project>{239CA1DE-F4E8-4DEC-B3A2-92257B8138DB}</Project>
+      <Name>Typeset.Web.Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\Typeset.Web.Less\Typeset.Web.Less.csproj">
       <Project>{E967771C-4971-440E-98CF-C820CFFE3139}</Project>

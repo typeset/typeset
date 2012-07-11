@@ -2,6 +2,7 @@
 using Typeset.Domain.Common;
 using Typeset.Domain.FrontMatter;
 using Typeset.Domain.Markup;
+using Typeset.Web.Configuration;
 using Typeset.Web.Models.Posts;
 
 namespace Typeset.Web.Controllers.Api
@@ -11,8 +12,10 @@ namespace Typeset.Web.Controllers.Api
         private IFrontMatterRepository FrontMatterRepository { get; set; }
         private IMarkupProcessorFactory MarkupProcessorFactory { get; set; }
 
-        public PostsController(IFrontMatterRepository frontMatterRepository,
+        public PostsController(IConfigurationManager configurationManager,
+            IFrontMatterRepository frontMatterRepository,
             IMarkupProcessorFactory markupProcessorFactory)
+            : base(configurationManager)
         {
             if (frontMatterRepository == null)
             {

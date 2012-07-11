@@ -1,32 +1,35 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Typeset.Domain.Common;
+using System.Web.Http;
 using Typeset.Web.Configuration;
 
 namespace Typeset.Web.Controllers.Api
 {
     public class RepositoryController : BaseApiController
     {
-        private IConfigurationManager ConfigurationManager { get; set; }
-
         public RepositoryController(IConfigurationManager configurationManager)
+            : base(configurationManager)
         {
-            if (configurationManager == null)
-            {
-                throw new ArgumentNullException("configuraitonManager");
-            }
-
-            ConfigurationManager = configurationManager;
         }
 
-        public HttpResponseMessage Get(int limit = SearchCriteria.DefaultLimit, int offset = SearchCriteria.DefaultOffset, string order = "descending")
+        [HttpGet]
+        public HttpResponseMessage Update(string token)
         {
-            Task.Factory.StartNew(() =>
-                {
-                    Typeset.Domain.Git.Git.Pull(ConfigurationManager.AppSettings[""]);
-                });
+            var siteRepositoryPullToken = ConfigurationManager.AppSettings["SiteRepository_PullToken"];
+
+            if (token.Equals(siteRepositoryPullToken))
+            {
+                Task.Factory.StartNew(() =>
+                    {
+                        try
+                        {
+                            Typeset.Domain.Git.Git.Pull(SitePath);
+                        }
+                        catch { }
+                    });   
+            }
+
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }

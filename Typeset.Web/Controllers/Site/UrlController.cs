@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using Typeset.Domain.Common;
 using Typeset.Domain.Configuration;
 using Typeset.Domain.FrontMatter;
 using Typeset.Domain.Layout;
 using Typeset.Domain.Markup;
+using Typeset.Web.Configuration;
 using Typeset.Web.Extensions;
 using Typeset.Web.Models.Common;
 using Typeset.Web.Models.Configuration;
@@ -23,9 +23,11 @@ namespace Typeset.Web.Controllers.Site
         private IFrontMatterRepository FrontMatterRepository { get; set; }
         private IMarkupProcessorFactory MarkupProcessorFactory { get; set; }
 
-        public UrlController(IConfigurationRepository configRepository, 
+        public UrlController(IConfigurationManager configurationManager,
+            IConfigurationRepository configRepository, 
             IFrontMatterRepository frontMatterRepository,
             IMarkupProcessorFactory markupProcessorFactory)
+            : base(configurationManager)
         {
             if (configRepository == null)
             {
@@ -110,7 +112,7 @@ namespace Typeset.Web.Controllers.Site
             var config = ConfigRepository.Read(ConfigPath);
             var configViewModel = new ConfigurationViewModel(config);
 
-            var searchCriteria = new FrontMatterSearchCriteria(1, 0, Order.Ascending, ContentPath, null, null, url, true);
+            var searchCriteria = new FrontMatterSearchCriteria(1, 0, Order.Ascending, SitePath, null, null, url, true);
             var pageOfPages = FrontMatterRepository.Get(searchCriteria);
             var frontMatter = pageOfPages.Entities.First();
             var frontMatterContentViewModel = new ContentViewModel(frontMatter, MarkupProcessorFactory);
@@ -126,7 +128,7 @@ namespace Typeset.Web.Controllers.Site
 
         private ActionResult GetFile(string url)
         {
-            var path = Path.Combine(ContentPath, url);
+            var path = Path.Combine(SitePath, url);
 
             if (url.StartsWith("_") ||
                 url.Contains("/_") ||
@@ -151,7 +153,7 @@ namespace Typeset.Web.Controllers.Site
 
         private bool IsPage(string url)
         {
-            var searchCriteria = new FrontMatterSearchCriteria(1, 0, Order.Ascending, ContentPath, null, null, url, true);
+            var searchCriteria = new FrontMatterSearchCriteria(1, 0, Order.Ascending, SitePath, null, null, url, true);
             var pageOf = FrontMatterRepository.Get(searchCriteria);
             return pageOf.Entities.Any();
         }
