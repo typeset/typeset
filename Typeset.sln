@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typeset.Web.Sass", "Typeset
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typeset.Domain.Git", "Typeset.Domain.Git\Typeset.Domain.Git.csproj", "{03C54E04-FC6A-490C-B893-7DEAEAB124FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typeset.Web.Configuration", "Typeset.Web.Configuration\Typeset.Web.Configuration.csproj", "{239CA1DE-F4E8-4DEC-B3A2-92257B8138DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{03C54E04-FC6A-490C-B893-7DEAEAB124FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03C54E04-FC6A-490C-B893-7DEAEAB124FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03C54E04-FC6A-490C-B893-7DEAEAB124FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{239CA1DE-F4E8-4DEC-B3A2-92257B8138DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{239CA1DE-F4E8-4DEC-B3A2-92257B8138DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{239CA1DE-F4E8-4DEC-B3A2-92257B8138DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{239CA1DE-F4E8-4DEC-B3A2-92257B8138DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
