@@ -10,9 +10,9 @@ namespace Typeset.Web.Models.Configuration
 
         public ConfigurationViewModel(IConfiguration entity)
         {
-            DateFormat = entity.DateFormat;
-            Author = entity.Author;
-            Title = entity.Title;
+            DateFormat = string.IsNullOrWhiteSpace(entity.DateFormat) ? string.Empty : entity.DateFormat;
+            Author = string.IsNullOrWhiteSpace(entity.Author) ? string.Empty : entity.Author;
+            Title = string.IsNullOrWhiteSpace(entity.Title) ? string.Empty : entity.Title;
         }
     }
 }

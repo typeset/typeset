@@ -4,7 +4,14 @@
  <title>@Model.Configuration.Title</title>
  <link href="@Url.Content("~/atom.xml", true)" rel="self"/>
  <link type="text/html" href="@Url.Content("~/", true)" rel="alternate"/>
+ @if (Model.Posts.Entities.Any())
+ {
  <updated>@string.Format("{0:0000}-{1:00}-{2:00}T00:00:00Z", Model.Posts.Entities.First().Date.Year, Model.Posts.Entities.First().Date.Month, Model.Posts.Entities.First().Date.Day)</updated>
+ }
+ else
+ {
+ <updated>2000-01-01T00:00:00Z</updated>
+ }
  <id>@Url.Content("~/", true)</id>
  <author>
    <name>@Model.Configuration.Author</name>
