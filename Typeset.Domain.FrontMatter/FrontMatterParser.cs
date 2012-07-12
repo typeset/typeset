@@ -82,17 +82,23 @@ namespace Typeset.Domain.FrontMatter
 
             internal static YamlDocument ParseYaml(string fileText)
             {
-                YamlDocument yamlDocument;
+                YamlDocument yamlDocument = null;
 
-                var yamlStream = new YamlStream();
-                using (var stringReader = new StringReader(fileText))
+                var regex = new Regex(@"^(---\s)([\s\S]*?)(\s---)(\s*)");
+                if (regex.IsMatch(fileText))
                 {
-                    yamlStream.Load(stringReader);
+                    var frontMatter = regex.Match(fileText).Value;
+
+                    var yamlStream = new YamlStream();
+                    using (var stringReader = new StringReader(frontMatter))
+                    {
+                        yamlStream.Load(stringReader);
+                    }
+
+                    yamlDocument = yamlStream.Documents[0];
                 }
 
-                yamlDocument = yamlStream.Documents[0];
-
-                if (!(yamlDocument.RootNode is YamlScalarNode || yamlDocument.RootNode is YamlMappingNode))
+                if (yamlDocument == null || !(yamlDocument.RootNode is YamlScalarNode || yamlDocument.RootNode is YamlMappingNode))
                 {
                     throw new ArgumentException("Yaml document not found");
                 }
