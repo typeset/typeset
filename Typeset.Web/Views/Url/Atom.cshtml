@@ -2,8 +2,8 @@
 @{ Layout = null; }<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>@Model.Configuration.Title</title>
- <link href="@Url.Content("~/atom.xml", true)" rel="self"/>
- <link type="text/html" href="@Url.Content("~/", true)" rel="alternate"/>
+ <link href="@Url.Content("atom.xml", true)" rel="self"/>
+ <link type="text/html" href="@Url.Content("", true)" rel="alternate"/>
  @if (Model.Posts.Entities.Any())
  {
  <updated>@string.Format("{0:0000}-{1:00}-{2:00}T00:00:00Z", Model.Posts.Entities.First().Date.Year, Model.Posts.Entities.First().Date.Month, Model.Posts.Entities.First().Date.Day)</updated>
@@ -12,7 +12,7 @@
  {
  <updated>2000-01-01T00:00:00Z</updated>
  }
- <id>@Url.Content("~/", true)</id>
+ <id>@Url.Content("", true)</id>
  <author>
    <name>@Model.Configuration.Author</name>
  </author>
