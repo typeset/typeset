@@ -18,13 +18,15 @@ namespace Typeset.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ViewEnginesConfig.RegisterViewEngines();
-            SiteRepositoryConfig.CloneRepository(container.Resolve<IConfigurationManager>());
         }
 
         public override void Init()
         {
+            var container = IocConfig.RegisterDependencies();
+
             ExceptionHandlingConfig.RegisterEvents(this);
             ResponseTimeHeaderConfig.RegisterEvents(this);
+            SiteRepositoryConfig.RegisterEvents(this, container.Resolve<IConfigurationManager>());
         }
     }
 }

@@ -1,30 +1,51 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Typeset.Domain.Git;
 using Typeset.Web.Configuration;
 
 namespace Typeset.Web
 {
-    public class SiteRepositoryConfig
+    public static class SiteRepositoryConfig
     {
-        public static void CloneRepository(IConfigurationManager configurationManager)
+        private static IConfigurationManager ConfigurationManager { get; set; }
+
+        public static void RegisterEvents(HttpApplication context, IConfigurationManager configurationManager)
         {
-            string sitePath = HttpContext.Current.Server.MapPath(configurationManager.AppSettings["AppData_Site_Path"]);
-            string siteRepository = configurationManager.AppSettings["SiteRepository"];
+            ConfigurationManager = configurationManager;
+            context.BeginRequest += new EventHandler(context_BeginRequest);
+        }
 
-            try
-            {
-                if (!Directory.Exists(sitePath))
+        private static void context_BeginRequest(object sender, EventArgs e)
+        {
+            Task.Factory.StartNew(() =>
                 {
-                    Directory.CreateDirectory(sitePath);
-
-                    if (siteRepository.EndsWith(".git", System.StringComparison.OrdinalIgnoreCase))
+                    try
                     {
-                        Git.Clone(siteRepository, sitePath);
+                        var context = (sender as HttpApplication).Context;
+                        var sitePath = context.Server.MapPath(ConfigurationManager.AppSettings["AppData_Site_Path"]);
+                        var siteRepository = ConfigurationManager.AppSettings["SiteRepository"];
+
+                        if (!string.IsNullOrWhiteSpace(siteRepository))
+                        {
+                            if (!Directory.Exists(sitePath))
+                            {
+                                Directory.CreateDirectory(sitePath);
+                            }
+
+                            if (!Directory.EnumerateFileSystemEntries(sitePath).Any())
+                            {
+                                if (siteRepository.EndsWith(".git", System.StringComparison.OrdinalIgnoreCase))
+                                {
+                                    Git.Clone(siteRepository, sitePath);
+                                }
+                            }
+                        }
                     }
-                }
-            }
-            catch { }
+                    catch { }
+                });
         }
     }
 }
