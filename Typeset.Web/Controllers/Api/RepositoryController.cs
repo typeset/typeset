@@ -16,7 +16,7 @@ namespace Typeset.Web.Controllers.Api
         [HttpGet]
         public HttpResponseMessage Update(string token)
         {
-            var siteRepositoryPullToken = ConfigurationManager.AppSettings["SiteRepository_PullToken"];
+            var siteRepositoryPullToken = ConfigurationManager.AppSettings["SiteRepository_UpdateToken"];
 
             if (token.Equals(siteRepositoryPullToken))
             {
