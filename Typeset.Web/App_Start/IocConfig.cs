@@ -31,7 +31,6 @@ namespace Typeset.Web
             
             //WebApi Controllers
             container.Register<PostsController>().AsMultiInstance();
-            container.Register<RepositoryController>().AsMultiInstance();
 
             //Mvc Controllers
             container.Register<IController, UrlController>("Url").AsMultiInstance();
