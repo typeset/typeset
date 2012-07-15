@@ -23,6 +23,7 @@ namespace Typeset.Web
 
             ConfigurationManager = configurationManager;
             context.BeginRequest += new EventHandler(context_BeginRequest);
+            context.EndRequest += new EventHandler(context_EndRequest);
         }
 
         private static void context_BeginRequest(object sender, EventArgs e)
@@ -64,6 +65,19 @@ namespace Typeset.Web
                     }
                     catch { }
                 });
+        }
+
+        private static void context_EndRequest(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["SiteRepositoryUri"]))
+                {
+                    var context = (sender as HttpApplication).Context;
+                    context.Response.AddHeader("X-Typeset-LastUpdated", LastRepositoryUpdate.ToString("r"));
+                }
+            }
+            catch { }
         }
     }
 }
