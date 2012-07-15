@@ -10,8 +10,6 @@ namespace Typeset.Web
 {
     public static class SiteRepositoryConfig
     {
-        private static readonly TimeSpan TimeBetweenUpdates = new TimeSpan(0, 30, 0);
-        private static DateTimeOffset LastRepositoryUpdate { get; set; }
         private static IConfigurationManager ConfigurationManager { get; set; }
 
         public static void RegisterEvents(HttpApplication context, IConfigurationManager configurationManager)
@@ -23,7 +21,6 @@ namespace Typeset.Web
 
             ConfigurationManager = configurationManager;
             context.BeginRequest += new EventHandler(context_BeginRequest);
-            context.EndRequest += new EventHandler(context_EndRequest);
         }
 
         private static void context_BeginRequest(object sender, EventArgs e)
@@ -33,10 +30,10 @@ namespace Typeset.Web
                     try
                     {
                         var context = (sender as HttpApplication).Context;
+                        var siteRepositoryUri = ConfigurationManager.AppSettings["SiteRepositoryUri"];
                         var sitePath = context.Server.MapPath(ConfigurationManager.AppSettings["AppData_Site_Path"]);
-                        var siteRepository = ConfigurationManager.AppSettings["SiteRepositoryUri"];
 
-                        if (string.IsNullOrWhiteSpace(siteRepository))
+                        if (string.IsNullOrWhiteSpace(siteRepositoryUri))
                         {
                             return;
                         }
@@ -46,38 +43,16 @@ namespace Typeset.Web
                             Directory.CreateDirectory(sitePath);
                         }
 
-                        if (siteRepository.EndsWith(".git", System.StringComparison.OrdinalIgnoreCase))
+                        if (siteRepositoryUri.EndsWith(".git", System.StringComparison.OrdinalIgnoreCase))
                         {
-                            if (Directory.EnumerateFileSystemEntries(sitePath).Any())
+                            if (!Directory.EnumerateFileSystemEntries(sitePath).Any())
                             {
-                                if ((DateTimeOffset.UtcNow - LastRepositoryUpdate) > TimeBetweenUpdates)
-                                {
-                                    Git.Pull(sitePath);
-                                    LastRepositoryUpdate = DateTimeOffset.UtcNow;
-                                }
-                            }
-                            else
-                            {
-                                Git.Clone(siteRepository, sitePath);
-                                LastRepositoryUpdate = DateTimeOffset.UtcNow;
+                                Git.Clone(siteRepositoryUri, sitePath);
                             }
                         }
                     }
                     catch { }
                 });
-        }
-
-        private static void context_EndRequest(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["SiteRepositoryUri"]))
-                {
-                    var context = (sender as HttpApplication).Context;
-                    context.Response.AddHeader("X-Typeset-LastUpdated", LastRepositoryUpdate.ToString("r"));
-                }
-            }
-            catch { }
         }
     }
 }
