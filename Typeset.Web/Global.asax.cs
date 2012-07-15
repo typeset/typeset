@@ -11,6 +11,7 @@ namespace Typeset.Web
         {
             var container = IocConfig.RegisterDependencies();
 
+            MvcHandler.DisableMvcResponseHeader = true;
             AreaRegistration.RegisterAllAreas();
             FormattersConfig.RegisterFormatters();
             DependecyResolverConfig.RegisterDependencyResolver(container.Resolve<System.Web.Http.Dependencies.IDependencyResolver>());
