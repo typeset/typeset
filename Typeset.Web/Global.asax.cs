@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Typeset.Domain.Repository;
 using Typeset.Web.Configuration;
 
 namespace Typeset.Web
@@ -27,7 +28,7 @@ namespace Typeset.Web
 
             ExceptionHandlingConfig.RegisterEvents(this);
             ResponseTimeHeaderConfig.RegisterEvents(this);
-            SiteRepositoryConfig.RegisterEvents(this, container.Resolve<IConfigurationManager>());
+            SiteRepositoryConfig.CheckoutOrUpdate(this, container.Resolve<IConfigurationManager>(), container.Resolve<IRepositoryManager>());
         }
     }
 }

@@ -3,6 +3,7 @@ using TinyIoC;
 using Typeset.Domain.Configuration;
 using Typeset.Domain.FrontMatter;
 using Typeset.Domain.Markup;
+using Typeset.Domain.Repository;
 using Typeset.Web.Configuration;
 using Typeset.Web.Controllers.Api;
 using Typeset.Web.Controllers.DependencyResolvers;
@@ -26,6 +27,7 @@ namespace Typeset.Web
 
             //Domain
             container.Register<IConfigurationRepository, ConfigurationRepository>();
+            container.Register<IRepositoryManager, RepositoryManager>();
             container.Register<IFrontMatterRepository, FrontMatterRepository>();
             container.Register<IMarkupProcessorFactory, MarkupProcessorFactory>();
             

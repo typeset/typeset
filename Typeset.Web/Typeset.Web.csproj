@@ -188,10 +188,6 @@
       <Project>{D0018890-42AA-4AD6-A441-CBBC2B132964}</Project>
       <Name>Typeset.Domain.FrontMatter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Typeset.Domain.Git\Typeset.Domain.Git.csproj">
-      <Project>{03C54E04-FC6A-490C-B893-7DEAEAB124FF}</Project>
-      <Name>Typeset.Domain.Git</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Typeset.Domain.Layout\Typeset.Domain.Layout.csproj">
       <Project>{9206775B-DE0A-4E31-90FF-09B265B6E4C1}</Project>
       <Name>Typeset.Domain.Layout</Name>
@@ -199,6 +195,10 @@
     <ProjectReference Include="..\Typeset.Domain.Markup\Typeset.Domain.Markup.csproj">
       <Project>{296DE20C-5F17-4509-9F81-0AE2031F3B8F}</Project>
       <Name>Typeset.Domain.Markup</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Typeset.Domain.Repository\Typeset.Domain.Repository.csproj">
+      <Project>{3F88B23D-56C6-4EED-9521-D0F335084CF6}</Project>
+      <Name>Typeset.Domain.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Typeset.Web.CoffeeScript\Typeset.Web.CoffeeScript.csproj">
       <Project>{AE26FA1A-6DCF-4523-A5B6-571D115E802D}</Project>
