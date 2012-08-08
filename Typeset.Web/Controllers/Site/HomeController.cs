@@ -44,6 +44,7 @@ namespace Typeset.Web.Controllers.Site
             MarkupProcessorFactory = markupProcessorFactory;
         }
 
+        [OutputCache(Duration = DefaultCacheTime, Location = DefaultOutputCacheLocation, VaryByParam = "limit;offset")]
         public ActionResult Get(int limit = 10, int offset = 0)
         {
             var config = ConfigRepository.Read(ConfigPath);

@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using Typeset.Web.Configuration;
 
 namespace Typeset.Web.Controllers.Site
 {
     public class BaseController : Controller
     {
+        protected const int DefaultCacheTime = 60 * 20;
+        protected const OutputCacheLocation DefaultOutputCacheLocation = OutputCacheLocation.Server;
         protected virtual string SitePath { get; private set; }
         protected virtual string ConfigPath { get; private set; }
         protected virtual string PostPath { get; private set; }

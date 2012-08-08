@@ -49,6 +49,7 @@ namespace Typeset.Web.Controllers.Site
             MarkupProcessorFactory = markupProcessorFactory;
         }
 
+        [OutputCache(Duration = DefaultCacheTime, Location = DefaultOutputCacheLocation, VaryByParam = "none")]
         public ActionResult Atom()
         {
             var config = ConfigRepository.Read(ConfigPath);
@@ -65,6 +66,7 @@ namespace Typeset.Web.Controllers.Site
             return new AtomViewResult(homeViewModel);
         }
 
+        [OutputCache(Duration = DefaultCacheTime, Location = DefaultOutputCacheLocation, VaryByParam = "url")]
         public ActionResult Get(string url)
         {
             try
