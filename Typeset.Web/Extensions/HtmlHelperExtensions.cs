@@ -13,11 +13,12 @@ namespace System.Web.Mvc
 {
     public static class HtmlHelperExtensions
     {
-        private static string AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        private static Version AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
+        private static string AssemblyVersionString = string.Format("{0}.{1}.{2}", AssemblyVersion.Major, AssemblyVersion.Minor, AssemblyVersion.Build);
 
         public static string GetAssemblyVersion(this HtmlHelper helper)
         {
-            return AssemblyVersion;
+            return AssemblyVersionString;
         }
 
         public static UrlHelper UrlHelper(this HtmlHelper helper)
