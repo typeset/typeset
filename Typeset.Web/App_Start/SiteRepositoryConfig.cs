@@ -23,14 +23,11 @@ namespace Typeset.Web
             var repositoryUri = configurationManager.AppSettings["SiteRepositoryUri"];
             var path = context.Server.MapPath(configurationManager.AppSettings["AppData_Site_Path"]);
 
-            Task.Factory.StartNew(() =>
-                {
-                    try
-                    {
-                        repositoryManager.CheckoutOrUpdate(repositoryUri, path);
-                    }
-                    catch { }
-                });
+            try
+            {
+                repositoryManager.CheckoutOrUpdate(repositoryUri, path);
+            }
+            catch { }
         }
     }
 }
