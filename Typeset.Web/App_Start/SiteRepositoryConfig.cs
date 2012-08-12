@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading.Tasks;
+using System.IO;
 using System.Web;
 using Typeset.Domain.Repository;
 using Typeset.Web.Configuration;
@@ -21,7 +21,11 @@ namespace Typeset.Web
             }
 
             var repositoryUri = configurationManager.AppSettings["SiteRepositoryUri"];
-            var path = context.Server.MapPath(configurationManager.AppSettings["AppData_Site_Path"]);
+            var path = configurationManager.AppSettings["Site_Path"];
+            if (!Path.IsPathRooted(path))
+            {
+                path = context.Server.MapPath(path);
+            }
 
             try
             {

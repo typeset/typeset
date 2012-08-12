@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -12,6 +13,7 @@ namespace Typeset.Web.Controllers.Site
         protected const OutputCacheLocation DefaultOutputCacheLocation = OutputCacheLocation.Server;
         protected virtual string SitePath { get; private set; }
         protected virtual string ConfigPath { get; private set; }
+        protected virtual string LayoutsPath { get; private set; }
         protected virtual string PostPath { get; private set; }
         protected virtual string IncludesPath { get; private set; }
         protected virtual IConfigurationManager ConfigurationManager { get; private set; }
@@ -28,22 +30,20 @@ namespace Typeset.Web.Controllers.Site
 
         protected override void OnActionExecuting(ActionExecutingContext ctx)
         {
-            var appDataSitePath = ConfigurationManager.AppSettings["AppData_Site_Path"];
-            var appDataSiteConfigPath = ConfigurationManager.AppSettings["AppData_Site_Config_Path"];
-            var appDataSiteLayoutsPath = ConfigurationManager.AppSettings["AppData_Site_Layouts_Path"];
-            var appDataSitePostsPath = ConfigurationManager.AppSettings["AppData_Site_Posts_Path"];
-            var appDataSiteIncludesPath = ConfigurationManager.AppSettings["AppData_Site_Includes_Path"];
-
-            SitePath = HttpContext.Server.MapPath(appDataSitePath);
-            ConfigPath = HttpContext.Server.MapPath(appDataSiteConfigPath);
-            PostPath = HttpContext.Server.MapPath(appDataSitePostsPath);
-            IncludesPath = HttpContext.Server.MapPath(appDataSiteIncludesPath);
+            SitePath = ConfigurationManager.AppSettings["Site_Path"];
+            if (!Path.IsPathRooted(SitePath))
+            {
+                SitePath = HttpContext.Server.MapPath(SitePath);
+            }
+            ConfigPath = Path.Combine(SitePath, "_config.yml");
+            LayoutsPath = Path.Combine(SitePath, "_layouts");
+            PostPath = Path.Combine(SitePath, "_posts");
+            IncludesPath = Path.Combine(SitePath, "_includes");
         }
 
         protected string GetLayoutPath(string name)
         {
-            var appDataSiteLayoutsPath = ConfigurationManager.AppSettings["AppData_Site_Layouts_Path"];
-            return HttpContext.Server.MapPath(string.Format("{0}/{1}.yml", appDataSiteLayoutsPath, name));
+            return Path.Combine(LayoutsPath, string.Concat(name, ".yml"));
         }
     }
 }

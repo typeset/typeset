@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace Typeset.Web.Controllers.Api
     {
         protected virtual string SitePath { get; private set; }
         protected virtual string ConfigPath { get; private set; }
+        protected virtual string LayoutsPath { get; private set; }
         protected virtual string PostPath { get; private set; }
         protected virtual string IncludesPath { get; private set; }
         protected virtual IConfigurationManager ConfigurationManager { get; private set; }
@@ -29,16 +31,15 @@ namespace Typeset.Web.Controllers.Api
 
         public override Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext, CancellationToken cancellationToken)
         {
-            var appDataSitePath = ConfigurationManager.AppSettings["AppData_Site_Path"];
-            var appDataSiteConfigPath = ConfigurationManager.AppSettings["AppData_Site_Config_Path"];
-            var appDataSiteLayoutsPath = ConfigurationManager.AppSettings["AppData_Site_Layouts_Path"];
-            var appDataSitePostsPath = ConfigurationManager.AppSettings["AppData_Site_Posts_Path"];
-            var appDataSiteIncludesPath = ConfigurationManager.AppSettings["AppData_Site_Includes_Path"];
-
-            SitePath = HttpContext.Current.Server.MapPath(appDataSitePath);
-            ConfigPath = HttpContext.Current.Server.MapPath(appDataSiteConfigPath);
-            PostPath = HttpContext.Current.Server.MapPath(appDataSitePostsPath);
-            IncludesPath = HttpContext.Current.Server.MapPath(appDataSiteIncludesPath);
+            SitePath = ConfigurationManager.AppSettings["Site_Path"];
+            if (!Path.IsPathRooted(SitePath))
+            {
+                SitePath = HttpContext.Current.Server.MapPath(SitePath);
+            }
+            ConfigPath = Path.Combine(SitePath, "_config.yml");
+            LayoutsPath = Path.Combine(SitePath, "_layouts");
+            PostPath = Path.Combine(SitePath, "_posts");
+            IncludesPath = Path.Combine(SitePath, "_includes");
 
             return base.ExecuteAsync(controllerContext, cancellationToken);
         }
