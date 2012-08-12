@@ -30,7 +30,7 @@ namespace Typeset.Web.Controllers.Site
 
         protected override void OnActionExecuting(ActionExecutingContext ctx)
         {
-            SitePath = ConfigurationManager.AppSettings["Site_Path"];
+            SitePath = ConfigurationManager.AppSettings["SitePath"];
             if (!Path.IsPathRooted(SitePath))
             {
                 SitePath = HttpContext.Server.MapPath(SitePath);

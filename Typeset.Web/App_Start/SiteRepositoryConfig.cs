@@ -21,7 +21,7 @@ namespace Typeset.Web
             }
 
             var repositoryUri = configurationManager.AppSettings["SiteRepositoryUri"];
-            var path = configurationManager.AppSettings["Site_Path"];
+            var path = configurationManager.AppSettings["SitePath"];
             if (!Path.IsPathRooted(path))
             {
                 path = context.Server.MapPath(path);

@@ -31,7 +31,7 @@ namespace Typeset.Web.Controllers.Api
 
         public override Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext, CancellationToken cancellationToken)
         {
-            SitePath = ConfigurationManager.AppSettings["Site_Path"];
+            SitePath = ConfigurationManager.AppSettings["SitePath"];
             if (!Path.IsPathRooted(SitePath))
             {
                 SitePath = HttpContext.Current.Server.MapPath(SitePath);
