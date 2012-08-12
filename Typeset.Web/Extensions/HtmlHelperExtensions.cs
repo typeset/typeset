@@ -103,13 +103,19 @@ namespace System.Web.Mvc
             return new HtmlString(sectionTag.ToString());
         }
 
+        public static string SitePath(this HtmlHelper helper)
+        {
+            return helper.ViewData["SitePath"].ToString();
+        }
+
         public static HtmlString Include(this HtmlHelper helper, string relativePath)
         {
             var html = string.Empty;
 
             try
             {
-                var absolutePath = helper.ViewContext.HttpContext.Server.MapPath(string.Format("~/App_Data/site{0}", relativePath));
+                var sitePath = helper.SitePath();
+                var absolutePath = Path.Combine(sitePath, relativePath.TrimStart('/').Replace('/', '\\'));
                 if (File.Exists(absolutePath))
                 {
                     html = File.ReadAllText(absolutePath);
@@ -131,11 +137,11 @@ namespace System.Web.Mvc
                 BundleTable.Bundles.FileSetOrderList.Clear();
                 BundleTable.Bundles.FileExtensionReplacementList.Clear();
 
-                var javaScript = paths.Select(p => string.Format("~/App_Data/site{0}", p)).ToArray();
+                var scripts = paths.Select(p => string.Format("~/App_Data/site{0}", p)).ToArray();
                 var virtualPath = string.Format("~/scripts/javascript/{0}", helper.UrlHelper().Encode(name));
-                
+
                 var bundle = new Bundle(virtualPath);
-                bundle.Include(javaScript);
+                bundle.Include(scripts);
                 bundle.Transforms.Add(new CoffeeScriptCompile());
                 bundle.Transforms.Add(new JsMinify());
                 BundleTable.Bundles.Add(bundle);
@@ -160,12 +166,14 @@ namespace System.Web.Mvc
                 BundleTable.Bundles.FileSetOrderList.Clear();
                 BundleTable.Bundles.FileExtensionReplacementList.Clear();
 
+                var styles = paths.Select(p => string.Format("~/App_Data/site{0}", p)).ToArray();
                 var virtualPath = string.Format("~/styles/css/{0}", helper.UrlHelper().Encode(name));
+                
                 var bundle = new Bundle(virtualPath);
                 bundle.Transforms.Add(new SassCompile());
                 bundle.Transforms.Add(new LessCompile());
                 bundle.Transforms.Add(new CssMinify());
-                bundle.Include(paths.Select(p => string.Format("~/App_Data/site{0}", p)).ToArray());
+                bundle.Include(styles);
                 BundleTable.Bundles.Add(bundle);
 
                 var scriptTag = new TagBuilder("link");

@@ -39,6 +39,8 @@ namespace Typeset.Web.Controllers.Site
             LayoutsPath = Path.Combine(SitePath, "_layouts");
             PostPath = Path.Combine(SitePath, "_posts");
             IncludesPath = Path.Combine(SitePath, "_includes");
+
+            ctx.Controller.ViewData.Add("SitePath", SitePath);
         }
 
         protected string GetLayoutPath(string name)
