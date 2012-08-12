@@ -32,11 +32,10 @@ namespace Typeset.Web.Controllers.Api
             {
                 var adminToken = ConfigurationManager.AppSettings["AdminToken"];
                 var siteRepositoryUri = ConfigurationManager.AppSettings["SiteRepositoryUri"];
-                var sitePath = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["AppData_Site_Path"]);
 
                 if (token.Equals(adminToken))
                 {
-                    Task.Factory.StartNew(() => RepositoryManager.CheckoutOrUpdate(siteRepositoryUri, sitePath));
+                    Task.Factory.StartNew(() => RepositoryManager.CheckoutOrUpdate(siteRepositoryUri, SitePath));
                 }
             }
             catch { }
