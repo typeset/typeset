@@ -130,6 +130,7 @@
     <Compile Include="App_Start\DependencyResolverConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Bundles\TypesetBundle.cs" />
     <Compile Include="Controllers\Api\BaseApiController.cs" />
     <Compile Include="Controllers\Api\RepositoryController.cs" />
     <Compile Include="Controllers\Factories\TinyIocControllerFactory.cs" />

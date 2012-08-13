@@ -137,11 +137,11 @@ namespace System.Web.Mvc
                 BundleTable.Bundles.FileSetOrderList.Clear();
                 BundleTable.Bundles.FileExtensionReplacementList.Clear();
 
-                var scripts = paths.Select(p => string.Format("~/App_Data/site{0}", p)).ToArray();
+                var scripts = paths.ToArray();
                 var virtualPath = string.Format("~/scripts/javascript/{0}", helper.UrlHelper().Encode(name));
 
-                var bundle = new Bundle(virtualPath);
-                bundle.Include(scripts);
+                var bundle = new TypesetBundle(virtualPath);
+                bundle.IncludeLocalAndRemote(helper.ViewContext.HttpContext, helper.SitePath(), scripts);
                 bundle.Transforms.Add(new CoffeeScriptCompile());
                 bundle.Transforms.Add(new JsMinify());
                 BundleTable.Bundles.Add(bundle);
@@ -166,14 +166,15 @@ namespace System.Web.Mvc
                 BundleTable.Bundles.FileSetOrderList.Clear();
                 BundleTable.Bundles.FileExtensionReplacementList.Clear();
 
-                var styles = paths.Select(p => string.Format("~/App_Data/site{0}", p)).ToArray();
+                var sitePath = helper.SitePath();
+                var styles = paths.ToArray();
                 var virtualPath = string.Format("~/styles/css/{0}", helper.UrlHelper().Encode(name));
-                
-                var bundle = new Bundle(virtualPath);
+
+                var bundle = new TypesetBundle(virtualPath);
                 bundle.Transforms.Add(new SassCompile());
                 bundle.Transforms.Add(new LessCompile());
                 bundle.Transforms.Add(new CssMinify());
-                bundle.Include(styles);
+                bundle.IncludeLocalAndRemote(helper.ViewContext.HttpContext, helper.SitePath(), styles);
                 BundleTable.Bundles.Add(bundle);
 
                 var scriptTag = new TagBuilder("link");
