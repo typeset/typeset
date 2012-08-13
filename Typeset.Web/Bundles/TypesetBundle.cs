@@ -19,35 +19,36 @@ namespace System.Web.Optimization
         public Bundle IncludeLocalAndRemote(HttpContextBase context, string sitePath, params string[] paths)
         {
             var virtualPaths = new List<string>();
-            var appDataVirtualPath = "~/App_Data";
-            var appDataAbsolutePath = context.Request.MapPath("~/App_Data");
-            var virtualDirectoryPath = "~/App_Data/remote-resources/";
-            var absoluteDirectoryPath = context.Request.MapPath("~/App_Data/remote-resources");
+            var appDataPath = context.Request.MapPath("~/App_Data");
 
-            foreach (var path in paths.Select(p => p.TrimStart('/').Replace('/', '\\')))
+            foreach (var path in paths)
             {
                 try
                 {
-                    var sourceFileName = System.IO.Path.Combine(sitePath, path);
-                    if (sourceFileName.StartsWith(appDataAbsolutePath))
+                    if (sitePath.StartsWith(appDataPath, StringComparison.OrdinalIgnoreCase))
                     {
-                        var virtualFileName = string.Concat(sourceFileName.Replace(appDataAbsolutePath, appDataVirtualPath), path).Replace('\\', '/');
-                        virtualPaths.Add(virtualFileName);
+                        var virtualPath1 = sitePath.Replace(appDataPath, "~/App_Data").Replace('\\', '/');
+                        var virtualPath2 = path;
+                        virtualPaths.Add(string.Concat(virtualPath1, virtualPath2));
                     }
                     else
                     {
-                        var virtualFileName = System.IO.Path.Combine(virtualDirectoryPath, path.Replace('\\', '/'));
-                        var destinationFileName = System.IO.Path.Combine(absoluteDirectoryPath, path);
-                        var destinationDirectory = System.IO.Path.GetDirectoryName(destinationFileName);
-                        virtualFileName = virtualFileName.Replace('\\', '/');
+                        var sourcePath1 = sitePath;
+                        var sourcePath2 = path.Replace('/', '\\').TrimStart('\\');
+                        var sourceFileName = System.IO.Path.Combine(sourcePath1, sourcePath2);
 
+                        var destinationPath1 = context.Request.MapPath("~/App_Data/remote-resources");
+                        var destinationPath2 = path.Replace('/', '\\').TrimStart('\\');
+                        var destinationFileName = System.IO.Path.Combine(destinationPath1, destinationPath2);
+
+                        var destinationDirectory = System.IO.Path.GetDirectoryName(destinationFileName);
                         if (!Directory.Exists(destinationDirectory))
                         {
                             Directory.CreateDirectory(destinationDirectory);
                         }
 
                         File.Copy(sourceFileName, destinationFileName, true);
-                        virtualPaths.Add(virtualFileName);
+                        virtualPaths.Add(string.Concat("~/App_Data/remote-resources", path));
                     }
                 }
                 catch { }
